@@ -29,8 +29,8 @@ let OSM = {
 
 export class Vnleafmap {
 
-  constructor({id_number=0} = {}) {
-    this.map_id = "map-" + id_number.toString();
+  constructor(id_number=0) {
+    this.map_id = "vnmap-" + id_number.toString();
     console.log(`map_id=${this.map_id}`);
     
     //this.map = L.map(mapId).setView([51.505, -0.09], 13);

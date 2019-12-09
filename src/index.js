@@ -1,10 +1,9 @@
-import {Vnleafmap} from "./gis"
-// import {SidebarElement, SidebarService} from 'sidebarjs';
-// import 'sidebarjs/lib/sidebarjs.css';
-// import './demo.css';
+//import {Vnleafmap} from "./gis"
+import {VnApp} from "./app"
+
 
 let config1 = {
-  mapId: "map",
+  map_id: "map",
   viewCenterCoords: [3.0, 56.46],
   basemap: "GEBCO",
   layerCtrl: true,
@@ -14,7 +13,8 @@ let config1 = {
 //mapSetup(config1);
 
 function main() {
-  let gis = new Vnleafmap();
+  //let gis = new Vnleafmap();
+  let app = new VnApp("testmap");
 }
 
 
