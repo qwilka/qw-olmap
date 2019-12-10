@@ -1,7 +1,14 @@
-import * as L from 'leaflet';
+
+// https://github.com/Leaflet/Leaflet.markercluster/issues/874#issuecomment-437895103
+//import * as L from 'leaflet';
+import L from 'leaflet';
+import 'leaflet-easybutton';
+console.log("L.easyButton", L.easyButton);
 //import * as mapData from "./map-data";
 
+
 import 'leaflet/dist/leaflet.css';
+import 'leaflet-easybutton/src/easy-button.css';
 
 
 let OSM = {
@@ -30,7 +37,8 @@ let OSM = {
 export class Vnleafmap {
 
   constructor(id_number=0) {
-    this.map_id = "vnmap-" + id_number.toString();
+    this.id_number = id_number;
+    this.map_id = "vn-map-" + id_number.toString();
     console.log(`map_id=${this.map_id}`);
     
     //this.map = L.map(mapId).setView([51.505, -0.09], 13);
@@ -42,9 +50,29 @@ export class Vnleafmap {
       maxBounds: [[-90,-180], [90,180]]
     }, {})
     this.map = L.map(this.map_id, mapOpts); 
+    this.map.zoomControl.setPosition('topright');
 
     let layer = L.tileLayer.wms(OSM.url, OSM.options);
     this.map.addLayer(layer);
+    let ebutton_id = "vn-map-ebutton-" + this.id_number.toString();
+    let ebutton = L.easyButton("&#9776;", (btn, map) => {
+      let sidepanel_id = "vn-sidepanel-" + this.id_number.toString();
+      // console.log("fire button", btn);
+      // console.log("this.id_number", this.id_number);
+      // console.log("sidepanel_close sidepanel_id", sidepanel_id);
+      let sb = document.getElementById(sidepanel_id);
+      sb.style.display = "block";
+    }, 'open side panel', ebutton_id);
+    // let ebutton = L.easyButton({
+    //   stateName: 'open-sidepanel',
+    //   icon: "&#9776;",
+    //   title: 'open side panel',
+    //   onClick: function(control){
+    //     console.log("L.easyButton control", control);
+    //   }
+    // });
+    console.log("ebutton", ebutton);
+    ebutton.addTo( this.map );
     
     // switch(basemap) {
     //   case "GEBCO":
@@ -87,3 +115,13 @@ export class Vnleafmap {
   }
 
 }
+
+
+// work-around
+// sidepanel_close(evt) {
+//   let sidepanel_id = "vnsidepanel-" + evt.target.getAttribute("id_number");
+//   console.log("sidepanel_close sidepanel_id", sidepanel_id);
+//   let sb = document.getElementById(sidepanel_id);
+//   sb.style.display = "none";
+// }
+
