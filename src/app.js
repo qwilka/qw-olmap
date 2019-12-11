@@ -1,5 +1,5 @@
 
-//import { attachDatatree } from './datatree';
+import { attachDatatree } from './datatree';
 import {Vnleafmap} from "./gis"
 
 import './libs/w3.css';
@@ -52,6 +52,7 @@ export class VnApp {
     let datatree_id = "vn-datatree-" + this.id_number.toString();
     datatreeNode.setAttribute("id", datatree_id);
     sidepanelNode.appendChild(datatreeNode);
+    //attachDatatree(datatree_id, treeData);
 
     appNode.setAttribute("style", "position:fixed; top:0; left:0; bottom:0; right:0;");
     const _map_id = "vn-map-" + id_number.toString();
@@ -60,8 +61,9 @@ export class VnApp {
     _mapnode.setAttribute("id", _map_id);
     appNode.appendChild(_mapnode);
 
-    this.gis = new Vnleafmap(this.id_number);
+    this.gis = new Vnleafmap(this.id_number, mapOptions);
     //this.sidepanel_open();
+    attachDatatree(treeData, this.id_number, this.gis);
 
 
 

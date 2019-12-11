@@ -36,24 +36,32 @@ let OSM = {
 
 export class Vnleafmap {
 
-  constructor(id_number=0) {
+  constructor({id_number=0, mapOptions=null} ={}) {
     this.id_number = id_number;
     this.map_id = "vn-map-" + id_number.toString();
     console.log(`map_id=${this.map_id}`);
     
     //this.map = L.map(mapId).setView([51.505, -0.09], 13);
-    let mapOpts = Object.assign({
+    // let mapOpts = Object.assign({
+    //   zoomControl: true,
+    //   attributionControl: false,
+    //   zoom: 5,
+    //   center: [53.99, -7.36],
+    //   maxBounds: [[-90,-180], [90,180]]
+    // }, {})
+    if (!mapOptions) mapOptions = {
       zoomControl: true,
       attributionControl: false,
       zoom: 5,
       center: [53.99, -7.36],
-      maxBounds: [[-90,-180], [90,180]]
-    }, {})
-    this.map = L.map(this.map_id, mapOpts); 
+      maxBounds: [[-90,-180], [90,180]]       
+    }
+    this.map = L.map(this.map_id, mapOptions); 
     this.map.zoomControl.setPosition('topright');
 
-    let layer = L.tileLayer.wms(OSM.url, OSM.options);
-    this.map.addLayer(layer);
+    // let layer = L.tileLayer.wms(OSM.url, OSM.options);
+    // this.map.addLayer(layer);
+
     let ebutton_id = "vn-map-ebutton-" + this.id_number.toString();
     let ebutton = L.easyButton("&#9776;", (btn, map) => {
       let sidepanel_id = "vn-sidepanel-" + this.id_number.toString();
@@ -62,7 +70,7 @@ export class Vnleafmap {
       // console.log("sidepanel_close sidepanel_id", sidepanel_id);
       let sb = document.getElementById(sidepanel_id);
       sb.style.display = "block";
-    }, 'open side panel', ebutton_id);
+    }, 'open side-panel controls', ebutton_id);
     // let ebutton = L.easyButton({
     //   stateName: 'open-sidepanel',
     //   icon: "&#9776;",
@@ -112,6 +120,49 @@ export class Vnleafmap {
     //   this.map.addControl(lswitch);
     // }
 
+  }
+
+  addLayer(layerObj) {
+    //console.log("addLayer layerObj", layerObj);
+    let layer;
+    switch(layerObj.layerType) {
+      case "geojson":
+        layer = this.loadGeojson(layerObj.url);
+        break;
+      case "tilemap":
+        layer = L.tileLayer(layerObj.url, layerObj.layerOpts);
+        break;
+      case "WMS":
+        layer = L.tileLayer.wms(layerObj.url, layerObj.layerOpts);
+        break;
+    }
+    this.map.addLayer(layer);
+    let layerStamp = L.Util.stamp(layer);
+    console.log("addLayer layerStamp", layerStamp);
+    console.log("addLayer layer", layer);
+    return layerStamp;
+  }
+
+  getLayerByStamp(layerStamp) {
+    let _layers = [];
+    this.map.eachLayer((layer) => {_layers.push(layer)})
+    //console.log("getLayerByStamp _layers", _layers);
+    for (let ii=0; ii<_layers.length; ii++) {
+      if (_layers[ii]._leaflet_id == layerStamp) {
+        return _layers[ii];
+      }
+    }
+  }
+
+  removeLayerByStamp(layerStamp) {
+    let layer = this.getLayerByStamp(layerStamp);
+    this.map.removeLayer(layer);
+  }
+
+  removeAllLayers() {
+    this.map.eachLayer( (layer) => {
+      this.map.removeLayer(layer);
+    });
   }
 
 }

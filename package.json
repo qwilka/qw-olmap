@@ -23,6 +23,9 @@
   },
   "homepage": "https://github.com/qwilka/vnleaf#readme",
   "dependencies": {
+    "jquery": "^3.4.1",
+    "jquery-contextmenu": "^2.9.0",
+    "jquery.fancytree": "^2.33.0",
     "leaflet": "^1.6.0",
     "leaflet-easybutton": "^2.4.0"
   },
