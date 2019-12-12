@@ -32,3 +32,10 @@ sidebar
 https://www.html.am/tags/html-div-tag.cfm
 https://stackoverflow.com/questions/39895301/what-does-a-css-selector-in-square-brackets-select-in-html
 https://css-tricks.com/attribute-selectors/
+
+icons
+=====
+https://github.com/parcel-bundler/parcel/issues/626  Cannot resolve dependency '@fortawesome/fontawesome-free-webfonts/fontawesome.css'
+https://github.com/FortAwesome/Font-Awesome
+https://fontawesome.com/how-to-use/on-the-web/setup/using-package-managers
+

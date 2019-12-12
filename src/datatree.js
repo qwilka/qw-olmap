@@ -1,12 +1,37 @@
-import 'jquery.fancytree/dist/skin-awesome/ui.fancytree.css'
+//import 'jquery.fancytree/dist/skin-vista/ui.fancytree.css';
+import 'jquery.fancytree/dist/skin-awesome/ui.fancytree.css';
 import $ from 'jquery';  
 import 'jquery.fancytree';
 import 'jquery.fancytree/dist/modules/jquery.fancytree.glyph';
 import 'jquery-contextmenu/dist/jquery.contextMenu.css';  
 import 'jquery-contextmenu';
 
+import '@fortawesome/fontawesome-free/css/all.css';
+// import '@fortawesome/fontawesome-free-webfonts/css/fa-solid.css';
+// import '@fortawesome/fontawesome-free-webfonts/css/fa-regular.css';
+
 //import { commands } from './commands';
 
+
+// $("#"+datatree_id).fancytree({
+//   extensions: ["glyph"],
+//   glyph: {
+//     preset: "awesome4",
+//     map: {}
+//   },
+//   types: {
+//     "gis-widget": {icon: "fa fa-globe", iconTooltip: "GIS widget..."},
+//   },
+//   icon: icon_datatree,
+//   iconTooltip: iconTooltip_datatree,
+//   select: select_datatree,
+//   lazyLoad: lazyLoad_datatree,
+//   init: onInit,
+//   source: treeData,
+//   id_number: id_number,
+//   targetWidget: targetWidget,
+//   treeId: "vn-fancytree-" + id_number.toString()
+// });
 
 
 export const attachDatatree = (treeData=null, id_number=0, targetWidget=null) => {
@@ -14,11 +39,13 @@ export const attachDatatree = (treeData=null, id_number=0, targetWidget=null) =>
   $("#"+datatree_id).fancytree({
     extensions: ["glyph"],
     glyph: {
-      preset: "awesome4",
+      preset: "awesome5",
       map: {}
     },
     types: {
       "gis-widget": {icon: "fa fa-globe", iconTooltip: "GIS widget..."},
+      "gis-layer-basemap": {icon: "far fa-map"},
+      "gis-layer": {icon: "fas fa-layer-group"},
     },
     icon: icon_datatree,
     iconTooltip: iconTooltip_datatree,
@@ -57,10 +84,10 @@ const select_datatree = (evt, data) => {
   let gis = data.tree.getOption("targetWidget");
   let node = data.node;
   switch(data.node.type) {
-    case "GIS-layer-basemap":
+    case "gis-layer-basemap":
       tree_add_all_layers(data.tree);
       break;
-    case "GIS-layer":
+    case "gis-layer":
       if (node.isSelected()) {
         let layerObj = Object.assign({}, node.data);
         node.data._widgetData.layerStamp = gis.addLayer(layerObj);;
@@ -103,7 +130,7 @@ const onInit = (evt, data) => {
   //   console.log("onInit title", node.title,"key", node.key);
   //   node.data._widgetData = {}; // for temporary data
   //   if (node.type && node.isSelected() && 
-  //       ["GIS-layer", "GIS-layer-basemap"].includes(node.type) ) {
+  //       ["gis-layer", "gis-layer-basemap"].includes(node.type) ) {
   //     let layerObj = Object.assign({}, node.data);
   //     console.log("onInit layerObj", layerObj);
   //     node.data._widgetData.layerStamp = gis.addLayer(layerObj);
@@ -120,7 +147,7 @@ const tree_add_all_layers = (tree) => {
     console.log("onInit title", node.title,"key", node.key);
     node.data._widgetData = {}; // for temporary data
     if (node.type && node.isSelected() && 
-        ["GIS-layer", "GIS-layer-basemap"].includes(node.type) ) {
+        ["gis-layer", "gis-layer-basemap"].includes(node.type) ) {
       let layerObj = Object.assign({}, node.data);
       console.log("onInit layerObj", layerObj);
       node.data._widgetData.layerStamp = gis.addLayer(layerObj);
@@ -131,7 +158,7 @@ const tree_add_all_layers = (tree) => {
 const build_contextMenu = ($trigger, evt) => {
   let node = $.ui.fancytree.getNode($trigger);
   switch(node.type) {
-    case "GIS-layer-basemap":
+    case "gis-layer-basemap":
       return {
         items: {
           "console-message": {

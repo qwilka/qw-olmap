@@ -9,6 +9,7 @@ console.log("L.easyButton", L.easyButton);
 
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-easybutton/src/easy-button.css';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 
 let OSM = {
@@ -63,7 +64,8 @@ export class Vnleafmap {
     // this.map.addLayer(layer);
 
     let ebutton_id = "vn-map-ebutton-" + this.id_number.toString();
-    let ebutton = L.easyButton("&#9776;", (btn, map) => {
+    // character "&#9776;" ("fas fa-bars" alternative)
+    let ebutton = L.easyButton("fas fa-bars", (btn, map) => {
       let sidepanel_id = "vn-sidepanel-" + this.id_number.toString();
       // console.log("fire button", btn);
       // console.log("this.id_number", this.id_number);

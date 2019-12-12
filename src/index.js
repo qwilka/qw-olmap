@@ -37,12 +37,12 @@ const defaultConf = {
   "title": "title set from object...",
   "appType": "vnleaf",
   "mapOptions": {
-    "viewCenterCoords": [3.0, 56.46],
-    "basemap": "GEBCO",
-    "layerCtrl": true,
-    "scalelineCtrl": true,
+    "viewCenterCoords": [-7.3, 53.98],
+    "minZoom": 4,
+    "maxZoom": 26,
+    "zoom": 9
   },
-  "treeData": {
+  "tree_vnleaf": {
     "title": "rootnode",
     "type": "gis-widget",
     "data": {
@@ -55,7 +55,7 @@ const defaultConf = {
         "children": [
           {
             "title": "OpenStreetMap",
-            "type": "GIS-layer-basemap",
+            "type": "gis-layer-basemap",
             "checkbox": "radio",
             "selected": true,
             "data": {
@@ -75,7 +75,7 @@ const defaultConf = {
           },
           {
             "title": "GEBCO",
-            "type": "GIS-layer-basemap",
+            "type": "gis-layer-basemap",
             "checkbox": "radio",
             "selected": false,
             "data": {
@@ -95,7 +95,7 @@ const defaultConf = {
           },
           {
             "title": "No background",
-            "type": "GIS-layer-basemap",
+            "type": "gis-layer-basemap",
             "checkbox": "radio",
             "selected": false,
             "data": {
@@ -111,7 +111,7 @@ const defaultConf = {
         "children": [
           {
             "title": "Exclusive economic zone boundaries",
-            "type": "GIS-layer",
+            "type": "gis-layer",
             "checkbox": true,
             "selected": false,
             "data": {

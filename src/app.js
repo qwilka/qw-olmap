@@ -8,14 +8,14 @@ export class VnApp {
 
 
 
-  constructor({app_id, mapOptions, treeData, id_number=0, title="vnleaf testing..."} = {}) {
+  constructor({app_id, mapOptions, tree_vnleaf, id_number=0, title="vnleaf testing..."} = {}) {
     //super({ direction: 'left-to-right', spacing: 0, node: VnApp.createNode(id_number) });
     this.id_number = id_number;
     this.id = app_id; //"vnapp-" + id_number.toString();
     document.title = title;
     console.log("app_id", app_id);
     console.log("mapOptions", mapOptions);
-    console.log("treeData", treeData);
+    //console.log("tree_vnleaf", tree_vnleaf);
 
 
     const appNode = document.getElementById(app_id);
@@ -63,7 +63,7 @@ export class VnApp {
 
     this.gis = new Vnleafmap(this.id_number, mapOptions);
     //this.sidepanel_open();
-    attachDatatree(treeData, this.id_number, this.gis);
+    attachDatatree(tree_vnleaf, this.id_number, this.gis);
 
 
 
