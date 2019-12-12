@@ -1,25 +1,4 @@
-    <style>
-        #map {
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-        }
-    </style>
 
-    <style>
-        .map {
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-        }
-    </style>
-
-
-<div id="map"></div>
 
 tutorials
 ==========
@@ -39,3 +18,6 @@ https://github.com/parcel-bundler/parcel/issues/626  Cannot resolve dependency '
 https://github.com/FortAwesome/Font-Awesome
 https://fontawesome.com/how-to-use/on-the-web/setup/using-package-managers
 
+geodesy
+=======
+https://github.com/chrisveness/geodesy/issues/63

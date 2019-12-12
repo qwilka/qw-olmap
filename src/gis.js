@@ -11,28 +11,17 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet-easybutton/src/easy-button.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 
+//import LatLon from 'geodesy/latlon-ellipsoidal-datum.js';
+import {Utm, LatLon} from 'geodesy/utm';
 
-let OSM = {
-  title: "OpenStreetMap",
-  type: "WMS",
-  basemap: true,
-  ref: [
-      "https://wiki.openstreetmap.org/wiki/List_of_OSM-based_services",
-      "http://ows.terrestris.de/"
-  ],
-  url: "http://ows.terrestris.de/osm/service",
-  options: {
-      layers: "OSM-WMS",
-      CRS: "EPSG:4326",
-      version: '1.1.1',
-      format: 'image/png',
-      transparent: false,
-      noWrap: true,
-      opacity: 1.0,
-      attribution: '&copy; <a target="_blank" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-  }
-}
+// const utm = Utm.parse('48 N 377298.745 1483034.794');
+// const latlon = utm.toLatLon();
+// let uu = latlon.toUtm();
+// console.log("latlon.toUtm uu=", uu);
+// console.assert(latlon.toString('dms', 2) == '13° 24′ 45.00″ N, 103° 52′ 00.00″ E');
+// console.assert(uu.toString() == '48 N 377298.745 1483034.794');
 
+import $ from 'jquery'; 
 
 
 export class Vnleafmap {
@@ -84,43 +73,9 @@ export class Vnleafmap {
     console.log("ebutton", ebutton);
     ebutton.addTo( this.map );
     
-    // switch(basemap) {
-    //   case "GEBCO":
-    //     let gebcoSource = new TileWMS(mapData.GEBCO.options);
-    //     newLayer = new TileLayer({
-    //       source: gebcoSource, 
-    //       title: mapData.GEBCO.options.title,
-    //       type: "base"
-    //     });
-    //     this.map.addLayer(newLayer);
-    //     break;
-    //   case "OSM":
-    //     newLayer = new TileLayer({
-    //       source: new OSM(), 
-    //       title:"OSM (default)",
-    //       type: "base"
-    //     });
-    //     this.map.addLayer(newLayer);
-    //     break;
-    //   default:
-    //     console.log("basemap=",basemap," set activate basemap in datatree");
-    // }
+    this.popup = L.popup();
+    this.map.on('contextmenu', (evt) => {this.locationPopup(evt);});
   
-    //let baseSource = new OSM();
-    // baseLayer = new TileLayer({source: baseSource}); 
-    // this.map.addLayer(baseLayer);
-  
-    // if (scalelineCtrl) {
-    //   this.map.addControl(new ScaleLine({units: 'metric'}));
-    // }
-
-    // if (layerCtrl) {
-    //   let lswitch = new LayerSwitcher({
-    //     tipLabel: 'Légende',
-    //     groupSelectStyle: 'children'
-    //   });
-    //   this.map.addControl(lswitch);
-    // }
 
   }
 
@@ -165,6 +120,84 @@ export class Vnleafmap {
     this.map.eachLayer( (layer) => {
       this.map.removeLayer(layer);
     });
+  }
+
+
+  locationPopup(evt) {
+    //let map = this.map;
+    let popup = this.popup;  // required for callback below
+    let url = "https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv";
+    let X = this.map.layerPointToContainerPoint(evt.layerPoint).x;
+    let Y = this.map.layerPointToContainerPoint(evt.layerPoint).y;
+    let size = this.map.getSize();
+    let params = {
+      request: 'GetFeatureInfo',
+      service: 'WMS',
+      srs: 'EPSG:4326',
+      version: '1.1.1',      
+      bbox: this.map.getBounds().toBBoxString(),
+      x: X,
+      y: Y,
+      height: size.y,
+      width: size.x,
+      layers: 'GEBCO_LATEST_2',
+      query_layers: 'GEBCO_LATEST_2',
+      info_format: 'text/html'
+    };
+    let featInfoUrl = url + L.Util.getParamString(params, url, true);
+    let getinfo = $.ajax({
+        url: featInfoUrl,
+        dataType: "html",
+        success: function (doc) { console.log("getinfo successfully loaded!\n", doc);},
+        error: function (xhr) { console.log("getinfo ERROR!\n", xhr.statusText); }
+    })
+    $.when(getinfo).done(function() {
+        let htmlstr = $.parseHTML( getinfo.responseText );
+        let body = $(htmlstr).find('body:first');
+        $.each(htmlstr, function(i, el){
+            //console.log(i, el)
+            if (el.nodeName == '#text') {
+                let targetStr = el.nodeValue
+                // console.log(i, targetStr);
+                let test = targetStr.match(/Elevation value \(m\):\s*(-?\d+)/)
+                if (test) {
+                    let elevation = test[1];
+                    if (elevation>=0) {
+                        pustr += "<br>elevation " + elevation + " m (GEBCO)";
+                    } else {
+                        pustr += "<br>depth " + elevation + " m (GEBCO)";
+                    }
+                    // console.log("elevation=", elevation)
+                    popup.setContent(pustr)
+                }
+            }
+        });
+    });  
+    let lat = evt.latlng.lat;
+    let long = evt.latlng.lng;
+    console.log("long", long, "lat", lat);
+    let latlong_WGS84 = new LatLon(lat, long);
+    let latlong_ED50 = latlong_WGS84.convertDatum(LatLon.datums.ED50);
+    console.log("latlong_WGS84 ", latlong_WGS84.toString());
+    // work-around required to recover method toUtm() (cannot use .convertDatum() directly)
+    latlong_ED50 = new LatLon(latlong_ED50.lat, latlong_ED50.lon, 0, LatLon.datums.ED50);
+    //let latlong_WGS84 = new LatLon(lat, long, LatLon.datums.WGS84);
+    // let ll = latlong_WGS84.convertDatum(LatLon.datums.WGS84);
+    // console.log("latlon 2nd", ll.toString());
+    //let utmCoord = latlong_WGS84.toUtm();
+    //let latlong_this.popup = L.popup();latlong_WGS84.convertDatum(LatLon.datums.ED50);
+    //let utm_WGS84 = latlong_WGS84.toUtm();
+    //let utm_ED50 = new Utm(utm_WGS84.zone, 'N', 572120, 6382750, LatLon.datums.ED50); 
+    let utm_ED50 = latlong_ED50.toUtm();
+    //let utmCoord = utm_ED50;
+    let pustr = "Location coordinates:";
+    pustr += "<br>long. " + (long).toFixed(5) + "&deg;  lat. " + (lat).toFixed(5) + "&deg; (WGS84)";
+    pustr += "<br>UTM zone " + utm_ED50.zone + utm_ED50.hemisphere;
+    pustr += "<br>E" + (utm_ED50.easting).toFixed(1) + " N" + (utm_ED50.northing).toFixed(1) + " (ED50)";
+    this.popup
+      .setLatLng(evt.latlng)
+      .setContent(pustr)
+      .openOn(this.map)
   }
 
 }
