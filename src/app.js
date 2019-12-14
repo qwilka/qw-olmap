@@ -8,13 +8,13 @@ export class VnApp {
 
 
 
-  constructor({app_id, mapOptions, tree_vnleaf, id_number=0, title="vnleaf testing..."} = {}) {
+  constructor({app_id, gisOptions, tree_vnleaf, id_number=0, title="vnleaf testing..."} = {}) {
     //super({ direction: 'left-to-right', spacing: 0, node: VnApp.createNode(id_number) });
     this.id_number = id_number;
     this.id = app_id; //"vnapp-" + id_number.toString();
     document.title = title;
-    console.log("app_id", app_id);
-    console.log("mapOptions", mapOptions);
+    // console.log("VnApp app_id", app_id);
+    // console.log("VnApp gisOptions", gisOptions);
     //console.log("tree_vnleaf", tree_vnleaf);
 
 
@@ -33,20 +33,24 @@ export class VnApp {
     this.sidepanel_id = "vn-sidepanel-" + this.id_number.toString();
     sidepanelNode.setAttribute("id", this.sidepanel_id);
     sidepanelNode.setAttribute("class", "w3-sidebar w3-bar-block w3-border-right");
-    sidepanelNode.setAttribute("style", "display:none;z-index:2000;width:400px;");
-    const spClose = document.createElement('button');
-    //spClose.onclick = this.sidepanel_close;
+    sidepanelNode.setAttribute("style", "display:none;z-index:2000;width:300px;");
 
-    spClose.setAttribute("class", "w3-bar-item w3-large");
+    const spClose = document.createElement('button');
+    spClose.setAttribute("class", "w3-bar-item w3-large w3-tooltip");
     spClose.setAttribute("style", "text-align:right;");
     spClose.setAttribute("id_number", this.id_number.toString());
     spClose.onclick = (evt) => {
-      //console.log("sidepanel_close evt", evt);
       this.sidepanel_close();
     }
     spClose.innerHTML = "close &times;";
     sidepanelNode.appendChild(spClose);
     appNode.appendChild(sidepanelNode);
+
+    const spCloseTooltip = document.createElement('span');
+    spCloseTooltip.setAttribute("class", "w3-text w3-tag");
+    spCloseTooltip.setAttribute("style", "position:absolute;font-size:12px;right:90px;top:10px;");
+    spCloseTooltip.innerHTML = "click to close side panel";
+    spClose.appendChild(spCloseTooltip);
 
     const datatreeNode = document.createElement('div');
     let datatree_id = "vn-datatree-" + this.id_number.toString();
@@ -61,7 +65,7 @@ export class VnApp {
     _mapnode.setAttribute("id", _map_id);
     appNode.appendChild(_mapnode);
 
-    this.gis = new Vnleafmap(this.id_number, mapOptions);
+    this.gis = new Vnleafmap({id_number:this.id_number, gisOptions:gisOptions});
     //this.sidepanel_open();
     attachDatatree(tree_vnleaf, this.id_number, this.gis);
 

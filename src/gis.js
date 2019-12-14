@@ -3,9 +3,6 @@
 //import * as L from 'leaflet';
 import L from 'leaflet';
 import 'leaflet-easybutton';
-console.log("L.easyButton", L.easyButton);
-//import * as mapData from "./map-data";
-
 
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-easybutton/src/easy-button.css';
@@ -26,10 +23,11 @@ import $ from 'jquery';
 
 export class Vnleafmap {
 
-  constructor({id_number=0, mapOptions=null} ={}) {
+  constructor({id_number=0, gisOptions=null} = {}) {
     this.id_number = id_number;
     this.map_id = "vn-map-" + id_number.toString();
-    console.log(`map_id=${this.map_id}`);
+    // console.log(`Vnleafmap map_id=${this.map_id}`);
+    // console.log("Vnleafmap gisOptions", gisOptions);
     
     //this.map = L.map(mapId).setView([51.505, -0.09], 13);
     // let mapOpts = Object.assign({
@@ -39,43 +37,54 @@ export class Vnleafmap {
     //   center: [53.99, -7.36],
     //   maxBounds: [[-90,-180], [90,180]]
     // }, {})
-    if (!mapOptions) mapOptions = {
-      zoomControl: true,
-      attributionControl: false,
-      zoom: 5,
-      center: [53.99, -7.36],
-      maxBounds: [[-90,-180], [90,180]]       
+    // if (!mapOptions) mapOptions = {
+    //   zoomControl: true,
+    //   attributionControl: false,
+    //   zoom: 5,
+    //   center: [53.99, -7.36],
+    //   maxBounds: [[-90,-180], [90,180]]       
+    // }
+    this.map = L.map(this.map_id, gisOptions.leafletMapOptions); 
+    if (this.map.zoomControl) {
+      this.map.zoomControl.setPosition('topright');
     }
-    this.map = L.map(this.map_id, mapOptions); 
-    this.map.zoomControl.setPosition('topright');
-
+    
     // let layer = L.tileLayer.wms(OSM.url, OSM.options);
     // this.map.addLayer(layer);
 
-    let ebutton_id = "vn-map-ebutton-" + this.id_number.toString();
-    // character "&#9776;" ("fas fa-bars" alternative)
-    let ebutton = L.easyButton("fas fa-bars", (btn, map) => {
-      let sidepanel_id = "vn-sidepanel-" + this.id_number.toString();
-      // console.log("fire button", btn);
-      // console.log("this.id_number", this.id_number);
-      // console.log("sidepanel_close sidepanel_id", sidepanel_id);
-      let sb = document.getElementById(sidepanel_id);
-      sb.style.display = "block";
-    }, 'open side-panel controls', ebutton_id);
-    // let ebutton = L.easyButton({
-    //   stateName: 'open-sidepanel',
-    //   icon: "&#9776;",
-    //   title: 'open side panel',
-    //   onClick: function(control){
-    //     console.log("L.easyButton control", control);
-    //   }
-    // });
-    console.log("ebutton", ebutton);
-    ebutton.addTo( this.map );
+    // let ebutton_id = "vn-map-ebutton-" + this.id_number.toString();
+    // // character "&#9776;" ("fas fa-bars" alternative)
+    // let ebutton = L.easyButton("fas fa-bars", (btn, map) => {
+    //   let sidepanel_id = "vn-sidepanel-" + this.id_number.toString();
+    //   // console.log("fire button", btn);
+    //   // console.log("this.id_number", this.id_number);
+    //   // console.log("sidepanel_close sidepanel_id", sidepanel_id);
+    //   let sb = document.getElementById(sidepanel_id);
+    //   sb.style.display = "block";
+    // }, 'open side-panel controls', ebutton_id);
+    // // let ebutton = L.easyButton({
+    // //   stateName: 'open-sidepanel',
+    // //   icon: "&#9776;",
+    // //   title: 'open side panel',
+    // //   onClick: function(control){
+    // //     console.log("L.easyButton control", control);
+    // //   }
+    // // });
+
+    if (gisOptions.sidePanel) {
+      let ebutton_id = "vn-map-ebutton-" + this.id_number.toString();
+      let ebutton = L.easyButton("fas fa-bars", (btn, map) => {
+        let sidepanel_id = "vn-sidepanel-" + this.id_number.toString();
+        let sb = document.getElementById(sidepanel_id);
+        sb.style.display = "block";
+      }, 'open side-panel controls', ebutton_id);
+      ebutton.addTo( this.map );
+    }
     
-    this.popup = L.popup();
-    this.map.on('contextmenu', (evt) => {this.locationPopup(evt);});
-  
+    if (gisOptions.locationPopup) {
+      this.popup = L.popup();
+      this.map.on('contextmenu', (evt) => {this.locationPopup(evt);});
+    }
 
   }
 
@@ -95,8 +104,8 @@ export class Vnleafmap {
     }
     this.map.addLayer(layer);
     let layerStamp = L.Util.stamp(layer);
-    console.log("addLayer layerStamp", layerStamp);
-    console.log("addLayer layer", layer);
+    // console.log("addLayer layerStamp", layerStamp);
+    // console.log("addLayer layer", layer);
     return layerStamp;
   }
 

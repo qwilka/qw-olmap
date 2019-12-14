@@ -6,11 +6,11 @@ export function load_config(url, callback=null) {
   fetch(url)
   .then((resp) => {
     if (resp.status != 200) {
-      console.log(`load_config failure\nurl=«${url}»\nfetch response status code: ${resp.status}`);
+      console.error(`load_config failure\nurl=«${url}»\nfetch response status code: ${resp.status}`);
     };
     resp.json()
     .catch((err) => {
-      console.log("load_config failure\nresp.json():", err);
+      console.error("load_config failure\nresp.json():", err);
     })
     .then((confData) => {
       if (callback) callback(confData);
@@ -20,6 +20,6 @@ export function load_config(url, callback=null) {
     // });      
   })
   .catch((err) => {
-    console.log("load_config failure top-level:", err);
+    console.error("load_config failure top-level:", err);
   });
 }

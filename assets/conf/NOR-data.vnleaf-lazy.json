@@ -1,0 +1,429 @@
+[
+    {
+        "title": "NPD FactMaps - facilities, pipelines",
+        "type": "gis-layer",
+        "checkbox": true,
+        "selected": false,
+        "data": {
+            "layerType": "WMS",
+            "url": "http://gis.npd.no/ogc/factmaps/2_0",
+            "refs": [
+                "https://factpages.npd.no/",
+                "https://www.npd.no/en/about-us/information-services/available-data/map-services/"
+            ],
+            "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+            "layerOpts": {
+                "layers": "dscAll,pplAll,fclFixed",
+                "CRS": "EPSG:4326",
+                "version": "1.1.1",
+                "format": "image/png",
+                "transparent": true,
+                "noWrap": true,
+                "opacity": 1.0,
+                "attribution": "<a target='_blank' href='http://www.npd.no/en/Maps/Fact-maps/'>NPD</a> <a target='_blank' href='https://data.norge.no/nlod/no'>(NLOD)</a>"        
+            }     
+        }
+    },
+    {
+        "title": "Fishing activity",
+        "folder": true,
+        "children": [
+            {
+                "title": "2015 Fishing activity",
+                "folder": true,
+                "children": [
+                    {
+                        "title": "2015 Utenlandske fiskefartøy",
+                        "type": "gis-layer",
+                        "checkbox": true,
+                        "selected": false,
+                        "data": {
+                            "layerType": "WMS",
+                            "url": "https://ogc.fiskeridir.no/wms.ashx",
+                            "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+                            "layerOpts": {
+                                "layers": "layer_208",
+                                "CRS": "EPSG:23032",
+                                "version": "1.3.0",
+                                "format": "image/png",
+                                "transparent": true,
+                                "noWrap": true,
+                                "opacity": 0.9,
+                                "attribution": "<a target='_blank' href='https://www.fiskeridir.no/Kart/Om-kartdata/Om-nedlasting-av-geodata'>Fiskeridirektoratet</a> <a target='_blank' href='https://data.norge.no/nlod/no'>(NLOD)</a>"        
+                            }     
+                        }
+                    },
+                    {
+                        "title": "2015 Norske fiskefartøy",
+                        "type": "gis-layer",
+                        "checkbox": true,
+                        "selected": false,
+                        "data": {
+                            "layerType": "WMS",
+                            "url": "https://ogc.fiskeridir.no/wms.ashx",
+                            "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+                            "layerOpts": {
+                                "layers": "group_6",
+                                "CRS": "EPSG:23032",
+                                "version": "1.3.0",
+                                "format": "image/png",
+                                "transparent": true,
+                                "noWrap": true,
+                                "opacity": 0.9,
+                                "attribution": "<a target='_blank' href='https://www.fiskeridir.no/Kart/Om-kartdata/Om-nedlasting-av-geodata'>Fiskeridirektoratet</a> <a target='_blank' href='https://data.norge.no/nlod/no'>(NLOD)</a>"        
+                            }     
+                        }
+                    },
+                    {
+                        "title": "2015 K1 Norske fiskefartøy",
+                        "type": "gis-layer",
+                        "checkbox": true,
+                        "selected": false,
+                        "data": {
+                            "layerType": "WMS",
+                            "url": "https://ogc.fiskeridir.no/wms.ashx",
+                            "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+                            "layerOpts": {
+                                "layers": "layer_217",
+                                "CRS": "EPSG:23032",
+                                "version": "1.3.0",
+                                "format": "image/png",
+                                "transparent": true,
+                                "noWrap": true,
+                                "opacity": 0.9,
+                                "attribution": "<a target='_blank' href='https://www.fiskeridir.no/Kart/Om-kartdata/Om-nedlasting-av-geodata'>Fiskeridirektoratet</a> <a target='_blank' href='https://data.norge.no/nlod/no'>(NLOD)</a>"        
+                            }     
+                        }
+                    },
+                    {
+                        "title": "2015 K2 Norske fiskefartøy",
+                        "type": "gis-layer",
+                        "checkbox": true,
+                        "selected": false,
+                        "data": {
+                            "layerType": "WMS",
+                            "url": "https://ogc.fiskeridir.no/wms.ashx",
+                            "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+                            "layerOpts": {
+                                "layers": "layer_218",
+                                "CRS": "EPSG:23032",
+                                "version": "1.3.0",
+                                "format": "image/png",
+                                "transparent": true,
+                                "noWrap": true,
+                                "opacity": 0.9,
+                                "attribution": "<a target='_blank' href='https://www.fiskeridir.no/Kart/Om-kartdata/Om-nedlasting-av-geodata'>Fiskeridirektoratet</a> <a target='_blank' href='https://data.norge.no/nlod/no'>(NLOD)</a>"        
+                            }     
+                        }
+                    },
+                    {
+                        "title": "2015 K3 Norske fiskefartøy",
+                        "type": "gis-layer",
+                        "checkbox": true,
+                        "selected": false,
+                        "data": {
+                            "layerType": "WMS",
+                            "url": "https://ogc.fiskeridir.no/wms.ashx",
+                            "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+                            "layerOpts": {
+                                "layers": "layer_219",
+                                "CRS": "EPSG:23032",
+                                "version": "1.3.0",
+                                "format": "image/png",
+                                "transparent": true,
+                                "noWrap": true,
+                                "opacity": 0.9,
+                                "attribution": "<a target='_blank' href='https://www.fiskeridir.no/Kart/Om-kartdata/Om-nedlasting-av-geodata'>Fiskeridirektoratet</a> <a target='_blank' href='https://data.norge.no/nlod/no'>(NLOD)</a>"        
+                            }     
+                        }
+                    },
+                    {
+                        "title": "2015 K4 Norske fiskefartøy",
+                        "type": "gis-layer",
+                        "checkbox": true,
+                        "selected": false,
+                        "data": {
+                            "layerType": "WMS",
+                            "url": "https://ogc.fiskeridir.no/wms.ashx",
+                            "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+                            "layerOpts": {
+                                "layers": "layer_220",
+                                "CRS": "EPSG:23032",
+                                "version": "1.3.0",
+                                "format": "image/png",
+                                "transparent": true,
+                                "noWrap": true,
+                                "opacity": 0.9,
+                                "attribution": "<a target='_blank' href='https://www.fiskeridir.no/Kart/Om-kartdata/Om-nedlasting-av-geodata'>Fiskeridirektoratet</a> <a target='_blank' href='https://data.norge.no/nlod/no'>(NLOD)</a>"        
+                            }     
+                        }
+                    }
+                ]
+            },
+            {
+                "title": "2016 Fishing activity",
+                "folder": true,
+                "children": [
+                    {
+                        "title": "2016 Utenlandske fiskefartøy",
+                        "type": "gis-layer",
+                        "checkbox": true,
+                        "selected": false,
+                        "data": {
+                            "layerType": "WMS",
+                            "url": "https://ogc.fiskeridir.no/wms.ashx",
+                            "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+                            "layerOpts": {
+                                "layers": "layer_453",
+                                "CRS": "EPSG:23032",
+                                "version": "1.3.0",
+                                "format": "image/png",
+                                "transparent": true,
+                                "noWrap": true,
+                                "opacity": 0.9,
+                                "attribution": "<a target='_blank' href='https://www.fiskeridir.no/Kart/Om-kartdata/Om-nedlasting-av-geodata'>Fiskeridirektoratet</a> <a target='_blank' href='https://data.norge.no/nlod/no'>(NLOD)</a>"        
+                            }     
+                        }
+                    },
+                    {
+                        "title": "2016 Norske fiskefartøy",
+                        "type": "gis-layer",
+                        "checkbox": true,
+                        "selected": false,
+                        "data": {
+                            "layerType": "WMS",
+                            "url": "https://ogc.fiskeridir.no/wms.ashx",
+                            "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+                            "layerOpts": {
+                                "layers": "group_5",
+                                "CRS": "EPSG:23032",
+                                "version": "1.3.0",
+                                "format": "image/png",
+                                "transparent": true,
+                                "noWrap": true,
+                                "opacity": 0.9,
+                                "attribution": "<a target='_blank' href='https://www.fiskeridir.no/Kart/Om-kartdata/Om-nedlasting-av-geodata'>Fiskeridirektoratet</a> <a target='_blank' href='https://data.norge.no/nlod/no'>(NLOD)</a>"        
+                            }     
+                        }
+                    },
+                    {
+                        "title": "2016 K1 Norske fiskefartøy",
+                        "type": "gis-layer",
+                        "checkbox": true,
+                        "selected": false,
+                        "data": {
+                            "layerType": "WMS",
+                            "url": "https://ogc.fiskeridir.no/wms.ashx",
+                            "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+                            "layerOpts": {
+                                "layers": "layer_454",
+                                "CRS": "EPSG:23032",
+                                "version": "1.3.0",
+                                "format": "image/png",
+                                "transparent": true,
+                                "noWrap": true,
+                                "opacity": 0.9,
+                                "attribution": "<a target='_blank' href='https://www.fiskeridir.no/Kart/Om-kartdata/Om-nedlasting-av-geodata'>Fiskeridirektoratet</a> <a target='_blank' href='https://data.norge.no/nlod/no'>(NLOD)</a>"        
+                            }     
+                        }
+                    },
+                    {
+                        "title": "2016 K2 Norske fiskefartøy",
+                        "type": "gis-layer",
+                        "checkbox": true,
+                        "selected": false,
+                        "data": {
+                            "layerType": "WMS",
+                            "url": "https://ogc.fiskeridir.no/wms.ashx",
+                            "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+                            "layerOpts": {
+                                "layers": "layer_455",
+                                "CRS": "EPSG:23032",
+                                "version": "1.3.0",
+                                "format": "image/png",
+                                "transparent": true,
+                                "noWrap": true,
+                                "opacity": 0.9,
+                                "attribution": "<a target='_blank' href='https://www.fiskeridir.no/Kart/Om-kartdata/Om-nedlasting-av-geodata'>Fiskeridirektoratet</a> <a target='_blank' href='https://data.norge.no/nlod/no'>(NLOD)</a>"        
+                            }     
+                        }
+                    },
+                    {
+                        "title": "2016 K3 Norske fiskefartøy",
+                        "type": "gis-layer",
+                        "checkbox": true,
+                        "selected": false,
+                        "data": {
+                            "layerType": "WMS",
+                            "url": "https://ogc.fiskeridir.no/wms.ashx",
+                            "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+                            "layerOpts": {
+                                "layers": "layer_456",
+                                "CRS": "EPSG:23032",
+                                "version": "1.3.0",
+                                "format": "image/png",
+                                "transparent": true,
+                                "noWrap": true,
+                                "opacity": 0.9,
+                                "attribution": "<a target='_blank' href='https://www.fiskeridir.no/Kart/Om-kartdata/Om-nedlasting-av-geodata'>Fiskeridirektoratet</a> <a target='_blank' href='https://data.norge.no/nlod/no'>(NLOD)</a>"        
+                            }     
+                        }
+                    },
+                    {
+                        "title": "2016 K4 Norske fiskefartøy",
+                        "type": "gis-layer",
+                        "checkbox": true,
+                        "selected": false,
+                        "data": {
+                            "layerType": "WMS",
+                            "url": "https://ogc.fiskeridir.no/wms.ashx",
+                            "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+                            "layerOpts": {
+                                "layers": "layer_457",
+                                "CRS": "EPSG:23032",
+                                "version": "1.3.0",
+                                "format": "image/png",
+                                "transparent": true,
+                                "noWrap": true,
+                                "opacity": 0.9,
+                                "attribution": "<a target='_blank' href='https://www.fiskeridir.no/Kart/Om-kartdata/Om-nedlasting-av-geodata'>Fiskeridirektoratet</a> <a target='_blank' href='https://data.norge.no/nlod/no'>(NLOD)</a>"        
+                            }     
+                        }
+                    }
+                ]
+            },
+            {
+                "title": "2017 Fishing activity",
+                "folder": true,
+                "children": [
+                    {
+                        "title": "2017 Utenlandske fiskefartøy",
+                        "type": "gis-layer",
+                        "checkbox": true,
+                        "selected": false,
+                        "data": {
+                            "layerType": "WMS",
+                            "url": "https://ogc.fiskeridir.no/wms.ashx",
+                            "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+                            "layerOpts": {
+                                "layers": "layer_581",
+                                "CRS": "EPSG:23032",
+                                "version": "1.3.0",
+                                "format": "image/png",
+                                "transparent": true,
+                                "noWrap": true,
+                                "opacity": 0.9,
+                                "attribution": "<a target='_blank' href='https://www.fiskeridir.no/Kart/Om-kartdata/Om-nedlasting-av-geodata'>Fiskeridirektoratet</a> <a target='_blank' href='https://data.norge.no/nlod/no'>(NLOD)</a>"        
+                            }     
+                        }
+                    },
+                    {
+                        "title": "2017 Norske fiskefartøy",
+                        "type": "gis-layer",
+                        "checkbox": true,
+                        "selected": false,
+                        "data": {
+                            "layerType": "WMS",
+                            "url": "https://ogc.fiskeridir.no/wms.ashx",
+                            "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+                            "layerOpts": {
+                                "layers": "group_4",
+                                "CRS": "EPSG:23032",
+                                "version": "1.3.0",
+                                "format": "image/png",
+                                "transparent": true,
+                                "noWrap": true,
+                                "opacity": 0.9,
+                                "attribution": "<a target='_blank' href='https://www.fiskeridir.no/Kart/Om-kartdata/Om-nedlasting-av-geodata'>Fiskeridirektoratet</a> <a target='_blank' href='https://data.norge.no/nlod/no'>(NLOD)</a>"        
+                            }     
+                        }
+                    },
+                    {
+                        "title": "2017 K1 Norske fiskefartøy",
+                        "type": "gis-layer",
+                        "checkbox": true,
+                        "selected": false,
+                        "data": {
+                            "layerType": "WMS",
+                            "url": "https://ogc.fiskeridir.no/wms.ashx",
+                            "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+                            "layerOpts": {
+                                "layers": "layer_582",
+                                "CRS": "EPSG:23032",
+                                "version": "1.3.0",
+                                "format": "image/png",
+                                "transparent": true,
+                                "noWrap": true,
+                                "opacity": 0.9,
+                                "attribution": "<a target='_blank' href='https://www.fiskeridir.no/Kart/Om-kartdata/Om-nedlasting-av-geodata'>Fiskeridirektoratet</a> <a target='_blank' href='https://data.norge.no/nlod/no'>(NLOD)</a>"        
+                            }     
+                        }
+                    },
+                    {
+                        "title": "2017 K2 Norske fiskefartøy",
+                        "type": "gis-layer",
+                        "checkbox": true,
+                        "selected": false,
+                        "data": {
+                            "layerType": "WMS",
+                            "url": "https://ogc.fiskeridir.no/wms.ashx",
+                            "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+                            "layerOpts": {
+                                "layers": "layer_583",
+                                "CRS": "EPSG:23032",
+                                "version": "1.3.0",
+                                "format": "image/png",
+                                "transparent": true,
+                                "noWrap": true,
+                                "opacity": 0.9,
+                                "attribution": "<a target='_blank' href='https://www.fiskeridir.no/Kart/Om-kartdata/Om-nedlasting-av-geodata'>Fiskeridirektoratet</a> <a target='_blank' href='https://data.norge.no/nlod/no'>(NLOD)</a>"        
+                            }     
+                        }
+                    },
+                    {
+                        "title": "2017 K3 Norske fiskefartøy",
+                        "type": "gis-layer",
+                        "checkbox": true,
+                        "selected": false,
+                        "data": {
+                            "layerType": "WMS",
+                            "url": "https://ogc.fiskeridir.no/wms.ashx",
+                            "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+                            "layerOpts": {
+                                "layers": "layer_584",
+                                "CRS": "EPSG:23032",
+                                "version": "1.3.0",
+                                "format": "image/png",
+                                "transparent": true,
+                                "noWrap": true,
+                                "opacity": 0.9,
+                                "attribution": "<a target='_blank' href='https://www.fiskeridir.no/Kart/Om-kartdata/Om-nedlasting-av-geodata'>Fiskeridirektoratet</a> <a target='_blank' href='https://data.norge.no/nlod/no'>(NLOD)</a>"        
+                            }     
+                        }
+                    },
+                    {
+                        "title": "2017 K4 Norske fiskefartøy",
+                        "type": "gis-layer",
+                        "checkbox": true,
+                        "selected": false,
+                        "data": {
+                            "layerType": "WMS",
+                            "url": "https://ogc.fiskeridir.no/wms.ashx",
+                            "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+                            "layerOpts": {
+                                "layers": "layer_585",
+                                "CRS": "EPSG:23032",
+                                "version": "1.3.0",
+                                "format": "image/png",
+                                "transparent": true,
+                                "noWrap": true,
+                                "opacity": 0.9,
+                                "attribution": "<a target='_blank' href='https://www.fiskeridir.no/Kart/Om-kartdata/Om-nedlasting-av-geodata'>Fiskeridirektoratet</a> <a target='_blank' href='https://data.norge.no/nlod/no'>(NLOD)</a>"        
+                            }     
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+]

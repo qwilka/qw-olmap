@@ -17,6 +17,7 @@ icons
 https://github.com/parcel-bundler/parcel/issues/626  Cannot resolve dependency '@fortawesome/fontawesome-free-webfonts/fontawesome.css'
 https://github.com/FortAwesome/Font-Awesome
 https://fontawesome.com/how-to-use/on-the-web/setup/using-package-managers
+http://flag-icon-css.lip.is/
 
 geodesy
 =======
