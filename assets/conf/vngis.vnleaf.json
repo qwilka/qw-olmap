@@ -4,12 +4,12 @@
     "appType": "vnleaf",
     "gisOptions": {
         "leafletMapOptions": {
-            "attributionControl": false,
+            "attributionControl": true,
             "center": [
                 53.98,
                 -7.3
             ],
-            "minZoom": 4,
+            "minZoom": 3,
             "maxZoom": 26,
             "zoom": 5,
             "maxBounds": [
@@ -82,6 +82,116 @@
                     }
                 },
                 {
+                    "title": "Sentinel-2 cloudless",
+                    "type": "gis-layer-basemap",
+                    "checkbox": "radio",
+                    "selected": false,
+                    "data": {
+                        "layerType": "WMS",
+                        "url": "https://tiles.maps.eox.at/",
+                        "refs": [
+                            "https://s2maps.eu/",
+                            "https://wiki.openstreetmap.org/wiki/Sentinel-2",
+                            "https://gis.stackexchange.com/questions/253034/sentinel-2-imagery-as-a-webservice-in-a-leaflet-or-openlayers-map?rq=1"
+                        ],
+                        "layerOpts": {
+                            "layers": "s2cloudless-2017_3857",
+                            "CRS": "EPSG:4326",
+                            "format": "image/png",
+                            "transparent": false,
+                            "noWrap": true,
+                            "opacity": 1.0,
+                            "attribution": "<a target='_blank' href='https://s2maps.eu/'>Sentinel-2 cloudless</a> by <a target='_blank' href='https://eox.at/'>EOX IT Services GmbH</a> (Contains modified <a target='_blank' href='https://sentinel.esa.int/web/sentinel/home'>Copernicus Sentinel</a> data 2016 & 2017)"
+                        }
+                    }
+                },
+                {
+                    "title": "Blue Marble",
+                    "type": "gis-layer-basemap",
+                    "checkbox": "radio",
+                    "selected": false,
+                    "data": {
+                        "layerType": "WMS",
+                        "url": "https://tiles.maps.eox.at/",
+                        "refs": [
+                            "https://maps.eox.at/?#",
+                            "https://gis.stackexchange.com/questions/253034/sentinel-2-imagery-as-a-webservice-in-a-leaflet-or-openlayers-map?rq=1"
+                        ],
+                        "layerOpts": {
+                            "layers": "bluemarble_3857",
+                            "CRS": "EPSG:4326",
+                            "format": "image/png",
+                            "transparent": false,
+                            "noWrap": true,
+                            "opacity": 1.0,
+                            "attribution": "Blue Marble &copy; <a target='_blank' href='http://nasa.gov/'>NASA</a>, Rendering &copy; <a target='_blank' href='https://maps.eox.at/'>EOX</a>"
+                        }
+                    }
+                },
+                {
+                    "title": "Black Marble",
+                    "type": "gis-layer-basemap",
+                    "checkbox": "radio",
+                    "selected": false,
+                    "data": {
+                        "layerType": "WMS",
+                        "url": "https://tiles.maps.eox.at/",
+                        "refs": [
+                            "https://maps.eox.at/?#",
+                            "https://gis.stackexchange.com/questions/253034/sentinel-2-imagery-as-a-webservice-in-a-leaflet-or-openlayers-map?rq=1"
+                        ],
+                        "layerOpts": {
+                            "layers": "blackmarble_3857",
+                            "CRS": "EPSG:4326",
+                            "format": "image/png",
+                            "transparent": false,
+                            "noWrap": true,
+                            "opacity": 1.0,
+                            "attribution": "Black Marble &copy; <a target='_blank' href='http://nasa.gov/'>NASA</a>, Rendering &copy; <a target='_blank' href='https://maps.eox.at/'>EOX</a>"
+                        }
+                    }
+                },
+                {
+                    "title": "OSM/Terrain Light",
+                    "type": "gis-layer-basemap",
+                    "checkbox": "radio",
+                    "selected": false,
+                    "data": {
+                        "layerType": "WMS",
+                        "url": "https://tiles.maps.eox.at/",
+                        "refs": [
+                            "https://maps.eox.at/?#",
+                            "https://gis.stackexchange.com/questions/253034/sentinel-2-imagery-as-a-webservice-in-a-leaflet-or-openlayers-map?rq=1"
+                        ],
+                        "layerOpts": {
+                            "layers": "terrain-light_3857,overlay_base_bright_3857",
+                            "CRS": "EPSG:4326",
+                            "format": "image/png",
+                            "transparent": false,
+                            "noWrap": true,
+                            "opacity": 1.0,
+                            "attribution": "Terrain Light &copy; <a target='_blank' href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a>, Rendering &copy; <a target='_blank' href='https://maps.eox.at/'>EOX</a>"
+                        }
+                    }
+                },
+                {
+                    "title": "Esri WorldImagery",
+                    "type": "gis-layer-basemap",
+                    "checkbox": "radio",
+                    "selected": false,
+                    "data": {
+                        "layerType": "WMS",
+                        "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+                        "refs": [
+                            "https://www.arcgis.com/home/item.html?id=50c23e4987a44de4ab163e1baeab4a46",
+                            "http://leaflet-extras.github.io/leaflet-providers/preview/"
+                        ],
+                        "layerOpts": {
+                            "attribution": "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
+                        }
+                    }
+                },
+                {
                     "title": "No background",
                     "type": "gis-layer-basemap",
                     "checkbox": "radio",
@@ -94,7 +204,61 @@
             ]
         },
         {
-            "title": "test1 Overlays",
+            "title": "Australia (AUS)",
+            "type": "folder-flag-au",
+            "folder": true,
+            "lazy": true,
+            "data": {
+                "fancytree": "/conf/AUS-data.vnleaf-lazy.json"
+            }
+        },
+        {
+            "title": "Denmark (DNK)",
+            "type": "folder-flag-dk",
+            "folder": true,
+            "lazy": true,
+            "data": {
+                "fancytree": "/conf/DNK-data.vnleaf-lazy.json"
+            }
+        },
+        {
+            "title": "Ireland (IRL)",
+            "type": "folder-flag-ie",
+            "folder": true,
+            "lazy": true,
+            "data": {
+                "fancytree": "/conf/IRL-data.vnleaf-lazy.json"
+            }
+        },
+        {
+            "title": "Norway (NOR)",
+            "type": "folder-flag-no",
+            "folder": true,
+            "lazy": true,
+            "data": {
+                "fancytree": "/conf/NOR-data.vnleaf-lazy.json"
+            }
+        },
+        {
+            "title": "United Kingdom (GBR)",
+            "type": "folder-flag-gb",
+            "folder": true,
+            "lazy": true,
+            "data": {
+                "fancytree": "/conf/GBR-data.vnleaf-lazy.json"
+            }
+        },
+        {
+            "title": "United States of America (USA)",
+            "type": "folder-flag-us",
+            "folder": true,
+            "lazy": true,
+            "data": {
+                "fancytree": "/conf/USA-data.vnleaf-lazy.json"
+            }
+        },
+        {
+            "title": "Other map resources",
             "folder": true,
             "children": [
                 {
@@ -105,6 +269,7 @@
                     "data": {
                         "layerType": "WMS",
                         "url": "http://geo.vliz.be:80/geoserver/MarineRegions/wms",
+                        "refs": [],
                         "layerOpts": {
                             "layers": "MarineRegions:eez_boundaries",
                             "version": "1.1.1",
@@ -112,45 +277,31 @@
                             "transparent": true,
                             "noWrap": true,
                             "opacity": 0.8,
-                            "attribution": "<a target='_blank' href='http://www.marineregions.org'>FlandersMarineInst (CC-BY-NC-SA)</a>"
-                        }
+                            "attribution": "<a target='_blank' href='http://www.marineregions.org'>FlandersMarineInst (CC-BY-NC-SA)</a>"     
+                        }     
                     }
-                }
-            ]
-        },
-        {
-            "title": "test2 Ireland",
-            "folder": true,
-            "children": [
+                },
                 {
-                    "title": "Offshore pipelines and fields",
+                    "title": "GEBCO source identifier",
                     "type": "gis-layer",
                     "checkbox": true,
                     "selected": false,
                     "data": {
                         "layerType": "WMS",
-                        "url": "http://atlas.marine.ie/arcgis/services/EnergyResourcesInfrastructure/MapServer/WMSServer",
+                        "url": "https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv",
+                        "refs": ["https://www.gebco.net/"],
                         "layerOpts": {
-                            "layers": "1,2,3",
+                            "layers": "GEBCO_LATEST_sid",
                             "CRS": "EPSG:4326",
                             "format": "image/png",
                             "transparent": true,
                             "noWrap": true,
-                            "opacity": 0.9,
-                            "attribution": "<a target='_blank' href='https://data.gov.ie/dataset/offshore-gas-pipeline'>IE-GovData</a> <a href='https://creativecommons.org/licenses/by/4.0/'>(CC BY 4.0)</a>"
-                        }
+                            "opacity": 0.6,
+                            "attribution": "<a target='_blank' href='https://www.gebco.net/'>GEBCO</a>"      
+                        }     
                     }
                 }
             ]
-        },
-        {
-            "title": "Norway (NOR)",
-            "type": "folder-flag-no",
-            "folder": true,
-            "lazy": true,
-            "data": {
-                "fancytree": "/conf/NOR-data.vnleaf-lazy.json"
-            }
         }
     ]
 }

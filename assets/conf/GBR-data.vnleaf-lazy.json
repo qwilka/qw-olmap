@@ -1,0 +1,67 @@
+[
+    {
+        "title": "Marine Scotland",
+        "type": "folder-flag-gb-sct",
+        "folder": true,
+        "children": [
+            {
+                "title": "Pipelines & fields",
+                "type": "gis-layer",
+                "checkbox": true,
+                "selected": false,
+                "data": {
+                    "layerType": "WMS",
+                    "url": "http://msmap1.atkinsgeospatial.com/geoserver/ows/nmp",
+                    "refs": [
+                        "http://marine.gov.scot/node/14373",
+                        "http://marine.gov.scot/maps/616", 
+                        "http://marine.gov.scot/maps/615",
+                        "http://www.gov.scot/Topics/marine/seamanagement/nmpihome/layers",
+                        "http://msmap1.atkinsgeospatial.com/geoserver/ows/nmp?service=WMS&request=GetCapabilities&version=1.3.0",
+                        "https://data.gov.uk/dataset/ac766f0e-c121-4876-853d-cd68aa6181e1/resource/2987869a-dc81-4f4d-8955-1983ae288603"
+                    ],
+                    "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+                    "layerOpts": {
+                        "layers": "nmp:NMPMAP8polygon,nmp:NMPMAP8line",
+                        "CRS": "EPSG:3857",
+                        "format": "image/png",
+                        "transparent": true,
+                        "noWrap": true,
+                        "opacity": 0.9,
+                        "token": "d46ffd2a-e192-4e51-8a6a-b3292c20f1ee",
+                        "attribution": "<a target='_blank' href='http://marine.gov.scot/maps/616'>&copy; Crown Copyright (ScotGov)</a>"      
+                    }     
+                }
+            },
+            {
+                "title": "Fishing activity",
+                "type": "gis-layer",
+                "checkbox": true,
+                "selected": false,
+                "data": {
+                    "layerType": "WMS",
+                    "url": "http://msmap1.atkinsgeospatial.com/geoserver/nmpwfs/ows",
+                    "refs": [
+                        "http://marine.gov.scot/node/14373",
+                        "http://marine.gov.scot/maps/616", 
+                        "http://marine.gov.scot/maps/615",
+                        "http://www.gov.scot/Topics/marine/seamanagement/nmpihome/layers",
+                        "http://msmap1.atkinsgeospatial.com/geoserver/ows/nmp?service=WMS&request=GetCapabilities&version=1.3.0",
+                        "https://data.gov.uk/dataset/ac766f0e-c121-4876-853d-cd68aa6181e1/resource/2987869a-dc81-4f4d-8955-1983ae288603"
+                    ],
+                    "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+                    "layerOpts": {
+                        "layers": "utility_and_government_services_fishing_intensity_pipelines_all_gears",
+                        "CRS": "EPSG:3857",
+                        "format": "image/png",
+                        "transparent": true,
+                        "noWrap": true,
+                        "opacity": 0.9,
+                        "token": "d46ffd2a-e192-4e51-8a6a-b3292c20f1ee",
+                        "attribution": "<a target='_blank' href='http://marine.gov.scot/maps/616'>&copy; Crown Copyright (ScotGov)</a>"      
+                    }     
+                }
+            }
+        ]
+    }
+]

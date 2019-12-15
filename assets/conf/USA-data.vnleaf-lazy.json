@@ -1,0 +1,53 @@
+[
+    {
+        "title": "Gulf of Mexico",
+        "folder": true,
+        "children": [
+            {
+                "title": "OCS Oil & Gas Pipelines",
+                "type": "gis-layer",
+                "checkbox": true,
+                "selected": false,
+                "data": {
+                    "layerType": "WMS",
+                    "url": "https://gis.boem.gov/arcgis/services/BOEM_BSEE/MMC_Layers/MapServer/WmsServer",
+                    "refs": [
+                    ],
+                    "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+                    "layerOpts": {
+                        "layers": "26",
+                        "CRS": "EPSG:4326",
+                        "format": "image/png",
+                        "transparent": true,
+                        "noWrap": true,
+                        "opacity": 0.9,
+                        "attribution": "<a target='_blank' href='https://gis.boem.gov/arcgis/rest/services/BOEM_BSEE/POC_Layers/MapServer'>BOEM</a>"      
+                    }     
+                }
+            },
+            {
+                "title": "GoM deepwater bathymetric hillshade",
+                "type": "gis-layer",
+                "checkbox": true,
+                "selected": false,
+                "data": {
+                    "layerType": "WMS",
+                    "url": "https://gis.boem.gov/arcgis/services/BOEM_BSEE/GOM_Deepwater_Bathymetry_and_Hillshade_Tiled/MapServer/WmsServer",
+                    "refs": [
+                    ],
+                    "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+                    "layerOpts": {
+                        "layers": "0",
+                        "CRS": "EPSG:4326",
+                        "format": "image/png",
+                        "maxZoom": 14,
+                        "transparent": true,
+                        "noWrap": true,
+                        "opacity": 0.9,
+                        "attribution": "<a target='_blank' href='https://gis.boem.gov/'>BOEM</a>"      
+                    }     
+                }
+            }
+        ]
+    }
+]

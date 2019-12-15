@@ -1,0 +1,25 @@
+[
+    {
+        "title": "Offshore fields, facilities",
+        "type": "gis-layer",
+        "checkbox": true,
+        "selected": false,
+        "data": {
+            "layerType": "WMS",
+            "url": "http://atlas.marine.ie/arcgis/services/EnergyResourcesInfrastructure/MapServer/WMSServer",
+            "refs": [
+                "https://data.gov.ie/dataset"
+            ],
+            "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+            "layerOpts": {
+                "layers": "1,2",
+                "CRS": "EPSG:4326",
+                "format": "image/png",
+                "transparent": true,
+                "noWrap": true,
+                "opacity": 0.9,
+                "attribution": "<a target='_blank' href='https://data.gov.ie/dataset/offshore-gas-pipeline'>IE-GovData</a> <a href='https://creativecommons.org/licenses/by/4.0/'>(CC BY 4.0)</a>"       
+            }     
+        }
+    }
+]

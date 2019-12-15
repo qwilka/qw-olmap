@@ -7,7 +7,13 @@ import 'jquery-contextmenu/dist/jquery.contextMenu.css';
 import 'jquery-contextmenu';
 
 import '@fortawesome/fontawesome-free/css/all.css';
+import flagAu from '../assets/images/au.jpg';
+import flagDk from '../assets/images/dk.jpg';
+import flagGb from '../assets/images/gb.jpg';
+import flagGbSct from '../assets/images/gb-sct.jpg';
+import flagIe from '../assets/images/ie.jpg';
 import flagNo from '../assets/images/no.jpg';
+import flagUs from '../assets/images/us.jpg';
 
 //import { commands } from './commands';
 
@@ -52,7 +58,13 @@ export const attachDatatree = (treeData=null, id_number=0, targetWidget=null) =>
       "folder-gis-basemaps": {icon: "fa fa-globe", iconTooltip: "open this folder to select the base map"},
       "gis-layer-basemap": {icon: false},
       "gis-layer": {icon: false},
+      "folder-flag-au": {icon:  flagAu},
+      "folder-flag-dk": {icon:  flagDk},
+      "folder-flag-gb": {icon:  flagGb},
+      "folder-flag-gb-sct": {icon:  flagGbSct},
+      "folder-flag-ie": {icon:  flagIe},
       "folder-flag-no": {icon:  flagNo},
+      "folder-flag-us": {icon:  flagUs},
     },
     icon: icon_datatree,
     iconTooltip: iconTooltip_datatree,
