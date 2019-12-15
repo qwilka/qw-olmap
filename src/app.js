@@ -3,13 +3,14 @@ import { attachDatatree } from './datatree';
 import {Vnleafmap} from "./gis"
 
 import './libs/w3.css';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 export class VnApp {
 
 
 
   constructor({app_id, gisOptions, tree_vnleaf, id_number=0, title="vnleaf testing..."} = {}) {
-    //super({ direction: 'left-to-right', spacing: 0, node: VnApp.createNode(id_number) });
+
     this.id_number = id_number;
     this.id = app_id; //"vnapp-" + id_number.toString();
     document.title = title;
@@ -19,40 +20,40 @@ export class VnApp {
 
 
     const appNode = document.getElementById(app_id);
-    // appNode.setAttribute("style", "position:fixed; top:0; left:0; bottom:0; right:0;");
-    // const _map_id = "vn-map-" + id_number.toString();
-    // const _mapnode = document.createElement('div');
-    // _mapnode.setAttribute("style", "width: 100%; height: 100%; margin: 0 auto;");
-    // _mapnode.setAttribute("id", _map_id);
-    // appNode.appendChild(_mapnode);
-
-
-    
+ 
     // https://www.w3schools.com/w3css/w3css_sidebar.asp
     const sidepanelNode = document.createElement('div');
     this.sidepanel_id = "vn-sidepanel-" + this.id_number.toString();
     sidepanelNode.setAttribute("id", this.sidepanel_id);
     sidepanelNode.setAttribute("class", "w3-sidebar w3-bar-block w3-border-right");
-    sidepanelNode.setAttribute("style", "display:none;z-index:2000;width:300px;");
+    sidepanelNode.setAttribute("style", "display:none;z-index:2000;width:300px;height:100%;");
     appNode.appendChild(sidepanelNode);
 
+    // Side-panel top ------------------------------------
     const topGridRow = document.createElement('div');
     topGridRow.setAttribute("class", "w3-row");
     sidepanelNode.appendChild(topGridRow);
     const spCloseButtCol = document.createElement('div');
     spCloseButtCol.setAttribute("class", "w3-col w3-right w3-blue-grey");
-    spCloseButtCol.setAttribute("style", "width:90px;height:50px;");
+    spCloseButtCol.setAttribute("style", "width:40px;height:50px;");
     topGridRow.appendChild(spCloseButtCol);
 
     const spCloseButton = document.createElement('button');
     spCloseButton.setAttribute("class", "w3-bar-item w3-button w3-dark-grey");
-    //spCloseButton.setAttribute("style", "text-align:right;");
+    spCloseButton.setAttribute("title", "close side panel");
+    spCloseButton.setAttribute("style", "width:40px;height:50px;");
     //spCloseButton.setAttribute("id_number", this.id_number.toString());
     spCloseButton.onclick = (evt) => {
       this.sidepanel_close();
     }
-    spCloseButton.innerHTML = "close &times;";
+    //spCloseButton.innerHTML = "close &times;";
+    //const spCloseButtContent = document.createElement('p');
+    //spCloseButton.appendChild(spCloseButtContent);
     spCloseButtCol.appendChild(spCloseButton);
+    const spCloseButtIcon = document.createElement('i');
+    spCloseButtIcon.setAttribute("class", "fas fa-caret-left w3-xxlarge");
+    spCloseButton.appendChild(spCloseButtIcon);
+
 
     const topRestCol = document.createElement('div');
     topRestCol.setAttribute("class", "w3-rest w3-center w3-blue-grey");
@@ -65,40 +66,93 @@ export class VnApp {
     topGridRow.appendChild(topRestCol);
 
 
-    //sidepanelNode.appendChild(spCloseButton);
-    //appNode.appendChild(sidepanelNode);
 
-    // const spCloseButtonTooltip = document.createElement('span');
-    // spCloseButtonTooltip.setAttribute("class", "w3-text w3-tag");
-    // spCloseButtonTooltip.setAttribute("style", "position:absolute;font-size:12px;right:90px;top:10px;");
-    // spCloseButtonTooltip.innerHTML = "click to close side panel";
-    // spCloseButton.appendChild(spCloseButtonTooltip);
+    // Side-panel main content ------------------------------------
+    const mainGridRow = document.createElement('div');
+    mainGridRow.setAttribute("class", "w3-row");
+    mainGridRow.setAttribute("style", "height:100%;");
+    sidepanelNode.appendChild(mainGridRow);
+    const spTabCol = document.createElement('div');
+    spTabCol.setAttribute("class", "w3-col w3-border w3-light-gray");
+    spTabCol.setAttribute("style", "width:32px;height:100%;");
+    //spTabCol.innerHTML = "g";
+    mainGridRow.appendChild(spTabCol);
 
-    // const datatreeNode = document.createElement('div');
-    // let datatree_id = "vn-datatree-" + this.id_number.toString();
-    // datatreeNode.setAttribute("id", datatree_id);
-    // sidepanelNode.appendChild(datatreeNode);
+    const mainRestCol = document.createElement('div');
+    mainRestCol.setAttribute("class", "w3-rest");
+    //mainRestCol.setAttribute("style", "height:50px;");
+    mainGridRow.appendChild(mainRestCol);
 
-    let sp_title_node = document.getElementById(topRestColContent_id);
-    sp_title_node.innerHTML = "Select map layers";
 
+
+
+    // GIS map ------------------------------------
     appNode.setAttribute("style", "position:fixed; top:0; left:0; bottom:0; right:0;");
     const _map_id = "vn-map-" + id_number.toString();
     const _mapnode = document.createElement('div');
     _mapnode.setAttribute("style", "width: 100%; height: 100%; margin: 0 auto;");
     _mapnode.setAttribute("id", _map_id);
     appNode.appendChild(_mapnode);
-
     this.gis = new Vnleafmap({id_number:this.id_number, gisOptions:gisOptions});
-    //this.sidepanel_open();
 
 
+    // Data tree ------------------------------------
     const datatreeNode = document.createElement('div');
     let datatree_id = "vn-datatree-" + this.id_number.toString();
     datatreeNode.setAttribute("id", datatree_id);
-    sidepanelNode.appendChild(datatreeNode);
+    //sidepanelNode.appendChild(datatreeNode);
+    mainRestCol.appendChild(datatreeNode);
     attachDatatree(tree_vnleaf, this.id_number, this.gis);
 
+
+
+    // Map layers select ------------------------------------
+    const layersButton = document.createElement('button');
+    layersButton.setAttribute("class", "w3-button w3-dark-grey");
+    layersButton.setAttribute("style", "margin:1px;padding:4px 2px 2px 2px;height:32px;width:32px;");
+    layersButton.setAttribute("title", "select map layers");
+    layersButton.onclick = (evt) => {
+      console.log("layersButton clicked!!!");
+      let sp_title_node = document.getElementById(topRestColContent_id);
+      sp_title_node.innerHTML = "Select map layers";
+      datatreeNode.style.display = "block";
+    }
+    const layersButtIcon = document.createElement('i');
+    layersButtIcon.setAttribute("class", "fas fa-layer-group w3-xlarge");
+    layersButton.appendChild(layersButtIcon);
+    spTabCol.appendChild(layersButton);
+
+
+    
+    // Dummy button ------------------------------------
+    const secondButton = document.createElement('button');
+    secondButton.setAttribute("class", "w3-button w3-dark-grey");
+    secondButton.setAttribute("style", "margin:1px;padding:4px 2px 2px 2px;height:32px;width:32px;");
+    secondButton.setAttribute("title", "hide the tree");
+    secondButton.onclick = (evt) => {
+      let sp_title_node = document.getElementById(topRestColContent_id);
+      sp_title_node.innerHTML = "hide the tree";
+      datatreeNode.style.display = "none";
+    }
+    const secondButtIcon = document.createElement('i');
+    secondButtIcon.setAttribute("class", "fa fa-globe w3-xlarge");
+    secondButton.appendChild(secondButtIcon);
+    spTabCol.appendChild(secondButton);
+
+    // const datatreeNode = document.createElement('div');
+    // let datatree_id = "vn-datatree-" + this.id_number.toString();
+    // datatreeNode.setAttribute("id", datatree_id);
+    // //sidepanelNode.appendChild(datatreeNode);
+    // mainRestCol.appendChild(datatreeNode);
+
+
+    // appNode.setAttribute("style", "position:fixed; top:0; left:0; bottom:0; right:0;");
+    // const _map_id = "vn-map-" + id_number.toString();
+    // const _mapnode = document.createElement('div');
+    // _mapnode.setAttribute("style", "width: 100%; height: 100%; margin: 0 auto;");
+    // _mapnode.setAttribute("id", _map_id);
+    // appNode.appendChild(_mapnode);
+    // this.gis = new Vnleafmap({id_number:this.id_number, gisOptions:gisOptions});
 
 
   }
