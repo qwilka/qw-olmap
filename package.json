@@ -23,6 +23,8 @@
   },
   "homepage": "https://github.com/qwilka/vnleaf#readme",
   "dependencies": {
+    "@turf/helpers": "^6.1.4",
+    "@turf/nearest-point-on-line": "^6.0.2",
     "geodesy": "^2.2.0",
     "jquery": "^3.4.1",
     "jquery-contextmenu": "^2.9.0",

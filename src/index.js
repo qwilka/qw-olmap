@@ -61,6 +61,7 @@ const defaultConf = {
       "zoomControl": true
     },
     "locationPopup": true,
+    "scaleControl": true,
     "sidePanel": true
   },
   "tree_vnleaf": [

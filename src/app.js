@@ -34,29 +34,53 @@ export class VnApp {
     sidepanelNode.setAttribute("id", this.sidepanel_id);
     sidepanelNode.setAttribute("class", "w3-sidebar w3-bar-block w3-border-right");
     sidepanelNode.setAttribute("style", "display:none;z-index:2000;width:300px;");
-
-    const spClose = document.createElement('button');
-    spClose.setAttribute("class", "w3-bar-item w3-large w3-tooltip");
-    spClose.setAttribute("style", "text-align:right;");
-    spClose.setAttribute("id_number", this.id_number.toString());
-    spClose.onclick = (evt) => {
-      this.sidepanel_close();
-    }
-    spClose.innerHTML = "close &times;";
-    sidepanelNode.appendChild(spClose);
     appNode.appendChild(sidepanelNode);
 
-    const spCloseTooltip = document.createElement('span');
-    spCloseTooltip.setAttribute("class", "w3-text w3-tag");
-    spCloseTooltip.setAttribute("style", "position:absolute;font-size:12px;right:90px;top:10px;");
-    spCloseTooltip.innerHTML = "click to close side panel";
-    spClose.appendChild(spCloseTooltip);
+    const topGridRow = document.createElement('div');
+    topGridRow.setAttribute("class", "w3-row");
+    sidepanelNode.appendChild(topGridRow);
+    const spCloseButtCol = document.createElement('div');
+    spCloseButtCol.setAttribute("class", "w3-col w3-right w3-blue-grey");
+    spCloseButtCol.setAttribute("style", "width:90px;height:50px;");
+    topGridRow.appendChild(spCloseButtCol);
 
-    const datatreeNode = document.createElement('div');
-    let datatree_id = "vn-datatree-" + this.id_number.toString();
-    datatreeNode.setAttribute("id", datatree_id);
-    sidepanelNode.appendChild(datatreeNode);
-    //attachDatatree(datatree_id, treeData);
+    const spCloseButton = document.createElement('button');
+    spCloseButton.setAttribute("class", "w3-bar-item w3-button w3-dark-grey");
+    //spCloseButton.setAttribute("style", "text-align:right;");
+    //spCloseButton.setAttribute("id_number", this.id_number.toString());
+    spCloseButton.onclick = (evt) => {
+      this.sidepanel_close();
+    }
+    spCloseButton.innerHTML = "close &times;";
+    spCloseButtCol.appendChild(spCloseButton);
+
+    const topRestCol = document.createElement('div');
+    topRestCol.setAttribute("class", "w3-rest w3-center w3-blue-grey");
+    topRestCol.setAttribute("style", "height:50px;");
+    const topRestColContent = document.createElement('p');
+    let topRestColContent_id = "vn-sidepanel-title-" + this.id_number.toString();
+    topRestColContent.setAttribute("id", topRestColContent_id);
+    topRestColContent.innerHTML = "Visinum GIS";
+    topRestCol.appendChild(topRestColContent);
+    topGridRow.appendChild(topRestCol);
+
+
+    //sidepanelNode.appendChild(spCloseButton);
+    //appNode.appendChild(sidepanelNode);
+
+    // const spCloseButtonTooltip = document.createElement('span');
+    // spCloseButtonTooltip.setAttribute("class", "w3-text w3-tag");
+    // spCloseButtonTooltip.setAttribute("style", "position:absolute;font-size:12px;right:90px;top:10px;");
+    // spCloseButtonTooltip.innerHTML = "click to close side panel";
+    // spCloseButton.appendChild(spCloseButtonTooltip);
+
+    // const datatreeNode = document.createElement('div');
+    // let datatree_id = "vn-datatree-" + this.id_number.toString();
+    // datatreeNode.setAttribute("id", datatree_id);
+    // sidepanelNode.appendChild(datatreeNode);
+
+    let sp_title_node = document.getElementById(topRestColContent_id);
+    sp_title_node.innerHTML = "Select map layers";
 
     appNode.setAttribute("style", "position:fixed; top:0; left:0; bottom:0; right:0;");
     const _map_id = "vn-map-" + id_number.toString();
@@ -67,6 +91,12 @@ export class VnApp {
 
     this.gis = new Vnleafmap({id_number:this.id_number, gisOptions:gisOptions});
     //this.sidepanel_open();
+
+
+    const datatreeNode = document.createElement('div');
+    let datatree_id = "vn-datatree-" + this.id_number.toString();
+    datatreeNode.setAttribute("id", datatree_id);
+    sidepanelNode.appendChild(datatreeNode);
     attachDatatree(tree_vnleaf, this.id_number, this.gis);
 
 

@@ -3,6 +3,7 @@
 //import * as L from 'leaflet';
 import L from 'leaflet';
 import 'leaflet-easybutton';
+import './libs/leaflet.ajax.min';
 
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-easybutton/src/easy-button.css';
@@ -11,14 +12,11 @@ import '@fortawesome/fontawesome-free/css/all.css';
 //import LatLon from 'geodesy/latlon-ellipsoidal-datum.js';
 import {Utm, LatLon} from 'geodesy/utm';
 
-// const utm = Utm.parse('48 N 377298.745 1483034.794');
-// const latlon = utm.toLatLon();
-// let uu = latlon.toUtm();
-// console.log("latlon.toUtm uu=", uu);
-// console.assert(latlon.toString('dms', 2) == '13° 24′ 45.00″ N, 103° 52′ 00.00″ E');
-// console.assert(uu.toString() == '48 N 377298.745 1483034.794');
 
 import $ from 'jquery'; 
+//import * as turf from '@turf/turf';
+import {lineString, point} from '@turf/helpers';
+import {nearestPointOnLine} from '@turf/nearest-point-on-line';
 
 
 export class Vnleafmap {
@@ -29,47 +27,11 @@ export class Vnleafmap {
     // console.log(`Vnleafmap map_id=${this.map_id}`);
     // console.log("Vnleafmap gisOptions", gisOptions);
     
-    //this.map = L.map(mapId).setView([51.505, -0.09], 13);
-    // let mapOpts = Object.assign({
-    //   zoomControl: true,
-    //   attributionControl: false,
-    //   zoom: 5,
-    //   center: [53.99, -7.36],
-    //   maxBounds: [[-90,-180], [90,180]]
-    // }, {})
-    // if (!mapOptions) mapOptions = {
-    //   zoomControl: true,
-    //   attributionControl: false,
-    //   zoom: 5,
-    //   center: [53.99, -7.36],
-    //   maxBounds: [[-90,-180], [90,180]]       
-    // }
     this.map = L.map(this.map_id, gisOptions.leafletMapOptions); 
     if (this.map.zoomControl) {
       this.map.zoomControl.setPosition('topright');
     }
     
-    // let layer = L.tileLayer.wms(OSM.url, OSM.options);
-    // this.map.addLayer(layer);
-
-    // let ebutton_id = "vn-map-ebutton-" + this.id_number.toString();
-    // // character "&#9776;" ("fas fa-bars" alternative)
-    // let ebutton = L.easyButton("fas fa-bars", (btn, map) => {
-    //   let sidepanel_id = "vn-sidepanel-" + this.id_number.toString();
-    //   // console.log("fire button", btn);
-    //   // console.log("this.id_number", this.id_number);
-    //   // console.log("sidepanel_close sidepanel_id", sidepanel_id);
-    //   let sb = document.getElementById(sidepanel_id);
-    //   sb.style.display = "block";
-    // }, 'open side-panel controls', ebutton_id);
-    // // let ebutton = L.easyButton({
-    // //   stateName: 'open-sidepanel',
-    // //   icon: "&#9776;",
-    // //   title: 'open side panel',
-    // //   onClick: function(control){
-    // //     console.log("L.easyButton control", control);
-    // //   }
-    // // });
 
     if (gisOptions.sidePanel) {
       let ebutton_id = "vn-map-ebutton-" + this.id_number.toString();
@@ -84,6 +46,11 @@ export class Vnleafmap {
     if (gisOptions.locationPopup) {
       this.popup = L.popup();
       this.map.on('contextmenu', (evt) => {this.locationPopup(evt);});
+    }
+
+    if (gisOptions.scaleControl) {
+      let scale = L.control.scale({position:'bottomright', metric:true, imperial:false});
+      scale.addTo(this.map);
     }
 
   }
@@ -208,6 +175,96 @@ export class Vnleafmap {
       .setContent(pustr)
       .openOn(this.map)
   }
+
+  loadGeojson(url) {
+    let map = this.map;
+    let popup = L.popup();
+    let layer  = new L.GeoJSON.AJAX(url ,{
+      dataType: 'json',
+      local: true,
+      style: function(feature) {
+              let linestyle;
+              if (feature.properties.hasOwnProperty('style')) {
+                linestyle = feature.properties.style;
+              } else if (feature.properties.hasOwnProperty('content_name')) {
+                // Denmark pipelines geojson
+                switch (feature.properties.content_name.toLowerCase()) {
+                  case 'gas': return {color: "#008b00"};
+                  case 'oil':  return {color: "#8b0000"};
+                  case 'multi-phase':  return {color: "#cdcd00"};
+                  default:  return {color: "#36648b", "weight": 1, "opacity": 1.0}; 
+                }   
+              } else {
+                linestyle = {color: "#ff0000", weight: 2, opacity: 1.0};
+              }
+              return linestyle;      
+      },
+      onEachFeature: function (feature, layer) {
+          layer.on({
+              contextmenu: function onGeojsonLayerClick(evt) {
+                  L.DomEvent.stopPropagation(evt);
+                  let lat = evt.latlng.lat;
+                  let long = evt.latlng.lng;
+                  let contstr = '<b>'+feature.properties.name+'</b>';
+                  if (feature.properties.hasOwnProperty('description')) {
+                    contstr += '<br>' + feature.properties.description;
+                  }
+                  if (feature.properties.hasOwnProperty('vn_uri')) {
+                    contstr += '<br>' + feature.properties.vn_uri;
+                  }
+                  if (feature.properties.hasOwnProperty('KP')) {
+                    let KP = feature.properties.KP;
+                    //let pldist = feature.properties.distance;
+                    //console.log(feature.coordinates);
+                    let pl = lineString(feature.geometry.coordinates);
+                    let pt = point([long, lat]);
+                    let near = nearestPointOnLine(pl, pt);
+                    console.log(near.geometry.coordinates, near.properties.index, near.properties.dist, near.properties.location);
+                    console.log("index, dist, location", near.properties.index, near.properties.dist, near.properties.location);
+                    let pt_loc = near.properties.location;
+                    console.log("pt_loc", pt_loc);
+                    let idx = near.properties.index;
+                    // var KP1 = KP[idx];
+                    // var KP2 = KP[idx+1];
+                    let pt1 = point(feature.geometry.coordinates[idx]);
+                    let pt1_near = nearestPointOnLine(pl, pt1);
+                    let pt1_loc = pt1_near.properties.location;
+                    console.log("pt1_loc", pt1_loc);
+                    let pt2 = point(feature.geometry.coordinates[idx+1]);
+                    let pt2_near = nearestPointOnLine(pl, pt2);
+                    let pt2_loc = pt2_near.properties.location;
+                    console.log("pt2_loc", pt2_loc);
+                    //let contstr = "'CLR22 Processed ROV Position'";
+                    let eta = (pt_loc - pt1_loc)/(pt2_loc - pt1_loc);
+                    let KP_near = KP[idx]*(1 - eta) + KP[idx+1]*eta; 
+                    console.log("eta, KP_near, distance", eta, KP_near, near.properties.location)
+                    contstr += '<br> KP: '+parseFloat(KP_near).toFixed(3);
+                    //contstr += '<br> distance: '+parseFloat(near.properties.location).toFixed(3);
+                  }
+                  popup
+                      .setLatLng(evt.latlng)
+                      .setContent(contstr)
+                      .openOn(map)
+              },
+              click: function onGeojsonLayerClick(evt) {
+                if (feature.properties.hasOwnProperty('content_name')) {
+                  // Denmark pipelines geojson
+                  let contstr = "Denmark pipeline";
+                  contstr += '<br>name: <b>'+feature.properties.name+'</b>';
+                  contstr += '<br>service: '+feature.properties.content_name.toLowerCase();
+                  popup
+                      .setLatLng(evt.latlng)
+                      .setContent(contstr)
+                      .openOn(map)
+                }
+              }
+            });
+      },
+    }  );
+    //console.log("geojson layer", layer)
+    return layer;
+  }
+
 
 }
 
