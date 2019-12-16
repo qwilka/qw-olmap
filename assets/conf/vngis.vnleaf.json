@@ -4,7 +4,7 @@
     "appType": "vnleaf",
     "gisOptions": {
         "leafletMapOptions": {
-            "attributionControl": true,
+            "attributionControl": false,
             "center": [
                 53.98,
                 -7.3

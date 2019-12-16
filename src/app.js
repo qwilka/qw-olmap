@@ -116,6 +116,7 @@ export class VnApp {
       let sp_title_node = document.getElementById(topRestColContent_id);
       sp_title_node.innerHTML = "Select map layers";
       datatreeNode.style.display = "block";
+      spAttribNode.style.display = "none";
     }
     const layersButtIcon = document.createElement('i');
     layersButtIcon.setAttribute("class", "fas fa-layer-group w3-xlarge");
@@ -125,25 +126,36 @@ export class VnApp {
 
     
     // Dummy button ------------------------------------
-    const secondButton = document.createElement('button');
-    secondButton.setAttribute("class", "w3-button w3-dark-grey");
-    secondButton.setAttribute("style", "margin:1px;padding:4px 2px 2px 2px;height:32px;width:32px;");
-    secondButton.setAttribute("title", "hide the tree");
-    secondButton.onclick = (evt) => {
+    const attriButton = document.createElement('button');
+    attriButton.setAttribute("class", "w3-button w3-dark-grey");
+    attriButton.setAttribute("style", "margin:1px;padding:4px 2px 2px 2px;height:32px;width:32px;");
+    attriButton.setAttribute("title", "show map attributions");
+    attriButton.onclick = (evt) => {
       let sp_title_node = document.getElementById(topRestColContent_id);
-      sp_title_node.innerHTML = "hide the tree";
+      sp_title_node.innerHTML = "Map attributions";
       datatreeNode.style.display = "none";
-    }
-    const secondButtIcon = document.createElement('i');
-    secondButtIcon.setAttribute("class", "fa fa-globe w3-xlarge");
-    secondButton.appendChild(secondButtIcon);
-    spTabCol.appendChild(secondButton);
+      spAttribNode.style.display = "block";
 
-    // const datatreeNode = document.createElement('div');
-    // let datatree_id = "vn-datatree-" + this.id_number.toString();
-    // datatreeNode.setAttribute("id", datatree_id);
-    // //sidepanelNode.appendChild(datatreeNode);
-    // mainRestCol.appendChild(datatreeNode);
+      let _atts = this.gis.getAllAttributions();
+      let _html = "<ul class='w3-ul'>";
+      for (let ii=0; ii<_atts.length; ii++) {
+        _html += "<li>" + _atts[ii] + "</li>";
+      }
+      _html += "</ul>";
+      spAttribNode.innerHTML = _html;
+    }
+    const attriButtIcon = document.createElement('i');
+    attriButtIcon.setAttribute("class", "far fa-copyright w3-xlarge");
+    attriButton.appendChild(attriButtIcon);
+    spTabCol.appendChild(attriButton);
+
+    const spAttribNode = document.createElement('div');
+    let spAttribNode_id = "vn-sp-attr-" + this.id_number.toString();
+    spAttribNode.setAttribute("id", spAttribNode_id);
+    spAttribNode.setAttribute("style", "padding:2px;display:none;");
+    //spAttribNode.innerHTML ="<h3>this is the first line </h3> <p>this is a test with a very long string that should wrap around. this is the second testing sentence.</p>";
+    //sidepanelNode.appendChild(datatreeNode);
+    mainRestCol.appendChild(spAttribNode);
 
 
     // appNode.setAttribute("style", "position:fixed; top:0; left:0; bottom:0; right:0;");

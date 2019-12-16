@@ -99,6 +99,17 @@ export class Vnleafmap {
   }
 
 
+  getAllAttributions() {
+    let _layers = [];
+    this.map.eachLayer((layer) => {_layers.push(layer)})
+    let _attributions = [];
+    //console.log("getLayerByStamp _layers", _layers);
+    for (let ii=0; ii<_layers.length; ii++) {
+      _attributions.push( _layers[ii].getAttribution() );
+    }
+    return _attributions;
+  }
+
   locationPopup(evt) {
     //let map = this.map;
     let popup = this.popup;  // required for callback below
