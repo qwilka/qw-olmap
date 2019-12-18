@@ -8,7 +8,8 @@
             "layerType": "WMS",
             "url": "http://atlas.marine.ie/arcgis/services/EnergyResourcesInfrastructure/MapServer/WMSServer",
             "refs": [
-                "https://data.gov.ie/dataset"
+                "https://data.gov.ie/dataset",
+                "https://data.gov.ie/dataset/offshore-commercial-field"
             ],
             "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
             "layerOpts": {
@@ -18,8 +19,54 @@
                 "transparent": true,
                 "noWrap": true,
                 "opacity": 0.9,
-                "attribution": "<a target='_blank' href='https://data.gov.ie/dataset/offshore-gas-pipeline'>IE-GovData</a> <a href='https://creativecommons.org/licenses/by/4.0/'>(CC BY 4.0)</a>"       
+                "attribution": "IRL Offshore fields, facilities <a target='_blank' href='https://data.gov.ie/dataset/offshore-commercial-field'>data.gov.ie</a> <a href='https://creativecommons.org/licenses/by/4.0/'>(CC BY 4.0)</a>"       
             }     
         }
-    }
+    },
+    {
+        "title": "Offshore Gas Pipelines",
+        "type": "gis-layer",
+        "checkbox": true,
+        "selected": false,
+        "data": {
+            "layerType": "WMS",
+            "url": "http://atlas.marine.ie/arcgis/services/10_Energy_Energy_Petroleum/MapServer/WmsServer",
+            "refs": [
+                "http://data.marine.ie/geonetwork/srv/eng/catalog.search#/metadata/ie.marine.data:dataset.2177"
+            ],
+            "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+            "layerOpts": {
+                "layers": "1",
+                "CRS": "EPSG:4326",
+                "format": "image/png",
+                "transparent": true,
+                "noWrap": true,
+                "opacity": 0.9,
+                "attribution": "IRL Marine Institute <a target='_blank' href='http://data.marine.ie/geonetwork/srv/eng/catalog.search#/metadata/ie.marine.data:dataset.2177'>Offshore Gas Pipeline</a>, <a href='https://creativecommons.org/licenses/by/4.0/'>(CC BY 4.0)</a>"       
+            }     
+        }
+    },
+    {
+        "title": "Exploration Wells",
+        "type": "gis-layer",
+        "checkbox": true,
+        "selected": false,
+        "data": {
+            "layerType": "WMS",
+            "url": "http://atlas.marine.ie/arcgis/services/10_Energy_Energy_Petroleum/MapServer/WmsServer",
+            "refs": [
+                "http://data.marine.ie/geonetwork/srv/eng/catalog.search#/metadata/ie.marine.data:dataset.2177"
+            ],
+            "bbox": [-12.3046875, 55.52863, 36.5625, 74.70644988],
+            "layerOpts": {
+                "layers": "2",
+                "CRS": "EPSG:4326",
+                "format": "image/png",
+                "transparent": true,
+                "noWrap": true,
+                "opacity": 0.9,
+                "attribution": "IRL Marine Institute <a target='_blank' href='http://data.marine.ie/geonetwork/srv/eng/catalog.search#/metadata/ie.marine.data:dataset.2171'>Exploration Wells</a>, <a href='https://creativecommons.org/licenses/by/4.0/'>(CC BY 4.0)</a>"       
+            }     
+        }
+    }    
 ]

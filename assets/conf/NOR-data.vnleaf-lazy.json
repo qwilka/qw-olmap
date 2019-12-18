@@ -20,7 +20,7 @@
                 "transparent": true,
                 "noWrap": true,
                 "opacity": 1.0,
-                "attribution": "<a target='_blank' href='http://www.npd.no/en/Maps/Fact-maps/'>NPD</a> <a target='_blank' href='https://data.norge.no/nlod/no'>(NLOD)</a>"        
+                "attribution": "Norwegian Petroleum Directorate <a target='_blank' href='https://factpages.npd.no/'>FactMaps</a>, <a target='_blank' href='https://data.norge.no/nlod/en'>Norwegian Licence for Open Government Data</a>"        
             }     
         }
     },

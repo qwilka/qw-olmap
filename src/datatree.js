@@ -55,7 +55,7 @@ export const attachDatatree = (treeData=null, id_number=0, targetWidget=null) =>
     },
     imagePath: "",
     types: {
-      "folder-gis-basemaps": {icon: "fa fa-globe", iconTooltip: "open this folder to select the base map"},
+      "folder-gis-basemaps": {iconTooltip: "select the base map"},
       "gis-layer-basemap": {icon: false},
       "gis-layer": {icon: false},
       "folder-flag-au": {icon:  flagAu},

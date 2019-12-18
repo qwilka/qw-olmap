@@ -55,7 +55,7 @@
                             "transparent": false,
                             "noWrap": true,
                             "opacity": 1,
-                            "attribution": "&copy; <a target='_blank' href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a>"
+                            "attribution": "&copy; <a target='_blank' href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
                         }
                     }
                 },
@@ -78,7 +78,7 @@
                             "transparent": false,
                             "noWrap": true,
                             "opacity": 1,
-                            "attribution": "<a target='_blank' href='https://www.gebco.net/'>GEBCO</a>"
+                            "attribution": "Imagery reproduced from the GEBCO_2014 Grid, version 20150318, <a target='_blank' href='https://www.gebco.net/'>www.gebco.net</a>"
                         }
                     }
                 },
@@ -270,7 +270,7 @@
                     "data": {
                         "layerType": "WMS",
                         "url": "http://geo.vliz.be:80/geoserver/MarineRegions/wms",
-                        "refs": [],
+                        "refs": ["http://www.marineregions.org/webservices.php"],
                         "layerOpts": {
                             "layers": "MarineRegions:eez_boundaries",
                             "version": "1.1.1",
@@ -278,7 +278,7 @@
                             "transparent": true,
                             "noWrap": true,
                             "opacity": 0.8,
-                            "attribution": "<a target='_blank' href='http://www.marineregions.org'>FlandersMarineInst (CC-BY-NC-SA)</a>"     
+                            "attribution": "EEZ boundaries: <a target='_blank' href='http://www.marineregions.org'>Flanders Marine Institute</a>, <a target='_blank' href='https://creativecommons.org/licenses/by/4.0/'>(CC BY 4.0)</a>"     
                         }     
                     }
                 },

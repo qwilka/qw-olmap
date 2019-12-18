@@ -29,3 +29,10 @@ https://github.com/chrisveness/geodesy/issues/63
  https://stackoverflow.com/questions/2238239/tooltips-for-button
  https://stackoverflow.com/questions/5683364/how-to-make-pure-css-floating-tooltips-absolutely-positioned-span-dynamically
  https://stackoverflow.com/a/15252175
+
+
+Javascript
+=============
+https://stackoverflow.com/questions/2490825/how-to-trigger-event-in-javascript/20548330#20548330
+
+
