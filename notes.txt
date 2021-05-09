@@ -17,7 +17,7 @@ icons
 https://github.com/parcel-bundler/parcel/issues/626  Cannot resolve dependency '@fortawesome/fontawesome-free-webfonts/fontawesome.css'
 https://github.com/FortAwesome/Font-Awesome
 https://fontawesome.com/how-to-use/on-the-web/setup/using-package-managers
-http://flag-icon-css.lip.is/
+https://github.com/lipis/flag-icon-css
 
 geodesy
 =======
@@ -35,4 +35,24 @@ Javascript
 =============
 https://stackoverflow.com/questions/2490825/how-to-trigger-event-in-javascript/20548330#20548330
 
+local storage
+=============
+https://en.wikipedia.org/wiki/Web_storage
+https://qawithexperts.com/article/javascript/local-storage-in-html5-using-javascript-storing-fetching-obj/66
+https://javascript.info/data-storage
+https://en.wikipedia.org/wiki/Indexed_Database_API
+https://developers.google.com/web/fundamentals/instant-and-offline/web-storage/indexeddb-best-practices
 
+
+leaflet
+==========
+https://blog.mastermaps.com/2013/06/creating-synchronized-view-of-two-maps.html
+https://github.com/SINTEF-9012/Leaflet.MapPaint
+
+
+npm
+====
+https://www.fiznool.com/blog/2015/05/20/an-alternative-to-npm-private-modules/
+https://stackoverflow.com/questions/10869796/npm-private-git-module-on-heroku/22826291#22826291
+
+https://github.com/ORESoftware/npm-link-up

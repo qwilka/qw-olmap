@@ -173,3 +173,12 @@ const build_contextMenu = ($trigger, evt) => {
       }
     }
 }
+
+
+export const getDatatree = (id_number=0) => {
+  const datatree_id = "vn-datatree-" + id_number.toString();
+  let tree = $.ui.fancytree.getTree("#"+datatree_id);
+  let dd = tree.toDict(true);
+  return dd;
+
+}

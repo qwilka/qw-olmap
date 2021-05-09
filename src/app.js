@@ -179,6 +179,13 @@ export class VnApp {
     //   spWidgetNode.innerHTML = _html;
     // }
     this.createSpWidget("attributions", "Map attributions", "far fa-copyright");
+    let testWid = this.createSpWidget("testing...", "This is a test", "fas fa-cog");
+    testWid.innerHTML = `<div class="w3-container w3-border"> 
+    <h2>London</h2>
+    <p>London is the most populous city in the United Kingdom,
+    with a metropolitan area of over 9 million inhabitants.</p>
+    <hr>
+  </div>`
 
     this.showSidepanelWidget("layers");
 
