@@ -1,0 +1,38 @@
+{
+  "name": "vn-ol",
+  "version": "0.0.1",
+  "description": "Visinum openlayers app.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "no tests....",
+    "build": "webpack --mode development",
+    "prod": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qwilka/vn-ol.git"
+  },
+  "keywords": [
+    "Openlayers",
+    "GIS",
+    "Visinum"
+  ],
+  "author": "Stephen McEntee",
+  "license": "See licence in «LICENCE»",
+  "bugs": {
+    "url": "https://github.com/qwilka/vn-ol/issues"
+  },
+  "homepage": "https://github.com/qwilka/vn-ol#readme",
+  "devDependencies": {
+    "@babel/core": "^7.14.0",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/preset-env": "^7.14.1",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "*",
+    "css-loader": "^5.2.4",
+    "html-webpack-plugin": "^5.3.1",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.36.2",
+    "webpack-cli": "^4.7.0"
+  }
+}

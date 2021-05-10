@@ -1,3 +1,30 @@
 archived:
 /home/develop/Projects/store/src/archived/vnleaf_2019-12
 
+python3 -m http.server 8002
+http://localhost:8002/dist/
+
+
+webpack
+=========
+https://tania.dev/how-to-use-webpack/   webpack 5 From Scratch
+https://softwareengineering.stackexchange.com/questions/68134/best-existing-license-for-closed-source-code
+https://github.com/webpack/webpack-pwa
+https://webpack.js.org/guides/progressive-web-application/
+
+
+pwa
+====
+https://github.com/GoogleChrome/workbox
+https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker
+https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
+https://gist.github.com/Rich-Harris/fd6c3c73e6e707e312d7c5d7d0f3b2f9  about service workers
+https://air.ghost.io/using-workbox-webpack-to-precache-with-service-worker/
+https://www.ginkonote.com/users/flo/articles/transform-your-website-into-a-pwa@javascript
+
+
+git
+===
+git remote -v
+git remote set-url origin git@github.com:qwilka/vn-ol
+more .git/config

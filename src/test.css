@@ -1,0 +1,23 @@
+.ol-zoom {
+  left: unset;
+  right: 8px;
+}
+
+.ol-scale-line {
+  background: rgba(0,60,136,0.3);
+  border-radius: 4px;
+  bottom: 8px;
+  left: unset;
+  right: 8px;
+  padding: 2px;
+  position: absolute;
+}
+
+
+.ybg {
+  background-color: yellow;
+}
+
+#plimg {
+  width: 250px;
+}
