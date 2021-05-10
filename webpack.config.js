@@ -1,6 +1,7 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const {InjectManifest} = require('workbox-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -17,6 +18,22 @@ module.exports = {
       filename: 'index.html', // output file
     }),
     new CleanWebpackPlugin(),
+    new InjectManifest({
+      swSrc: './src/sw.js',
+      swDest: 'sw.js',
+      include: [
+        /\.html$/,
+        /\.js$/,
+        /\.css$/,
+        /\.woff2$/,
+        /\.jpg$/,
+        /\.png$/
+      ],
+      additionalManifestEntries: [
+        {url:'/assets/vn-icon-152.png', revision:null},
+        {url:'/assets/favicon.ico', revision:null}                
+      ]
+    })
   ],
   module: {
     rules: [
@@ -37,3 +54,6 @@ module.exports = {
     ],
   },
 }
+
+
+// https://developers.google.com/web/tools/workbox/modules/workbox-precaching#explanation_of_the_precache_list

@@ -1,5 +1,6 @@
 dist/
 vnol/
+assets/example.png
 .cache/
 .vscode/
 

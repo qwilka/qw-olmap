@@ -10,7 +10,7 @@ import './test.css';
 
 
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
+    navigator.serviceWorker.register('/vnol/sw.js')
       .then(reg => {
         console.log("Registered sw.js successfully.", reg);
       }).catch(err => {

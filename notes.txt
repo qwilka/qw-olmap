@@ -21,6 +21,32 @@ https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
 https://gist.github.com/Rich-Harris/fd6c3c73e6e707e312d7c5d7d0f3b2f9  about service workers
 https://air.ghost.io/using-workbox-webpack-to-precache-with-service-worker/
 https://www.ginkonote.com/users/flo/articles/transform-your-website-into-a-pwa@javascript
+https://vaadin.com/learn/tutorials/learn-pwa
+https://www.youtube.com/playlist?list=PLIiQ4B5FSuphk6P-zg_E3W9zL3J22U4dT  PWA series
+https://www.youtube.com/watch?v=1gNszTZHQYA  PWA series #6: Webpack workbox
+
+
+workbox
+=======
+https://developers.google.com/web/tools/workbox/guides/get-started
+https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
+https://github.com/yong-asial/my-first-pwa
+https://dev.to/chicio/create-a-service-worker-with-workbox-webpack-and-typescript-19k3
+https://webpack.js.org/guides/progressive-web-application/
+
+
+    new InjectManifest({
+      swSrc: './src/sw.js',
+      swDest: 'sw.js',
+      include: [
+        /\.html$/,
+        /\.js$/,
+        /\.css$/,
+        /\.woff2$/,
+        /\.jpg$/,
+        /\.png$/
+      ],
+    })
 
 
 git
@@ -28,3 +54,8 @@ git
 git remote -v
 git remote set-url origin git@github.com:qwilka/vn-ol
 more .git/config
+
+
+Openlayers
+==========
+https://www.youtube.com/playlist?list=PLSWT7gmk_6LrvfkAFzfBpNckEsaF7S2GB  
