@@ -30,7 +30,7 @@ module.exports = {
         /\.png$/
       ],
       additionalManifestEntries: [
-        {url:'/assets/vn-icon-152.png', revision:null},
+//        {url:'/assets/vn-icon-152.png', revision:null},
         {url:'/assets/favicon.ico', revision:null}                
       ]
     })

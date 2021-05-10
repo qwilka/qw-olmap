@@ -8,7 +8,7 @@ const resourcesToCache = [
 //  '/vnol/build.js',
 //  '/assets/example.png',
   '/assets/vn-icon-152.png',
-  '/assets/favicon.ico'
+//  '/assets/favicon.ico'
 ];
 
 precacheAndRoute(self.__WB_MANIFEST);
@@ -35,6 +35,17 @@ precacheAndRoute(self.__WB_MANIFEST);
 //       })
 //   );
 // });
+
+self.addEventListener('install', evt => {
+  console.log("sw.js «install» event.");
+  evt.waitUntil(
+    caches.open(cacheName)
+      .then(cache => {
+        cache.addAll(resourcesToCache);
+        //return cache.addAll(resourcesToCache);
+      })
+  );
+});
 
 
 // self.addEventListener('activate', evt => {
@@ -75,3 +86,15 @@ precacheAndRoute(self.__WB_MANIFEST);
 //     })
 //   );
 // });
+
+self.addEventListener('fetch', evt => {
+  console.log("sw.js «fetch» event:", evt);
+  evt.respondWith(
+    caches.match(evt.request).then(cacheRes => {
+      //return cacheRes || fetch(evt.request)
+      return cacheRes;
+    }).catch((err) => {
+      console.log("'fetch': ERROR ", err);
+    })
+  );
+});

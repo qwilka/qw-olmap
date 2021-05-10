@@ -30,6 +30,7 @@ workbox
 =======
 https://developers.google.com/web/tools/workbox/guides/get-started
 https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
+https://developers.google.com/web/tools/workbox/modules/workbox-precaching#explanation_of_the_precache_list
 https://github.com/yong-asial/my-first-pwa
 https://dev.to/chicio/create-a-service-worker-with-workbox-webpack-and-typescript-19k3
 https://webpack.js.org/guides/progressive-web-application/
