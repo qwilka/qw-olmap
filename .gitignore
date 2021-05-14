@@ -1,6 +1,7 @@
 dist/
 vnol/
 assets/example.png
+assets/maptiler
 .cache/
 .vscode/
 

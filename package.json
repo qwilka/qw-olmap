@@ -4,7 +4,7 @@
   "description": "Visinum openlayers app.",
   "main": "src/index.js",
   "scripts": {
-    "test": "no tests....",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode development",
     "prod": "webpack --mode production"
   },

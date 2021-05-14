@@ -9,6 +9,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, './vnol'),
+    publicPath: '/vnol/',
     filename: 'build.js',
   },
   plugins: [

@@ -2,7 +2,7 @@ archived:
 /home/develop/Projects/store/src/archived/vnleaf_2019-12
 
 python3 -m http.server 8002
-http://localhost:8002/dist/
+http://localhost:8002/vnol/
 
 
 webpack
@@ -28,12 +28,18 @@ https://www.youtube.com/watch?v=1gNszTZHQYA  PWA series #6: Webpack workbox
 
 workbox
 =======
+https://github.com/GoogleChrome/workbox
+https://developers.google.com/web/tools/workbox/
 https://developers.google.com/web/tools/workbox/guides/get-started
 https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
 https://developers.google.com/web/tools/workbox/modules/workbox-precaching#explanation_of_the_precache_list
 https://github.com/yong-asial/my-first-pwa
 https://dev.to/chicio/create-a-service-worker-with-workbox-webpack-and-typescript-19k3
 https://webpack.js.org/guides/progressive-web-application/
+
+https://medium.com/the-web-tub/build-a-pwa-using-workbox-2eda1ef51d88
+https://sevic.dev/caching-service-worker-workbox/
+https://github.com/GoogleChrome/workbox/issues/2632
 
 
     new InjectManifest({
