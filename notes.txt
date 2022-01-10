@@ -1,68 +1,73 @@
 archived:
 /home/develop/Projects/store/src/archived/vnleaf_2019-12
 
-python3 -m http.server 8002
-http://localhost:8002/vnol/
+python3 -m http.server 8000
+http://localhost:8000/qwol/
 
 
-webpack
-=========
-https://tania.dev/how-to-use-webpack/   webpack 5 From Scratch
-https://softwareengineering.stackexchange.com/questions/68134/best-existing-license-for-closed-source-code
-https://github.com/webpack/webpack-pwa
-https://webpack.js.org/guides/progressive-web-application/
 
-
-pwa
-====
-https://github.com/GoogleChrome/workbox
-https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker
-https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
-https://gist.github.com/Rich-Harris/fd6c3c73e6e707e312d7c5d7d0f3b2f9  about service workers
-https://air.ghost.io/using-workbox-webpack-to-precache-with-service-worker/
-https://www.ginkonote.com/users/flo/articles/transform-your-website-into-a-pwa@javascript
-https://vaadin.com/learn/tutorials/learn-pwa
-https://www.youtube.com/playlist?list=PLIiQ4B5FSuphk6P-zg_E3W9zL3J22U4dT  PWA series
-https://www.youtube.com/watch?v=1gNszTZHQYA  PWA series #6: Webpack workbox
-
-
-workbox
-=======
-https://github.com/GoogleChrome/workbox
-https://developers.google.com/web/tools/workbox/
-https://developers.google.com/web/tools/workbox/guides/get-started
-https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
-https://developers.google.com/web/tools/workbox/modules/workbox-precaching#explanation_of_the_precache_list
-https://github.com/yong-asial/my-first-pwa
-https://dev.to/chicio/create-a-service-worker-with-workbox-webpack-and-typescript-19k3
-https://webpack.js.org/guides/progressive-web-application/
-
-https://medium.com/the-web-tub/build-a-pwa-using-workbox-2eda1ef51d88
-https://sevic.dev/caching-service-worker-workbox/
-https://github.com/GoogleChrome/workbox/issues/2632
-
-
-    new InjectManifest({
-      swSrc: './src/sw.js',
-      swDest: 'sw.js',
-      include: [
-        /\.html$/,
-        /\.js$/,
-        /\.css$/,
-        /\.woff2$/,
-        /\.jpg$/,
-        /\.png$/
-      ],
-    })
 
 
 git
 ===
 git remote -v
-git remote set-url origin git@github.com:qwilka/vn-ol
+git remote set-url origin git@github.com:qwilka/qw-ol
 more .git/config
 
 
 Openlayers
 ==========
 https://www.youtube.com/playlist?list=PLSWT7gmk_6LrvfkAFzfBpNckEsaF7S2GB  
+
+
+webpack
+=======
+https://blog.sessionstack.com/how-javascript-works-a-guide-to-build-tools-exploring-webpack-parcel-rollup-es-build-and-2089bcf0ddb4
+
+
+const path = require('path');
+
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackCdnPlugin = require('webpack-cdn-plugin');
+
+// const webpack = require('webpack');
+//   new webpack.ProvidePlugin({
+//     "window.L": "leaflet"
+//   }),
+
+const mode = process.env.NODE_ENV || 'development';
+
+module.exports = {
+  entry: path.join(__dirname, 'src/index.js'),
+  mode,
+  output: {
+    path: path.join(__dirname, 'qwol'),
+    publicPath: '/qwol',
+    filename: 'qwol.js',
+  },
+  externals: {
+    'leaflet': 'L'
+  },
+  module: {
+    rules: [
+        { test: /\.css$/, use: ['style-loader', 'css-loader'] }
+    ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({ 
+      filename: '../1/index.html',
+      template: "./index.html"
+    }), // output file relative to output.path
+    new WebpackCdnPlugin({
+      modules: [
+        { 
+          name: 'leaflet',
+          style: '',
+          path: 'dist/leaflet.js'
+        }
+      ],
+      publicPath: '/node_modules', // override when prod is false
+    }),
+  ],
+};
+

@@ -1,60 +1,38 @@
 const path = require('path');
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const {InjectManifest} = require('workbox-webpack-plugin');
+const WebpackCdnPlugin = require('webpack-cdn-plugin');
+
+// const webpack = require('webpack');
+//   new webpack.ProvidePlugin({
+//     "window.L": "leaflet"
+//   }),
+
+const mode = process.env.NODE_ENV || 'development';
 
 module.exports = {
-  entry: {
-    main: path.resolve(__dirname, './src/index.js'),
-  },
+  entry: path.join(__dirname, 'src/index.js'),
+  mode,
   output: {
-    path: path.resolve(__dirname, './vnol'),
-    publicPath: '/vnol/',
-    filename: 'build.js',
+    path: path.join(__dirname, 'qwol'),
+    publicPath: '/qwol',
+    filename: 'qwol.js',
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: 'TESTING vn-ol',
-      template: path.resolve(__dirname, './src/template.html'), // template file
-      filename: 'index.html', // output file
-    }),
-    new CleanWebpackPlugin(),
-    new InjectManifest({
-      swSrc: './src/sw.js',
-      swDest: 'sw.js',
-      include: [
-        /\.html$/,
-        /\.js$/,
-        /\.css$/,
-        /\.woff2$/,
-        /\.jpg$/,
-        /\.png$/
-      ],
-      additionalManifestEntries: [
-//        {url:'/assets/vn-icon-152.png', revision:null},
-        {url:'/assets/favicon.ico', revision:null}                
-      ]
-    })
-  ],
   module: {
     rules: [
-      // JavaScript
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: ['babel-loader'],
-      },
-      {
-        test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
-        type: 'asset/resource',
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
-    ],
+        { test: /\.css$/, use: ['style-loader', 'css-loader'] }
+    ]
   },
-}
+  plugins: [
+    new HtmlWebpackPlugin({ 
+      filename: '../1/index.html',
+      template: "./index.html"
+    }), // output file relative to output.path
+    new WebpackCdnPlugin({
+      modules: [
 
-
-// https://developers.google.com/web/tools/workbox/modules/workbox-precaching#explanation_of_the_precache_list
+      ],
+      publicPath: '/node_modules', // override when prod is false
+    }),
+  ],
+};

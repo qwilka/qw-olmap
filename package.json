@@ -1,7 +1,7 @@
 {
-  "name": "vn-ol",
+  "name": "qw-ol",
   "version": "0.0.1",
-  "description": "Visinum openlayers app.",
+  "description": "Basic Qwilka openlayers app.",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,30 +10,26 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qwilka/vn-ol.git"
+    "url": "git+https://github.com/qwilka/qw-ol.git"
   },
   "keywords": [
     "Openlayers",
     "GIS",
-    "Visinum"
+    "Qwilka"
   ],
   "author": "Stephen McEntee",
   "license": "See licence in «LICENCE»",
   "bugs": {
-    "url": "https://github.com/qwilka/vn-ol/issues"
+    "url": "https://github.com/qwilka/qw-ol/issues"
   },
-  "homepage": "https://github.com/qwilka/vn-ol#readme",
+  "homepage": "https://github.com/qwilka/qw-ol#readme",
   "devDependencies": {
-    "@babel/core": "^7.14.0",
-    "@babel/plugin-proposal-class-properties": "^7.13.0",
-    "@babel/preset-env": "^7.14.1",
-    "babel-loader": "^8.2.2",
-    "clean-webpack-plugin": "*",
-    "css-loader": "^5.2.4",
-    "html-webpack-plugin": "^5.3.1",
-    "style-loader": "^2.0.0",
-    "webpack": "^5.36.2",
-    "webpack-cli": "^4.7.0",
-    "workbox-webpack-plugin": "^6.1.5"
+    "css-loader": "^6.5.1",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.61.0",
+    "webpack-cdn-plugin": "^3.3.1",
+    "webpack-cli": "^4.9.1"
   }
 }

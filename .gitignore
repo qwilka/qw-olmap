@@ -1,10 +1,9 @@
-dist/
-vnol/
-assets/example.png
-assets/maptiler
-.cache/
 .vscode/
-
+build/
+qwol/
+libs/
+DELETE_*
+.cache/
 
 # Logs
 logs
