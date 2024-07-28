@@ -25,8 +25,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({ 
-      filename: '../1/index.html',
-      template: "./index.html"
+      filename: './index.html',
+      template: "./src/index.html"
     }), // output file relative to output.path
     new WebpackCdnPlugin({
       modules: [

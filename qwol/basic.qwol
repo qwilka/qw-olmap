@@ -1,7 +1,7 @@
 {
-    "app_id": "vnmap",
-    "title": "Qwilka GIS",
-    "appType": "vnleaf",
+    "app_id": "qwol",
+    "title": "Qwilka GIS (OL)",
+    "appType": "qwol",
     "timestamp": 1599570036,
     "gisOptions": {
         "mapOptions": {

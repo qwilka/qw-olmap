@@ -18,6 +18,7 @@ more .git/config
 Openlayers
 ==========
 https://www.youtube.com/playlist?list=PLSWT7gmk_6LrvfkAFzfBpNckEsaF7S2GB  
+https://stackoverflow.com/questions/20808607/how-to-get-openlayers-3-zoom-control-to-show-up-on-right-side
 
 
 webpack
@@ -70,4 +71,15 @@ module.exports = {
     }),
   ],
 };
+
+
+  "devDependencies": {
+    "css-loader": "^6.5.1",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.61.0",
+    "webpack-cdn-plugin": "^3.3.1",
+    "webpack-cli": "^4.9.1"
+  }
 

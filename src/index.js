@@ -1,61 +1,26 @@
 /*
-Copyright (C) 2021 Qwilka Limited - All Rights Reserved.
+Copyright (C) 2022 Qwilka Limited - All Rights Reserved.
 Proprietary and confidential.
 Unauthorized copying of this file, via any medium, is strictly prohibited.
-Written by Stephen McEntee <apps@qwilka.com>, June 2021.
+Written by Stephen McEntee <apps@qwilka.com>, January 2022.
 */
 
-// import {
-//   BoxPanel, Widget, DockPanel
-// } from '@lumino/widgets';
-
-// import './vn-styles.css';
-
-// import { createMenus, datatreeContextmenu } from './menus';
-// import { commands } from './commands';
-// import { attachDatatree } from './datatree';
-
-// import { createGisWidget} from './gis-app';
-
-
-// if ('serviceWorker' in navigator) {
-//   navigator.serviceWorker.register('/vnol/sw.js')
-//     .then(reg => {
-//       console.log("Registered ServiceWorker successfully: sw.js", reg);
-//     }).catch(err => {
-//       console.log("ServiceWorker not registered: sw.js", err);
-//     });   
-// }
-
-// export let mainApp;
+import {makeGis} from "./gismap"
 
 async function main() {
-  let confFile;          // , url_string = window.location.href;
+  let confFile = default_conf_path;          // , url_string = window.location.href;
   let url = new URL( window.location.href );
-  if (url.searchParams.has("conf")) {
-    confFile = url.searchParams.get("conf");
-    confFile = "/assets/" + confFile;
-  } else {
-    confFile = default_conf_path;  // global variable set in index.html
+  if (url.searchParams.has("c")) {
+    confFile = url.searchParams.get("c");
+    confFile = "/qwol/" + confFile + ".qwol";
+  } else if (url.searchParams.has("z")) {
+      let zconf = url.searchParams.get("z");
+      console.log(`Z-conf = ${zconf}`);
   }
 
 
-  // https://www.pentarem.com/blog/how-to-use-settimeout-with-async-await-in-javascript/
-  // function delay(ms) {
-  //   return new Promise(resolve => setTimeout(resolve, ms));
-  // }
-  // console.log("Before setTimeout");
-  // async function someFunction() {
-  //  await delay(4000);
-  //  //await someOtherFunction();
-  // }
-  // await someFunction();
-  // console.log("After setTimeout");
 
-// https://www.youtube.com/watch?v=Ri7WRoRcl_U&list=PLNYkxOF6rcIB2xHBZ7opgc2Mv009X87Hh&index=8
-// Using the Fetch API - Progressive Web App Training
-
-  let conf, response, flength;
+  let conf, response, flength, mainApp;
 
   // // TEST: check the size of the file w/o downloading....
   // response = await fetch(confFile, {method: 'HEAD'});
@@ -86,16 +51,12 @@ async function main() {
   if (conf.title) {
     document.title = conf.title;
   }
-  if (conf.dockLayout) {
+  if (conf.appType === "qwol") {
 
-    //addCommands();
-
-
-
-    //mainApp = new createDockLayout(conf);
-  } else {
     //mainApp = await createGisWidget(conf.confFile);
+    mainApp="TEST: setup mainApp...";
     console.log("mainApp = ", mainApp );
+    let retVal = makeGis(conf);
   }
 
 
