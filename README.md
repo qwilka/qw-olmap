@@ -1,5 +1,5 @@
-# vn-ol
-Visinum Openlayers basic app (2021).
+# qw-ol
+Openlayers basic app (2025).
 
+https://openlayers.org/doc/quickstart.html
 
-https://tania.dev/how-to-use-webpack/
