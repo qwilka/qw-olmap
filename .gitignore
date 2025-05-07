@@ -1,7 +1,6 @@
 .vscode/
-build/
-qwol/
-libs/
+.github/
+dist/
 DELETE_*
 .cache/
 

@@ -1,5 +1,5 @@
-archived:
-/home/develop/Projects/store/src/archived/vnleaf_2019-12
+
+
 
 python3 -m http.server 8000
 http://localhost:8000/qwol/
@@ -29,69 +29,6 @@ more .git/config
 
 Openlayers
 ==========
-https://www.youtube.com/playlist?list=PLSWT7gmk_6LrvfkAFzfBpNckEsaF7S2GB  
-https://stackoverflow.com/questions/20808607/how-to-get-openlayers-3-zoom-control-to-show-up-on-right-side
+https://openlayers.org/doc/quickstart.html
 
-
-webpack
-=======
-https://blog.sessionstack.com/how-javascript-works-a-guide-to-build-tools-exploring-webpack-parcel-rollup-es-build-and-2089bcf0ddb4
-
-
-const path = require('path');
-
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WebpackCdnPlugin = require('webpack-cdn-plugin');
-
-// const webpack = require('webpack');
-//   new webpack.ProvidePlugin({
-//     "window.L": "leaflet"
-//   }),
-
-const mode = process.env.NODE_ENV || 'development';
-
-module.exports = {
-  entry: path.join(__dirname, 'src/index.js'),
-  mode,
-  output: {
-    path: path.join(__dirname, 'qwol'),
-    publicPath: '/qwol',
-    filename: 'qwol.js',
-  },
-  externals: {
-    'leaflet': 'L'
-  },
-  module: {
-    rules: [
-        { test: /\.css$/, use: ['style-loader', 'css-loader'] }
-    ]
-  },
-  plugins: [
-    new HtmlWebpackPlugin({ 
-      filename: '../1/index.html',
-      template: "./index.html"
-    }), // output file relative to output.path
-    new WebpackCdnPlugin({
-      modules: [
-        { 
-          name: 'leaflet',
-          style: '',
-          path: 'dist/leaflet.js'
-        }
-      ],
-      publicPath: '/node_modules', // override when prod is false
-    }),
-  ],
-};
-
-
-  "devDependencies": {
-    "css-loader": "^6.5.1",
-    "file-loader": "^6.2.0",
-    "html-webpack-plugin": "^5.5.0",
-    "style-loader": "^3.3.1",
-    "webpack": "^5.61.0",
-    "webpack-cdn-plugin": "^3.3.1",
-    "webpack-cli": "^4.9.1"
-  }
 
