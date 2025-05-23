@@ -32,3 +32,16 @@ Openlayers
 https://openlayers.org/doc/quickstart.html
 
 
+### Denmark
+https://github.com/SDFIdk   Klimadatastyrelsen
+https://github.com/SDFIdk/vector_tiles_assets
+https://github.com/SDFIdk/okapi   Kort API 
+https://kortoverblik.dk/spatialmap
+https://www.klimadatastyrelsen.dk/
+https://www.klimadatastyrelsen.dk/om-os/vilkaar-og-priser
+
+### Switzerland
+http://map.geo.admin.ch
+https://map.geo.admin.ch/#/map?lang=en&center=2660000,1190000&z=1&topic=ech&layers=ch.swisstopo.zeitreihen@year=1864,f;ch.bfs.gebaeude_wohnungs_register,f;ch.bav.haltestellen-oev,f;ch.swisstopo.swisstlm3d-wanderwege,f;ch.vbs.schiessanzeigen,f;ch.astra.wanderland-sperrungen_umleitungen,f&bgLayer=ch.swisstopo.pixelkarte-farbe
+https://www.geo.admin.ch/en/
+https://www.geo.admin.ch/en/list-of-publicly-available-webgis-applications
