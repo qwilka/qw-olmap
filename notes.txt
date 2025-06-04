@@ -1,5 +1,18 @@
 
+https://openlayers.org/
+https://github.com/openlayers/openlayers
 
+https://openlayers.org/workshop/en/
+
+https://github.com/webgeodatavore/awesome-openlayers
+https://github.com/tschaub/ol-hashed
+https://github.com/tschaub/tilet
+https://github.com/tschaub/tilet/blob/main/examples/countries.json
+https://github.com/opengeospatial/geoparquet
+https://github.com/opengeospatial/geopackage
+https://github.com/geoarrow/geoarrow
+https://github.com/OSGeo/gdal
+https://github.com/geotiffjs/geotiff.js
 
 python3 -m http.server 8000
 http://localhost:8000/qwol/
