@@ -12,3 +12,9 @@ body {
   bottom: 0;
   width: 100%;
 }
+
+.ol-zoom {
+  top: .5em;
+  left: auto;
+  right: .5em;
+}

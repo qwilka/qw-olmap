@@ -1,6 +1,6 @@
 import { makeMap } from './gis';
 
-// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/userAgent
+
 
 window.onload = () => {
   let url = new URL( window.location.href );

@@ -10,11 +10,23 @@ import {fromLonLat} from 'ol/proj.js';
 import Graticule from 'ol/layer/Graticule.js';
 import Stroke from 'ol/style/Stroke.js';
 
-//import {defaults as defaultControls} from 'ol/control/defaults.js';
 
-const attributions =
-  '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> ' +
-  '<a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>';
+import GeoJSON from 'ol/format/GeoJSON.js';
+import VectorLayer from 'ol/layer/Vector.js';
+import VectorSource from 'ol/source/Vector.js';
+
+const vectorLayer = new VectorLayer({
+  source: new VectorSource({
+    url: '/data/DK_Geus_pipelines_simplified.geojson',
+    format: new GeoJSON(),
+    attributions: ["this is a", " TEST"]
+  }),
+});
+
+import {defaults as defaultControls} from 'ol/control/defaults.js';
+
+
+
 
 
 export const makeMap = (confData) => {
@@ -23,8 +35,11 @@ export const makeMap = (confData) => {
         target: 'map',
         layers: [
         new TileLayer({
-            source: new OSM(),
-            attributions: attributions,
+            source: new OSM({attributions: [
+                '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> ',
+                '<a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+            ]}),
+            
         }),
         new Graticule({
             // the style to use for the lines, optional.
@@ -36,7 +51,9 @@ export const makeMap = (confData) => {
             showLabels: true,
             wrapX: false,
         }),
+        vectorLayer,
         ],
+        controls: defaultControls({attribution: true}),
         view: new View({
         center: fromLonLat([4.8, 47.75]),
         zoom: 3,
@@ -46,3 +63,7 @@ export const makeMap = (confData) => {
     return true;  
 
 }
+
+// https://github.com/walkermatt/ol-layerswitcher
+// https://github.com/walkermatt/ol-popup
+// https://github.com/Turbo87/sidebar-v2
