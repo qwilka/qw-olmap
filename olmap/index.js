@@ -139,3 +139,6 @@ var fallbackConfig = {
       }
   ]
 };
+
+// https://usefulangle.com/post/298/javascript-url-hash
+// https://www.w3schools.com/jsref/prop_loc_hash.asp
