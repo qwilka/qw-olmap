@@ -6,9 +6,9 @@ import OSM from 'ol/source/OSM.js';
 import TileLayer from 'ol/layer/Tile.js';
 import View from 'ol/View.js';
 
-import {transform} from 'ol/proj';
+//import {transform} from 'ol/proj';
 
-import {fromLonLat} from 'ol/proj.js';
+import {transform, fromLonLat} from 'ol/proj.js';
 import Graticule from 'ol/layer/Graticule.js';
 import Stroke from 'ol/style/Stroke.js';
 
@@ -64,22 +64,29 @@ export const makeMap = (confData) => {
             },
             visible: true,
         }),
+        vectorLayer,
         new Graticule({
-            // the style to use for the lines, optional.
+            visible: true,
             strokeStyle: new Stroke({
-            color: 'rgba(255,120,0,0.9)',
-            width: 2,
-            lineDash: [0.5, 4],
+                color: 'rgba(0, 0, 0, 0.2)',
+                width: 1,
             }),
             showLabels: true,
-            wrapX: false,
+            targetSize: 100,
+            maxLines: 10,
+            properties: {
+                title: 'Graticule',
+                name: 'graticule',
+                id: 'graticule1',
+                type: 'graticule',
+            },
         }),
-        vectorLayer,
         ],
         controls: defaultControls({attribution: true}).extend([scaleControl]),
         view: new View({
-        center: fromLonLat([4.8, 47.75]),
-        zoom: 3,
+            projection: 'EPSG:4326',   // 'EPSG:3857'
+        center:  fromLonLat([4.0, 52.0], 'EPSG:4326'),
+        zoom: 6,
         }),
     });
 
@@ -107,12 +114,12 @@ let onMoveEnd = (e) => {
     console.log(`getState: coord=${coord}`);  
     coord = coord.map(c => Math.round(c * 1000) / 1000); 
     console.log(`getState: coord=${coord}`);   
-    let layers = map.getLayers().getArray();
-    console.log(`getState: layers=${layers.length}`);
-    layers.forEach((layer, index) => {
-        console.log(`Layer ${index}: ${layer.get('title') || layer.get('name')}`);
-        console.log(layer);
-    });
+    // let layers = map.getLayers().getArray();
+    // console.log(`getState: layers=${layers.length}`);
+    // layers.forEach((layer, index) => {
+    //     console.log(`Layer ${index}: ${layer.get('title') || layer.get('name')}`);
+    //     console.log(layer);
+    // });
     // Update the state of the map
     //getState(map);
 }
