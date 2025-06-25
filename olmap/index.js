@@ -50,6 +50,11 @@ var fallbackConfig = {
     "repository": "https://github.com/qwilka/qw-olmap",
     "refs": ["https://qwilka.github.io/gis/1/#5/53.980/-7.300/g1", "https://github.com/qwilka/qw-olmap"],
     "mapOptions": {
+      "zoom": 5,
+      "centre": [ -7.3, 54 ],
+      "CRS": "EPSG:4326",
+      "scaleCtrl": {"units":"nautical"},
+      "graticule": true,
       "maxZoom": 15,
       "minZoom": 2,
       "zoomControl": true,

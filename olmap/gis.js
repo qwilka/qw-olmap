@@ -17,7 +17,8 @@ import VectorSource from 'ol/source/Vector.js';
 import {defaults as defaultControls} from 'ol/control/defaults.js';
 import ScaleLine from 'ol/control/ScaleLine.js';
 
-import sync from './libs/ol-hashed.js';
+//import sync from './libs/ol-hashed.js';
+import {onMoveEnd} from './hash-mapstate.js';
 
 
 const vectorLayer = new VectorLayer({
@@ -34,17 +35,12 @@ const vectorLayer = new VectorLayer({
 },
 });
 
-const scaleControl = new ScaleLine({
-    units: 'metric',
-    bar: false,
-    steps: 4,
-    text: true,
-    minWidth: 140,
-});
 
 
-export const makeMap = (confData) => {
+
+export const makeMap = (confObj) => {
     // Create a new map instance
+    let mapOpts = confObj.mapOptions;
     const map = new Map({
         target: 'map',
         layers: [
@@ -62,7 +58,34 @@ export const makeMap = (confData) => {
             visible: true,
         }),
         vectorLayer,
-        new Graticule({
+        ],
+        controls: defaultControls({attribution: true}),
+        view: new View({
+            projection: mapOpts.CRS || 'EPSG:3857',   // 'EPSG:3857'   'EPSG:4326'
+            center:  mapOpts.centre ? fromLonLat(mapOpts.centre, 'EPSG:4326') : [0, 0],
+            zoom: mapOpts.zoom || 3,
+        }),
+    });
+
+//controls: defaultControls({attribution: true}).extend([scaleControl]),    
+    if (mapOpts.scaleCtrl) {
+        const scaleControl = new ScaleLine({
+            units: mapOpts.scaleCtrl?.units || 'metric',
+            bar: mapOpts.scaleCtrl?.bar || false,
+            steps: mapOpts.scaleCtrl?.steps || 4,
+            text: mapOpts.scaleCtrl?.text || true,
+            minWidth: mapOpts.scaleCtrl?.minWidth || 140,
+        });
+        map.addControl(scaleControl);
+    }
+
+    if (mapOpts.urlHash) {
+        map.on('moveend', onMoveEnd);
+    }
+//    sync(map);
+
+    if (mapOpts.graticule) {
+        const graticule = new Graticule({
             visible: true,
             strokeStyle: new Stroke({
                 color: 'rgba(0, 0, 0, 0.2)',
@@ -77,18 +100,10 @@ export const makeMap = (confData) => {
                 id: 'graticule1',
                 type: 'graticule',
             },
-        }),
-        ],
-        controls: defaultControls({attribution: true}).extend([scaleControl]),
-        view: new View({
-            projection: 'EPSG:4326',   // 'EPSG:3857'
-        center:  fromLonLat([4.0, 52.0], 'EPSG:4326'),
-        zoom: 6,
-        }),
-    });
-
-    map.on('moveend', onMoveEnd);
-    sync(map);
+        });
+        //map.addOverlay(graticule);
+        graticule.setMap(map);
+    }
 
     return true;  
 
@@ -98,29 +113,7 @@ export const makeMap = (confData) => {
 // https://github.com/walkermatt/ol-popup
 // https://github.com/Turbo87/sidebar-v2
 
-let onMoveEnd = (e) => {
-    const map = e.map;
-    const view = map.getView();
-    const projection = view.getProjection().getCode();
-    let zoom = view.getZoom();
-    let center = view.getCenter();
-    let rotation = view.getRotation();
-    //console.log("onMoveEnd", zoom, center, rotation, projection);
-    console.log(`getState: zoom=${zoom}, center=${center}, rotation=${rotation}, ${projection}`);
-    let coord = transform(center, projection, 'EPSG:4326');
-    //coord = coord.map(c => c.toFixed(4));
-    console.log(`getState: coord=${coord}`);  
-    coord = coord.map(c => Math.round(c * 1000) / 1000); 
-    console.log(`getState: coord=${coord}`);   
-    // let layers = map.getLayers().getArray();
-    // console.log(`getState: layers=${layers.length}`);
-    // layers.forEach((layer, index) => {
-    //     console.log(`Layer ${index}: ${layer.get('title') || layer.get('name')}`);
-    //     console.log(layer);
-    // });
-    // Update the state of the map
-    //getState(map);
-}
+
 
 
 
