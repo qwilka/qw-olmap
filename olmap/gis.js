@@ -6,21 +6,18 @@ import OSM from 'ol/source/OSM.js';
 import TileLayer from 'ol/layer/Tile.js';
 import View from 'ol/View.js';
 
-//import {transform} from 'ol/proj';
-
 import {transform, fromLonLat} from 'ol/proj.js';
 import Graticule from 'ol/layer/Graticule.js';
 import Stroke from 'ol/style/Stroke.js';
-
 
 import GeoJSON from 'ol/format/GeoJSON.js';
 import VectorLayer from 'ol/layer/Vector.js';
 import VectorSource from 'ol/source/Vector.js';
 
-
-
 import {defaults as defaultControls} from 'ol/control/defaults.js';
 import ScaleLine from 'ol/control/ScaleLine.js';
+
+import sync from './libs/ol-hashed.js';
 
 
 const vectorLayer = new VectorLayer({
@@ -91,6 +88,7 @@ export const makeMap = (confData) => {
     });
 
     map.on('moveend', onMoveEnd);
+    sync(map);
 
     return true;  
 

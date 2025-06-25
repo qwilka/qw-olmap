@@ -6,6 +6,8 @@ https://openlayers.org/workshop/en/
 
 https://github.com/webgeodatavore/awesome-openlayers
 https://github.com/tschaub/ol-hashed
+https://github.com/frogcat/ol-hash
+https://github.com/tschaub/geofunc  working with GeoJSON
 https://github.com/tschaub/tilet
 https://github.com/tschaub/tilet/blob/main/examples/countries.json
 https://github.com/opengeospatial/geoparquet
@@ -13,6 +15,9 @@ https://github.com/opengeospatial/geopackage
 https://github.com/geoarrow/geoarrow
 https://github.com/OSGeo/gdal
 https://github.com/geotiffjs/geotiff.js
+https://viglino.github.io/ol-ext/index.html
+https://github.com/Viglino/ol-ext
+https://github.com/Viglino/Map-georeferencer
 
 https://github.com/geojupyter/jupytergis
 
@@ -30,6 +35,9 @@ https://developer.mozilla.org/en-US/docs/Web/API/CompressionStream
 https://dev.to/ternentdotdev/json-compression-in-the-browser-with-gzip-and-the-compression-streams-api-4135
 
 
+https://gis.stackexchange.com/questions/459561/standard-and-official-list-of-coordinate-reference-systems
+https://en.wikipedia.org/wiki/Spatial_reference_system
+https://en.wikipedia.org/wiki/Irish_Transverse_Mercator
 
 https://mithril.js.org/index.html
 
