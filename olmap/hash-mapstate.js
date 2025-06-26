@@ -12,6 +12,7 @@ export const onMoveEnd = (e) => {
     console.log(`getState: zoom=${zoom}, center=${center}, rotation=${rotation}, ${projection}`);
     let coord = transform(center, projection, 'EPSG:4326');
     console.log(`zoom=${zoom} lon=${Number.parseFloat((coord[0]).toFixed(3))} lat=${Number.parseFloat((coord[1]).toFixed(3))} rotation=${Number.parseFloat((rotation).toFixed(3))}, ${projection}`);
+    history.replaceState(null, null, encode_hash(map));
     //coord = coord.map(c => c.toFixed(4));
     // console.log(`getState: coord=${coord}`);  
     // coord = coord.map(c => Math.round(c * 1000) / 1000); 
@@ -24,4 +25,32 @@ export const onMoveEnd = (e) => {
     // });
     // Update the state of the map
     //getState(map);
+}
+
+
+const encode_hash = (map) => {
+    const view = map.getView();
+    const projection = view.getProjection().getCode();
+    let zoom = view.getZoom();
+    let centre = view.getCenter();
+    centre = transform(centre, projection, 'EPSG:4326');
+    let rotation = view.getRotation();
+    let hash = `#${zoom}/${Number.parseFloat((centre[0]).toFixed(3))}/${Number.parseFloat((centre[1]).toFixed(3))}/${Number.parseFloat((rotation).toFixed(3))}`;
+    return hash;
+}
+
+
+const decode_hash = (map) => {
+    const view = map.getView();
+    const projection = view.getProjection().getCode();
+    let hash = location.hash;
+    let parts = hash.substring(1).split("/");
+    let centre = [parseFloat(parts[1]), parseFloat(parts[2])];
+    centre = transform(centre, 'EPSG:4326', projection);
+    let rotation = parseFloat(parts[3]);
+    view.setZoom(parseInt(parts[0]));
+    view.setCenter(centre);
+    view.setRotation(rotation);
+
+    return true;
 }

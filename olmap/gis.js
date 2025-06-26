@@ -41,6 +41,7 @@ const vectorLayer = new VectorLayer({
 export const makeMap = (confObj) => {
     // Create a new map instance
     let mapOpts = confObj.mapOptions;
+    let mapCRS = mapOpts.CRS || 'EPSG:3857';   // 'EPSG:3857'   'EPSG:4326'
     const map = new Map({
         target: 'map',
         layers: [
@@ -59,22 +60,23 @@ export const makeMap = (confObj) => {
         }),
         vectorLayer,
         ],
-        controls: defaultControls({attribution: true}),
+        controls: defaultControls({
+            attribution: mapOpts.attribCtrl ? true : false,
+        }),
         view: new View({
-            projection: mapOpts.CRS || 'EPSG:3857',   // 'EPSG:3857'   'EPSG:4326'
-            center:  mapOpts.centre ? fromLonLat(mapOpts.centre, 'EPSG:4326') : [0, 0],
+            projection: mapCRS,
+            center:  mapOpts.centreLonLat ? fromLonLat(mapOpts.centreLonLat, mapCRS) : [0, 0],
             zoom: mapOpts.zoom || 3,
         }),
     });
 
-//controls: defaultControls({attribution: true}).extend([scaleControl]),    
     if (mapOpts.scaleCtrl) {
         const scaleControl = new ScaleLine({
-            units: mapOpts.scaleCtrl?.units || 'metric',
-            bar: mapOpts.scaleCtrl?.bar || false,
-            steps: mapOpts.scaleCtrl?.steps || 4,
-            text: mapOpts.scaleCtrl?.text || true,
-            minWidth: mapOpts.scaleCtrl?.minWidth || 140,
+            units: mapOpts.scaleCtrlOpts?.units || 'metric',
+            bar: mapOpts.scaleCtrlOpts?.bar || false,
+            steps: mapOpts.scaleCtrlOpts?.steps || 4,
+            text: mapOpts.scaleCtrlOpts?.text || true,
+            minWidth: mapOpts.scaleCtrlOpts?.minWidth || 100,
         });
         map.addControl(scaleControl);
     }
