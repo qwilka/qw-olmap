@@ -29,21 +29,28 @@ export const onMoveEnd = (e) => {
 
 
 const encode_hash = (map) => {
+    let hash = location.hash;
     const view = map.getView();
     const projection = view.getProjection().getCode();
     let zoom = view.getZoom();
     let centre = view.getCenter();
     centre = transform(centre, projection, 'EPSG:4326');
     let rotation = view.getRotation();
-    let hash = `#${zoom}/${Number.parseFloat((centre[0]).toFixed(3))}/${Number.parseFloat((centre[1]).toFixed(3))}/${Number.parseFloat((rotation).toFixed(3))}`;
+    hash = `#${zoom}/${Number.parseFloat((centre[0]).toFixed(3))}/${Number.parseFloat((centre[1]).toFixed(3))}/${Number.parseFloat((rotation).toFixed(3))}`;
+    let layers = map.getLayers().getArray();
+    for (let layer of layers) {
+        console.log(layer.get('title'), layer.get('name'), layer.get('id'));
+    }
+    let ids = layers.map(layer => layer.get('id') || 'X');
+    hash = `${hash}/${ids.join("-")}/`;
     return hash;
 }
 
 
 const decode_hash = (map) => {
+    let hash = location.hash;
     const view = map.getView();
     const projection = view.getProjection().getCode();
-    let hash = location.hash;
     let parts = hash.substring(1).split("/");
     let centre = [parseFloat(parts[1]), parseFloat(parts[2])];
     centre = transform(centre, 'EPSG:4326', projection);
