@@ -4,8 +4,7 @@
   "description": "Web map based on Openlayers.",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode development",
-    "build:prod": "webpack --mode production"
+    "build:olmap": "webpack --config olmap/webpack.config.js --mode development"
   },
   "repository": {
     "type": "git",

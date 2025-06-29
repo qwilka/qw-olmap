@@ -1,3 +1,5 @@
+// this file is run from the root directory of the project
+// npm run build:olmap 
 const path = require('path');
 const CopyPlugin = require("copy-webpack-plugin");
 
@@ -5,7 +7,7 @@ module.exports = {
   entry: './olmap/index.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, '../build/olmap'),
   },
   module: {
     rules: [
