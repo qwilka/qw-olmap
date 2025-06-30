@@ -1,9 +1,11 @@
 
 
 import './style.css';
+
 import Map from 'ol/Map.js';
 import OSM from 'ol/source/OSM.js';
 import TileLayer from 'ol/layer/Tile.js';
+import LayerGroup from 'ol/layer/Group.js';
 import View from 'ol/View.js';
 
 import {transform, fromLonLat} from 'ol/proj.js';
@@ -16,6 +18,9 @@ import VectorSource from 'ol/source/Vector.js';
 
 import {defaults as defaultControls} from 'ol/control/defaults.js';
 import ScaleLine from 'ol/control/ScaleLine.js';
+
+import LayerSwitcher from 'ol-layerswitcher';
+//import { BaseLayerOptions, GroupLayerOptions } from 'ol-layerswitcher';
 
 //import sync from './libs/ol-hashed.js';
 import {onMoveEnd} from './hash-mapstate.js';
@@ -32,22 +37,6 @@ export const makeMap = (confObj) => {
     let mapCRS = mapOpts.CRS || 'EPSG:3857';   // 'EPSG:3857'   'EPSG:4326'
     const map = new Map({
         target: 'map',
-        // layers: [
-        // new TileLayer({
-        //     source: new OSM({attributions: [
-        //         '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> ',
-        //         '<a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
-        //     ]}),
-        //     properties: {
-        //         title: 'OpenStreetMap',
-        //         name: 'OSM',
-        //         id: 'osm1',
-        //         type: 'tilemap',
-        //     },
-        //     visible: true,
-        // }),
-        // vectorLayer,
-        // ],
         controls: defaultControls({
             attribution: mapOpts.attribCtrl ? true : false,
         }),
@@ -99,20 +88,24 @@ export const makeMap = (confObj) => {
         graticule.setMap(map);
     }
 
+
+
     return true;  
 
 }
 
 function addMapLayers(map, layers) {
-    const addNewLayer =  (map, newlayer, layerObj) => {
-        map.addLayer(newlayer);
-        newlayer.setProperties({
-            name: layerObj.name,
-            title: layerObj.title,
-            id: layerObj.id,
-        }, true);
-        console.log(`addNewLayer: ${newlayer.get('name')} ${newlayer.get('id')}`);
-    };
+    let baselayers = [];
+    let overlays = [];
+        const baseMapsGroup = new LayerGroup({
+            title: 'Base maps',
+            visible: true,
+            layers: []
+        });
+        const overlaysGroup = new LayerGroup({
+        title: 'Overlays',
+        layers: []
+        });
 
     for (let layerObj of layers) {
         let newLayer = null;
@@ -127,12 +120,13 @@ function addMapLayers(map, layers) {
                     case 'OSM-built-in':
                         newLayer = new TileLayer({
                             source: new OSM({
-                                attributions: [
+                                attributions: layerObj.source.attributions || [
                                     '<a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
                                 ]
                             }),
                             properties: layerObj.properties || {},
                             visible: layerObj.visible || true,
+                            type: 'base',
                         });
                         //addNewLayer(map, newLayer, layerObj);
                         break;
@@ -156,14 +150,50 @@ function addMapLayers(map, layers) {
                 console.warn(`addMapLayers: Unknown layer type: ${layerObj.type}`);
         }
         if (newLayer) {
-            map.addLayer(newLayer);
+            //map.addLayer(newLayer);
+            if (newLayer.get('type') === 'base') {
+                baseMapsGroup.getLayers().push(newLayer);
+            } else {
+                overlaysGroup.getLayers().push(newLayer);
+            }
+            
             newLayer.setProperties({
                 name: layerObj.name,
                 title: layerObj.title,
                 id: layerObj.id,
             }, true);
             console.log(`addMapLayers: ${newLayer.get('name')} ${newLayer.get('id')}`);
+            if (layerObj.parent === 'basemaps') {
+                baselayers.push(newLayer);
+            } else if (layerObj.parent === 'overlays') {
+                overlays.push(newLayer);
+            } else {
+                console.warn(`addMapLayers: Unknown parent for layer ${layerObj.name}: ${layerObj.parent}`);
+            }
+
         }
+    }
+
+    map.addLayer(baseMapsGroup);
+    map.addLayer(overlaysGroup);
+    if (true) {
+        // const baseMapsGroup = new LayerGroup({
+        //     title: 'Base maps',
+        //     visible: true,
+        //     layers: baselayers
+        // });
+        // map.addLayer(baseMapsGroup);
+        // const overlaysGroup = new LayerGroup({
+        // title: 'Overlays',
+        // layers: overlays
+        // });
+        // map.addLayer(overlaysGroup);
+
+        var layerSwitcher = new LayerSwitcher({
+            reverse: false,
+            groupSelectStyle: 'children'
+        });
+        map.addControl(layerSwitcher);
     }
 
 }
