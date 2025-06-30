@@ -64,6 +64,7 @@ var fallbackConfig = {
       },
       "graticule": true,
       "urlHash": true,
+      "xxxxxxxxxxxxxxx": null,
       "maxZoom": 15,
       "minZoom": 2,
       "zoomControl": true,
@@ -82,12 +83,36 @@ var fallbackConfig = {
       "locationPopup": true
     },
   "layers": [
+    {
+      "name": "OSM",
+      "title": "OpenStreetMap (built-in)",
+      "id": "o",
+      "parent": "basemaps",
+      "type": "tilemap",
+      "source": "OSM-built-in",  
+      "visible": true,
+      "properties": {"title": "notitle", "name": "noname", "id": "noid"},
+    },
+    {
+      "name": "DK-pl",
+      "title": "Denamrk pipelines",
+      "id": "dk1",
+      "parent": "overlays",
+      "type": "geojson",
+      "source": {
+        "url": "https://raw.githubusercontent.com/qwilka/qw-olmap/refs/heads/master/data/DK_Geus_pipelines_simplified.geojson",
+        "attributions": ["GEOJSONtest"]
+      },  
+      "visible": true,
+      "properties": {"title": "notitle", "name": "noname", "id": "noid"},      
+    },
       {
           "name": "OSM1",
           "title": "OpenStreetMap",
           "id": "o1",
           "parent": "basemaps",
           "type": "tilemap",
+          "deactivate": true,
           "url": "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
           "selected": true,
           "options": {
@@ -102,7 +127,7 @@ var fallbackConfig = {
         "id": "e1",
         "parent": "basemaps",
         "type": "tilemap",
-        "deactivate": false,
+        "deactivate": true,
         "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
         "selected": false,
         "options": {
@@ -115,7 +140,7 @@ var fallbackConfig = {
         "title": "EEZ boundaries",
         "id": "ez1",
         "parent": "overlays",
-        "deactivate": false,
+        "deactivate": true,
         "type": "WMS",
         "url": "http://geo.vliz.be:80/geoserver/MarineRegions/wms",
         "selected": true,
@@ -135,7 +160,7 @@ var fallbackConfig = {
           "title": "coastlines (EMODnet)",
           "id": "cl1",
           "parent": "overlays",
-          "deactivate": false,
+          "deactivate": true,
           "type": "WMS",
           "url": "http://ows.emodnet-bathymetry.eu/ows",
           "selected": false,

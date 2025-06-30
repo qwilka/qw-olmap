@@ -21,19 +21,7 @@ import ScaleLine from 'ol/control/ScaleLine.js';
 import {onMoveEnd} from './hash-mapstate.js';
 
 
-const vectorLayer = new VectorLayer({
-  source: new VectorSource({
-    url: '/data/DK_Geus_pipelines_simplified.geojson',
-    format: new GeoJSON(),
-    attributions: ["this is a", " TEST"]
-  }),
-  properties: {
-    title: 'DK-pipelines',
-    name: 'DK-geojson',
-    id: 'dk1',
-    type: 'vector',
-},
-});
+
 
 
 
@@ -44,22 +32,22 @@ export const makeMap = (confObj) => {
     let mapCRS = mapOpts.CRS || 'EPSG:3857';   // 'EPSG:3857'   'EPSG:4326'
     const map = new Map({
         target: 'map',
-        layers: [
-        new TileLayer({
-            source: new OSM({attributions: [
-                '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> ',
-                '<a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
-            ]}),
-            properties: {
-                title: 'OpenStreetMap',
-                name: 'OSM',
-                id: 'osm1',
-                type: 'tilemap',
-            },
-            visible: true,
-        }),
-        vectorLayer,
-        ],
+        // layers: [
+        // new TileLayer({
+        //     source: new OSM({attributions: [
+        //         '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> ',
+        //         '<a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+        //     ]}),
+        //     properties: {
+        //         title: 'OpenStreetMap',
+        //         name: 'OSM',
+        //         id: 'osm1',
+        //         type: 'tilemap',
+        //     },
+        //     visible: true,
+        // }),
+        // vectorLayer,
+        // ],
         controls: defaultControls({
             attribution: mapOpts.attribCtrl ? true : false,
         }),
@@ -69,6 +57,10 @@ export const makeMap = (confObj) => {
             zoom: mapOpts.zoom || 3,
         }),
     });
+
+    if (confObj.layers) {
+        addMapLayers(map, confObj.layers);
+    }
 
     if (mapOpts.scaleCtrl) {
         const scaleControl = new ScaleLine({
@@ -108,6 +100,71 @@ export const makeMap = (confObj) => {
     }
 
     return true;  
+
+}
+
+function addMapLayers(map, layers) {
+    const addNewLayer =  (map, newlayer, layerObj) => {
+        map.addLayer(newlayer);
+        newlayer.setProperties({
+            name: layerObj.name,
+            title: layerObj.title,
+            id: layerObj.id,
+        }, true);
+        console.log(`addNewLayer: ${newlayer.get('name')} ${newlayer.get('id')}`);
+    };
+
+    for (let layerObj of layers) {
+        let newLayer = null;
+        if (layerObj.deactivate) {
+            console.log(`addMapLayers: Skipping deactivated layer: ${layerObj.name}`);
+            continue;
+        }
+        
+        switch (layerObj.type) {
+            case 'tilemap':
+                switch (layerObj.source) {
+                    case 'OSM-built-in':
+                        newLayer = new TileLayer({
+                            source: new OSM({
+                                attributions: [
+                                    '<a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+                                ]
+                            }),
+                            properties: layerObj.properties || {},
+                            visible: layerObj.visible || true,
+                        });
+                        //addNewLayer(map, newLayer, layerObj);
+                        break;
+                    default:
+                        console.warn(`addMapLayers: Unknown tile source: ${layerObj.source}`);
+                }
+                break;
+            case 'geojson':
+                newLayer = new VectorLayer({
+                    source: new VectorSource({
+                        url: layerObj.source.url,
+                        format: new GeoJSON(),
+                        attributions: layerObj.source.attributions || [],
+                    }),
+                    properties: layerObj.properties || {},
+                    visible: layerObj.visible || true,
+                });
+                //addNewLayer(map, vectorLayer, layerObj);
+                break;
+            default:
+                console.warn(`addMapLayers: Unknown layer type: ${layerObj.type}`);
+        }
+        if (newLayer) {
+            map.addLayer(newLayer);
+            newLayer.setProperties({
+                name: layerObj.name,
+                title: layerObj.title,
+                id: layerObj.id,
+            }, true);
+            console.log(`addMapLayers: ${newLayer.get('name')} ${newLayer.get('id')}`);
+        }
+    }
 
 }
 
