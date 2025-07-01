@@ -36,7 +36,7 @@ const encode_hash = (map) => {
     let centre = view.getCenter();
     centre = transform(centre, projection, 'EPSG:4326');
     let rotation = view.getRotation();
-    hash = `#${zoom}/${Number.parseFloat((centre[0]).toFixed(3))}/${Number.parseFloat((centre[1]).toFixed(3))}/${Number.parseFloat((rotation).toFixed(3))}`;
+    hash = `#/${zoom}/${Number.parseFloat((centre[0]).toFixed(3))}/${Number.parseFloat((centre[1]).toFixed(3))}/${Number.parseFloat((rotation).toFixed(3))}`;
     let layers = map.getLayers().getArray();
     for (let layer of layers) {
         console.log(layer.get('title'), layer.get('name'), layer.get('id'));
@@ -52,12 +52,21 @@ const decode_hash = (map) => {
     const view = map.getView();
     const projection = view.getProjection().getCode();
     let parts = hash.substring(1).split("/");
-    let centre = [parseFloat(parts[1]), parseFloat(parts[2])];
+    let centre = [parseFloat(parts[2]), parseFloat(parts[3])];
     centre = transform(centre, 'EPSG:4326', projection);
-    let rotation = parseFloat(parts[3]);
-    view.setZoom(parseInt(parts[0]));
+    
+    view.setZoom(parseInt(parts[1]));
     view.setCenter(centre);
-    view.setRotation(rotation);
+    if (parts.length > 5) {
+        let rotation = parseFloat(parts[5]);
+        if (isNaN(rotation || rotation < 0 || rotation >= 360)) {
+            console.warn(`decode_hash: Invalid rotation value: ${parts[5]}, specifiy degrees between 0 and 360.`);
+        } else {
+            view.setRotation(rotation*Math.PI / 180); // Convert degrees to radians
+        }
+    }
+
+    
 
     return true;
 }

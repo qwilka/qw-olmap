@@ -12,6 +12,7 @@ import {transform, fromLonLat} from 'ol/proj.js';
 import Graticule from 'ol/layer/Graticule.js';
 import Stroke from 'ol/style/Stroke.js';
 
+import sourceXYZ from 'ol/source/XYZ.js';
 import GeoJSON from 'ol/format/GeoJSON.js';
 import VectorLayer from 'ol/layer/Vector.js';
 import VectorSource from 'ol/source/Vector.js';
@@ -21,6 +22,8 @@ import ScaleLine from 'ol/control/ScaleLine.js';
 
 import LayerSwitcher from 'ol-layerswitcher';
 //import { BaseLayerOptions, GroupLayerOptions } from 'ol-layerswitcher';
+
+//import {VnNode, layersTree} from './vntree.js';
 
 //import sync from './libs/ol-hashed.js';
 import {onMoveEnd} from './hash-mapstate.js';
@@ -74,6 +77,8 @@ export const makeMap = (confObj) => {
                 color: 'rgba(0, 0, 0, 0.2)',
                 width: 1,
             }),
+            lonLabelPosition: 0.98,
+            latLabelPosition: 1,
             showLabels: true,
             targetSize: 100,
             maxLines: 10,
@@ -114,8 +119,8 @@ function addMapLayers(map, layers) {
             continue;
         }
         
-        switch (layerObj.type) {
-            case 'tilemap':
+        switch (layerObj['type-layer']) {
+            case 'tile':
                 switch (layerObj.source) {
                     case 'OSM-built-in':
                         newLayer = new TileLayer({
@@ -125,7 +130,7 @@ function addMapLayers(map, layers) {
                                 ]
                             }),
                             properties: layerObj.properties || {},
-                            visible: layerObj.visible || true,
+                            visible: layerObj.visible || false,
                             type: 'base',
                         });
                         //addNewLayer(map, newLayer, layerObj);
@@ -133,6 +138,17 @@ function addMapLayers(map, layers) {
                     default:
                         console.warn(`addMapLayers: Unknown tile source: ${layerObj.source}`);
                 }
+                break;
+            case 'XYZ':
+                        newLayer = new TileLayer({
+                            source: new sourceXYZ({
+                                url: layerObj.source.url,
+                                attributions: layerObj.source.attributions || []
+                            }),
+                            properties: layerObj.properties || {},
+                            visible: layerObj.visible || false,
+                            type: 'base',
+                        });
                 break;
             case 'geojson':
                 newLayer = new VectorLayer({
@@ -142,7 +158,7 @@ function addMapLayers(map, layers) {
                         attributions: layerObj.source.attributions || [],
                     }),
                     properties: layerObj.properties || {},
-                    visible: layerObj.visible || true,
+                    visible: layerObj.visible || false,
                 });
                 //addNewLayer(map, vectorLayer, layerObj);
                 break;

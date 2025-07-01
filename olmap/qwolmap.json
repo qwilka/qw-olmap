@@ -1,53 +1,5 @@
-import { makeMap } from './gis';
-
-
-
-window.onload = () => {
-  let url = new URL( window.location.href );
-  let hashParams = {};
-  if (url.hash) {
-    let hash = url.hash.substring(1); // remove the #
-    let parts = hash.split("/");
-    for (let i = 0; i < parts.length; i++) {
-      hashParams[i] = parts[i];
-    }
-  }
-  let confFile = "qwolmap.json";
-  if (hashParams[0]) {
-    confFile = `qwolmap-${hashParams[0]}.json`
-  } 
-  loadConfig(confFile);
-}
-
-function loadConfig(confFile) {
-  let confUrl = window.location.pathname + confFile;
-
-
-  fetch(confUrl)
-  .then((response) => {
-    if (response.ok) {
-      return response.json();
-    }
-    throw new Error(`loadConfig: HTTP error! status: ${response.status}`);
-  })
-  .then((configData) => {
-    console.log("Normal startup with configuration:\n", confFile);
-    launch_app(configData);
-  })
-  .catch((err) => {
-      console.error("loadConfig: error! failed to load:\n", confUrl,"\n", err, "\nProceeding with fallback config.");
-    launch_app(fallbackConfig);
-  });
-}
-
-function launch_app(conf){
-  document.title = conf.title;
-  makeMap(conf);
-}  
-
-
-var fallbackConfig = {
-    "title": "Qwilka qw-olmap [FALLBACK config]",
+{
+    "title": "Qwilka qw-olmap",
     "name": "qw-olmap",
     "description": "A basic webmap using OpenLayers." ,
     "version": "0.0.001",
@@ -56,13 +8,27 @@ var fallbackConfig = {
     "repository": "https://github.com/qwilka/qw-olmap",
     "refs": ["https://qwilka.github.io/gis/1/#5/53.980/-7.300/g1", "https://github.com/qwilka/qw-olmap"],
     "mapOptions": {
-      "zoom": 3,
-      "centreLonLat": [ 0, 0 ],
+      "zoom": 5,
+      "centreLonLat": [ -7.3, 54 ],
       "CRS": "EPSG:3857",
-      "attribCtrl": false,
-      "scaleCtrl": false,
-      "graticule": false,
-      "urlHash": false,
+      "attribCtrl": true,
+      "scaleCtrl": true,
+      "scaleCtrlOpts": {
+        "units": "metric",
+        "bar": false,
+        "steps": 4,
+        "text": true,
+        "minWidth": 100
+      },
+      "graticule": true,
+      "graticuleOpts": {
+            "lonLabelPosition": 0.98,
+            "latLabelPosition": 1,        
+            "properties": {
+                "id": "graticule1"
+            }
+          },
+      "urlHash": true,
       "layerCtrl": true,
       "xxxxxxxxxxxxxxx": null,
       "maxZoom": 15,
@@ -91,7 +57,7 @@ var fallbackConfig = {
       "type-layer": "tile",
       "source": "OSM-built-in",  
       "visible": true,
-      "properties": {"title": "notitle", "name": "noname", "id": "noid"},
+      "properties": {"title": "notitle", "name": "noname", "id": "noid"}
     },
     {
           "name": "WorldImagery",
@@ -101,7 +67,7 @@ var fallbackConfig = {
       "type-layer": "XYZ",
       "source": {"url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"},  
       "visible": false,
-      "properties": {"title": "notitle", "name": "noname", "id": "noid"},
+      "properties": {"title": "notitle", "name": "noname", "id": "noid"}
     },
     {
       "name": "DK-pl",
@@ -114,7 +80,7 @@ var fallbackConfig = {
         "attributions": ["GEOJSONtest"]
       },  
       "visible": true,
-      "properties": {"title": "notitle", "name": "noname", "id": "noid"},      
+      "properties": {"title": "notitle", "name": "noname", "id": "noid"}      
     },
       {
           "name": "OSM1",
@@ -187,7 +153,4 @@ var fallbackConfig = {
 
       }
   ]
-};
-
-// https://usefulangle.com/post/298/javascript-url-hash
-// https://www.w3schools.com/jsref/prop_loc_hash.asp
+}

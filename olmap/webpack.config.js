@@ -6,7 +6,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 module.exports = {
   entry: './olmap/index.js',
   output: {
-    filename: 'main.js',
+    filename: 'qwolmap.js',
     path: path.resolve(__dirname, '../build/olmap'),
   },
   module: {
@@ -21,7 +21,8 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         { from: "./olmap/index.html", to: "index.html" },
-        { from: "./data/favicon.ico", to: "favicon.ico" },
+        { from: "./olmap/qwolmap.json", to: "qwolmap.json" },
+        { from: "./olmap/qwolmap.ico", to: "qwolmap.ico" },
       ],
     }),
   ],

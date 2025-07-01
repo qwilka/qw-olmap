@@ -15,7 +15,16 @@ body {
 }
 
 .ol-zoom {
-  top: .5em;
+  top: 1.0em;
   left: auto;
-  right: .5em;
+  right: 1.0em;
 }
+
+.layer-switcher {
+  position: absolute;
+  top: 1.0em;
+  left: 1.0em;
+  right: auto;
+  text-align: left;
+}
+

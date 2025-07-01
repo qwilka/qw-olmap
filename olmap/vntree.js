@@ -10,7 +10,7 @@ class VnNode {
 
     constructor(name=null, parent=null, data=null, treedict=null, id=null) {
         this.parent = parent;
-        this.#childs = [];
+        this.#childs = null;
 
         if (treedict) {
             this.#data = treedict.data;
@@ -25,7 +25,7 @@ class VnNode {
         }
         if (name) this.name = name;
         this.id = id;
-        this.layer = null; // default layer is null
+        this.layer = null; // group layer is null
 
         if (parent !== null) parent.add_child(this);
 
@@ -41,6 +41,10 @@ class VnNode {
 
     get id() {
         return this.#data._vntree.id;
+    }
+
+    get title() {
+        return this.#data.title || this.name || this.id || "no title";
     }
 
     set id(id=null) {
@@ -77,6 +81,9 @@ class VnNode {
 
 
     add_child (newChild) {
+        if (!Array.isArray(this.#childs)) {
+            this.#childs = [];
+        }
         this.#childs.push(newChild)
         newChild.parent = this
     }
@@ -196,39 +203,21 @@ class VnNode {
         return treeDict;
     }
 
-    to_layerTreeObj() {
-        let layerTreeObj = {};
-        layerTreeObj.label = this.get_data("title") || this.name;
-        if (this.layer) {
-            layerTreeObj.layer = this.layer;
-        } else {
-            layerTreeObj.children = [];
-        }
-        for (let child of this.#childs) {
-            if (child.get_data('deactivate')) continue;
-            layerTreeObj.children.push(child.to_layerTreeObj());
-        }
-        return layerTreeObj;
-    }
-
-
     // to_layerTreeObj() {
-    //     let root = this.get_root();
-    //     let basemaps = root.get_child("basemaps");
-    //     let overlays = root.get_child("overlays");
-    //     let layerTreeObj = {
-    //         "basemaps": {
-    //             "label": 'World base maps &#x1f5fa;',
-    //         },
-    //     };
-    //     layerTreeObj.children = [];
-    //     layerTreeObj.label = this.title || this.name;
-    //     //layerTreeObj.data = this.#data; 
+    //     let layerTreeObj = {};
+    //     layerTreeObj.label = this.get_data("title") || this.name;
+    //     if (this.layer) {
+    //         layerTreeObj.layer = this.layer;
+    //     } else {
+    //         layerTreeObj.children = [];
+    //     }
     //     for (let child of this.#childs) {
+    //         if (child.get_data('deactivate')) continue;
     //         layerTreeObj.children.push(child.to_layerTreeObj());
     //     }
-    //     return layerTreeObj
+    //     return layerTreeObj;
     // }
+
 
 
     to_JSON() {
@@ -250,8 +239,8 @@ class VnNode {
 
 // https://leafletjs.com/reference.html#control-layers
 const layersTree = new VnNode("root");
-const basemaps = new VnNode("basemaps", layersTree, {"title": '<font size="3">Base maps &#x1F30D;</font>', "type":"group"});
-const overlays = new VnNode("overlays", layersTree, {"type":"group"});
+const basemaps = new VnNode("basemaps", layersTree, {"title": '<font size="3">Base maps &#x1F30D;</font>', "type":"base"});
+const overlays = new VnNode("overlays", layersTree, {"title":"Overlays"});
 
-export {VnNode, layersTree, basemaps, overlays};
+export {VnNode, layersTree};
 
