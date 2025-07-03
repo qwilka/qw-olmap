@@ -13,6 +13,7 @@ import Graticule from 'ol/layer/Graticule.js';
 import Stroke from 'ol/style/Stroke.js';
 
 import sourceXYZ from 'ol/source/XYZ.js';
+import TileWMS from 'ol/source/TileWMS.js';
 import GeoJSON from 'ol/format/GeoJSON.js';
 import VectorLayer from 'ol/layer/Vector.js';
 import VectorSource from 'ol/source/Vector.js';
@@ -28,8 +29,7 @@ import LayerSwitcher from 'ol-layerswitcher';
 //import sync from './libs/ol-hashed.js';
 import {onMoveEnd} from './hash-mapstate.js';
 
-
-
+import {makeLayersTree} from './vntree.js';
 
 
 
@@ -37,6 +37,7 @@ import {onMoveEnd} from './hash-mapstate.js';
 export const makeMap = (confObj) => {
     // Create a new map instance
     let mapOpts = confObj.mapOptions;
+    let layersTree = null;
     let mapCRS = mapOpts.CRS || 'EPSG:3857';   // 'EPSG:3857'   'EPSG:4326'
     const map = new Map({
         target: 'map',
@@ -51,7 +52,12 @@ export const makeMap = (confObj) => {
     });
 
     if (confObj.layers) {
-        addMapLayers(map, confObj.layers);
+        layersTree = makeLayersTree(confObj.layers);
+        console.log(`makeMap: layersTree: ${layersTree.to_texttree()}`);
+        //console.log(`makeMap: layersTree: ${layersTree.to_texttree()}`);
+        //addMapLayers(map, confObj.layers);
+        tree2mapLayers(map, layersTree);
+
     }
 
     if (mapOpts.scaleCtrl) {
@@ -99,6 +105,14 @@ export const makeMap = (confObj) => {
 
 }
 
+function tree2mapLayers(map, layersTree) {
+    for (let n of layersTree) {
+        if (n.id === 'root') continue; // skip root node
+        console.log(n.name);
+    }
+}
+
+
 function addMapLayers(map, layers) {
     let baselayers = [];
     let overlays = [];
@@ -139,16 +153,26 @@ function addMapLayers(map, layers) {
                         console.warn(`addMapLayers: Unknown tile source: ${layerObj.source}`);
                 }
                 break;
+            case 'WMS':
+                newLayer = new TileLayer({
+                    source: new TileWMS({
+                        url: layerObj.source.url,
+                        attributions: layerObj.source.attributions || []
+                    }),
+                    properties: layerObj.properties || {},
+                    visible: layerObj.visible || false,
+                });
+                break;
             case 'XYZ':
-                        newLayer = new TileLayer({
-                            source: new sourceXYZ({
-                                url: layerObj.source.url,
-                                attributions: layerObj.source.attributions || []
-                            }),
-                            properties: layerObj.properties || {},
-                            visible: layerObj.visible || false,
-                            type: 'base',
-                        });
+                newLayer = new TileLayer({
+                    source: new sourceXYZ({
+                        url: layerObj.source.url,
+                        attributions: layerObj.source.attributions || []
+                    }),
+                    properties: layerObj.properties || {},
+                    visible: layerObj.visible || false,
+                    type: 'base',
+                });
                 break;
             case 'geojson':
                 newLayer = new VectorLayer({

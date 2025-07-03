@@ -10,12 +10,14 @@ class VnNode {
 
     constructor(name=null, parent=null, data=null, treedict=null, id=null) {
         this.parent = parent;
-        this.#childs = null;
+        this.#childs = [];
 
         if (treedict) {
             this.#data = treedict.data;
             if (treedict.childs.length) {
-                this.add_child(new VnNode(null, null, null, child));
+                for (let child of treedict.childs) {
+                    this.add_child(new VnNode(null, null, null, child)); 
+                }
             }
         } else {
             this.#data = data || {};
@@ -184,7 +186,7 @@ class VnNode {
         for (let i =0; i < tabLevel; i++) {
             nodetext += ".   ";
         }
-        nodetext += "|---" + this.name + "\n";   
+        nodetext += "|---" + this.name + "\n";  
         for (let child of this.get_child()) {
             nodetext += child.to_texttree(tabLevel);
         }
@@ -236,11 +238,31 @@ class VnNode {
 
 }
 
+export function makeLayersTree(layers) {
+    const layersTree = new VnNode("root", null, null, null, "root");
+    // const basemaps = new VnNode("basemaps", layersTree, {"title": '<font size="3">Base maps &#x1F30D;</font>', "type":"base", "type-layer": "group"}, null, "basemaps");
+    // const overlays = new VnNode("overlays", layersTree, {"title":"Overlays"}, null, "overlays"); 
+    for (let layer of layers) {
+        if (layer.deactivate) {
+            console.warn(`makeLayerTree: Skipping deactivated layer ${layer.name}`);
+            continue;
+        }
+        let parent = layer.parent || "overlays";
+        let parentNode = layersTree.get_node_by_id(parent);
+        if (!parentNode) {
+            console.warn(`makeLayerTree: Parent node ${parent} not found for layer ${layer.name}`);
+            continue;
+        }
+        let newNode = new VnNode(layer.name, parentNode, layer, null, layer.id || crypto.randomUUID());
+    }
+    //console.log(layersTree.to_texttree());
+    return layersTree;
+}
 
-// https://leafletjs.com/reference.html#control-layers
-const layersTree = new VnNode("root");
-const basemaps = new VnNode("basemaps", layersTree, {"title": '<font size="3">Base maps &#x1F30D;</font>', "type":"base"});
-const overlays = new VnNode("overlays", layersTree, {"title":"Overlays"});
 
-export {VnNode, layersTree};
+
+// Create the root node and the base maps and overlays nodes
+
+
+// export {VnNode, layersTree};
 
