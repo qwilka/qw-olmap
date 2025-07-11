@@ -54,7 +54,7 @@
       "title": "OpenStreetMap (built-in)",
       "id": "o",
       "parent": "root",
-      "type-layer": "tile",
+      "type": "OSM",
       "type-layerswitcher": "base",
       "source": "OSM-built-in",  
       "visible": true,

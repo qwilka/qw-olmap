@@ -243,10 +243,10 @@ export function makeLayersTree(layers) {
     // const basemaps = new VnNode("basemaps", layersTree, {"title": '<font size="3">Base maps &#x1F30D;</font>', "type":"base", "type-layer": "group"}, null, "basemaps");
     // const overlays = new VnNode("overlays", layersTree, {"title":"Overlays"}, null, "overlays"); 
     for (let layer of layers) {
-        if (layer.deactivate) {
-            console.warn(`makeLayerTree: Skipping deactivated layer ${layer.name}`);
-            continue;
-        }
+        // if (layer.deactivate) {
+        //     console.warn(`makeLayerTree: Skipping deactivated layer ${layer.name}`);
+        //     continue;
+        // }
         let parent = layer.parent || "overlays";
         let parentNode = layersTree.get_node_by_id(parent);
         if (!parentNode) {

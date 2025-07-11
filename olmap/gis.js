@@ -108,7 +108,33 @@ export const makeMap = (confObj) => {
 function tree2mapLayers(map, layersTree) {
     for (let n of layersTree) {
         if (n.id === 'root') continue; // skip root node
+        if (n.get_data('deactivate')) {
+            console.warn(`tree2mapLayers: Skipping deactivated layer ${n.name}`);
+            continue;
+        }
         console.log(n.name);
+        let layerObj = n.get_data();
+        switch (n.type) {
+            case 'OSM':
+                newLayer = new TileLayer({
+                    source: new OSM({
+                        attributions: layerObj.source.attributions || [
+                            '<a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+                        ]
+                    }),
+                    properties: layerObj.properties || {},
+                    visible: layerObj.visible || false,
+                    type: 'base',
+                });
+                break;
+            case 'WMS':
+            case 'XYZ':
+            case 'geojson':
+                addMapLayers(map, n.get_child());
+                break;
+            default:
+                console.warn(`tree2mapLayers: Unknown layer type: ${n.get_data('type-layer')}`);
+        }
     }
 }
 

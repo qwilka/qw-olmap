@@ -30,14 +30,15 @@ function loadConfig(confFile) {
     }
     throw new Error(`loadConfig: HTTP error! status: ${response.status}`);
   })
-  .then((configData) => {
-    console.log("Normal startup with configuration:\n", confFile);
-    launch_app(configData);
-  })
   .catch((err) => {
       console.error("loadConfig: error! failed to load:\n", confUrl,"\n", err, "\nProceeding with fallback config.");
     launch_app(fallbackConfig);
+  })
+  .then((configData) => {
+    console.log("loadConfig: Normal startup with configuration:\n", confFile);
+    launch_app(configData);
   });
+
 }
 
 function launch_app(conf){
