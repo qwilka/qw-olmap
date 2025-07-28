@@ -53,7 +53,7 @@ export const makeMap = (confObj) => {
 
     if (confObj.layers) {
         layersTree = makeLayersTree(confObj.layers);
-        console.log(`makeMap: layersTree: ${layersTree.to_texttree()}`);
+        console.log(`makeMap: layersTree: \n${layersTree.to_texttree()}`);
         //console.log(`makeMap: layersTree: ${layersTree.to_texttree()}`);
         //addMapLayers(map, confObj.layers);
         tree2mapLayers(map, layersTree);

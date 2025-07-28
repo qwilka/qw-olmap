@@ -53,6 +53,7 @@ more .git/config
 Openlayers
 ==========
 https://openlayers.org/doc/quickstart.html
+https://openlayers.org/workshop/en/data-tiles/elevation.html
 
 
 ### Denmark
@@ -69,3 +70,5 @@ http://map.geo.admin.ch
 https://map.geo.admin.ch/#/map?lang=en&center=2660000,1190000&z=1&topic=ech&layers=ch.swisstopo.zeitreihen@year=1864,f;ch.bfs.gebaeude_wohnungs_register,f;ch.bav.haltestellen-oev,f;ch.swisstopo.swisstlm3d-wanderwege,f;ch.vbs.schiessanzeigen,f;ch.astra.wanderland-sperrungen_umleitungen,f&bgLayer=ch.swisstopo.pixelkarte-farbe
 https://www.geo.admin.ch/en/
 https://www.geo.admin.ch/en/list-of-publicly-available-webgis-applications
+
+

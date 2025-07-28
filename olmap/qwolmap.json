@@ -61,6 +61,17 @@
       "properties": {"title": "notitle", "name": "noname", "id": "noid"}
     },
     {
+      "name": "Basemaps",
+      "title": "Basemaps group",
+      "id": "basemaps",
+      "parent": "root",
+      "deactivate": true,
+      "type": "group",
+      "type-layerswitcher": "base", 
+      "visible": true,
+      "properties": {"title": "notitle", "name": "noname", "id": "noid"}
+    },
+    {
           "name": "WorldImagery",
           "title": "Esri World Imagery",
           "id": "e1",
@@ -86,6 +97,16 @@
           }
 
       },
+    {
+      "name": "Overlays",
+      "title": "Overlays group",
+      "id": "overlays",
+      "parent": "root",
+      "deactivate": true,
+      "type": "group",
+      "visible": true,
+      "properties": {"title": "notitle", "name": "noname", "id": "noid"}
+    },
     {
       "name": "DK-pl",
       "title": "Denamrk pipelines",
