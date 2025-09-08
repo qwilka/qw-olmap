@@ -12,7 +12,7 @@ window.onload = () => {
       hashParams[i] = parts[i];
     }
   }
-  let confFile = "qwolmap.json";
+  let confFile = "xqwolmap.json";
   if (hashParams[0]) {
     confFile = `qwolmap-${hashParams[0]}.json`
   } 
@@ -32,10 +32,12 @@ function loadConfig(confFile) {
   })
   .catch((err) => {
       console.error("loadConfig: error! failed to load:\n", confUrl,"\n", err, "\nProceeding with fallback config.");
-    launch_app(fallbackConfig);
+    //launch_app(fallbackConfig);
+      confFile = "FALLBACK config";
+      return fallbackConfig;
   })
   .then((configData) => {
-    console.log("loadConfig: Normal startup with configuration:\n", confFile);
+    console.log("loadConfig: startup with configuration:\n", confFile);
     launch_app(configData);
   });
 
@@ -57,14 +59,28 @@ var fallbackConfig = {
     "repository": "https://github.com/qwilka/qw-olmap",
     "refs": ["https://qwilka.github.io/gis/1/#5/53.980/-7.300/g1", "https://github.com/qwilka/qw-olmap"],
     "mapOptions": {
-      "zoom": 3,
-      "centreLonLat": [ 0, 0 ],
+      "zoom": 5,
+      "centreLonLat": [ 0.5, 49.0 ],
       "CRS": "EPSG:3857",
       "attribCtrl": false,
       "scaleCtrl": false,
+      "scaleCtrlOpts": {
+        "units": "metric",
+        "bar": false,
+        "steps": 4,
+        "text": true,
+        "minWidth": 100
+      },
       "graticule": false,
+      "graticuleOpts": {
+            "lonLabelPosition": 0.98,
+            "latLabelPosition": 1,        
+            "properties": {
+                "id": "graticule1"
+            }
+          },
       "urlHash": false,
-      "layerCtrl": true,
+      "layerCtrl": false,
       "xxxxxxxxxxxxxxx": null,
       "maxZoom": 15,
       "minZoom": 2,
@@ -88,34 +104,34 @@ var fallbackConfig = {
       "name": "OSM",
       "title": "OpenStreetMap (built-in)",
       "id": "o",
-      "parent": "basemaps",
-      "type-layer": "tile",
+      "parent": "root",
+      "type": "OSM",
+      "type-layerswitcher": "base",
       "source": "OSM-built-in",  
       "visible": true,
-      "properties": {"title": "notitle", "name": "noname", "id": "noid"},
+      "properties": {"title": "notitle", "name": "noname", "id": "noid"}
+    },
+    {
+      "name": "Basemaps",
+      "title": "Basemaps group",
+      "id": "basemaps",
+      "parent": "root",
+      "deactivate": true,
+      "type": "group",
+      "type-layerswitcher": "base", 
+      "visible": true,
+      "properties": {"title": "notitle", "name": "noname", "id": "noid"}
     },
     {
           "name": "WorldImagery",
           "title": "Esri World Imagery",
           "id": "e1",
       "parent": "basemaps",
+      "deactivate": true,
       "type-layer": "XYZ",
       "source": {"url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"},  
       "visible": false,
-      "properties": {"title": "notitle", "name": "noname", "id": "noid"},
-    },
-    {
-      "name": "DK-pl",
-      "title": "Denamrk pipelines",
-      "id": "dk1",
-      "parent": "overlays",
-      "type-layer": "geojson",
-      "source": {
-        "url": "https://raw.githubusercontent.com/qwilka/qw-olmap/refs/heads/master/data/DK_Geus_pipelines_simplified.geojson",
-        "attributions": ["GEOJSONtest"]
-      },  
-      "visible": true,
-      "properties": {"title": "notitle", "name": "noname", "id": "noid"},      
+      "properties": {"title": "notitle", "name": "noname", "id": "noid"}
     },
       {
           "name": "OSM1",
@@ -132,19 +148,29 @@ var fallbackConfig = {
           }
 
       },
-      {
-        "name": "WorldImagery",
-        "title": "Esri World Imagery",
-        "id": "e1",
-        "parent": "basemaps",
-        "type": "tilemap",
-        "deactivate": true,
-        "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-        "selected": false,
-        "options": {
-          "attribution": "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
-        }
-
+    {
+      "name": "Overlays",
+      "title": "Overlays group",
+      "id": "overlays",
+      "parent": "root",
+      "deactivate": true,
+      "type": "group",
+      "visible": true,
+      "properties": {"title": "notitle", "name": "noname", "id": "noid"}
+    },
+    {
+      "name": "DK-pl",
+      "title": "Denamrk pipelines",
+      "id": "dk1",
+      "parent": "overlays",
+      "type-layer": "geojson",
+      "deactivate": true,
+      "source": {
+        "url": "https://raw.githubusercontent.com/qwilka/qw-olmap/refs/heads/master/data/DK_Geus_pipelines_simplified.geojson",
+        "attributions": ["GEOJSONtest"]
+      },  
+      "visible": true,
+      "properties": {"title": "notitle", "name": "noname", "id": "noid"}      
     },
       {
         "name": "EEZ",
@@ -152,19 +178,12 @@ var fallbackConfig = {
         "id": "ez1",
         "parent": "overlays",
         "deactivate": true,
-        "type": "WMS",
+        "type-layer": "WMS",
+      "source": {
         "url": "http://geo.vliz.be:80/geoserver/MarineRegions/wms",
-        "selected": true,
-        "options": {
-            "layers": "MarineRegions:eez_boundaries",
-            "version": "1.1.1",
-            "format": "image/png",
-            "transparent": true,
-            "noWrap": true,
-            "opacity": 0.8,
-            "attribution": "EEZ boundaries: <a target='_blank' href='http://www.marineregions.org'>Flanders Marine Institute</a>, <a target='_blank' href='https://creativecommons.org/licenses/by/4.0/'>(CC BY 4.0)</a>"
-        }
-
+        "attributions": ["EEZ boundaries: <a target='_blank' href='http://www.marineregions.org'>Flanders Marine Institute</a>, <a target='_blank' href='https://creativecommons.org/licenses/by/4.0/'>(CC BY 4.0)</a>"]
+      },  
+        "visible": true
       },
       {
           "name": "coastlines",

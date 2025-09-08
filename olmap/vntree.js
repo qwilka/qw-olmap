@@ -1,6 +1,11 @@
 
-
-
+// https://developer.mozilla.org/en-US/docs/Web/API/Window/structuredClone
+// https://es-toolkit.dev/reference/object/cloneDeep.html
+// https://lodash.com/docs/4.17.15#set
+// https://github.com/lodash/lodash/issues/5999  Future of JavaScript Utility Libraries with es-toolkit
+// https://es-toolkit.dev/reference/compat/object/set.html 
+// https://lodash.com/per-method-packages
+// https://www.npmjs.com/package/lodash.set
 
 
 

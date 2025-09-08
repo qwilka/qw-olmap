@@ -106,6 +106,7 @@ export const makeMap = (confObj) => {
 }
 
 function tree2mapLayers(map, layersTree) {
+    let newLayer = null;
     for (let n of layersTree) {
         if (n.id === 'root') continue; // skip root node
         if (n.get_data('deactivate')) {
@@ -133,7 +134,17 @@ function tree2mapLayers(map, layersTree) {
                 addMapLayers(map, n.get_child());
                 break;
             default:
-                console.warn(`tree2mapLayers: Unknown layer type: ${n.get_data('type-layer')}`);
+                console.warn(`tree2mapLayers: Unknown layer type: ${n.get_data('type')}`);
+        }
+        if (newLayer) {
+            map.addLayer(newLayer);
+            newLayer.setProperties({
+                name: n.name,
+                title: n.get_data('title') || n.name,
+                id: n.id,
+            }, true);
+            console.log(`tree2mapLayers: Added layer ${newLayer.get('name')} ${newLayer.get('id')}`);
+            newLayer = null;
         }
     }
 }

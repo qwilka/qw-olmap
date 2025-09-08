@@ -4,6 +4,7 @@ https://github.com/openlayers/openlayers
 
 https://openlayers.org/workshop/en/
 
+https://github.com/walkermatt/ol-layerswitcher
 https://github.com/webgeodatavore/awesome-openlayers
 https://github.com/tschaub/ol-hashed
 https://github.com/frogcat/ol-hash
@@ -71,4 +72,8 @@ https://map.geo.admin.ch/#/map?lang=en&center=2660000,1190000&z=1&topic=ech&laye
 https://www.geo.admin.ch/en/
 https://www.geo.admin.ch/en/list-of-publicly-available-webgis-applications
 
+
+
+https://stackoverflow.com/questions/10721884/how-to-render-html-to-an-image
+https://github.com/cburgmer/rasterizeHTML.js
 
