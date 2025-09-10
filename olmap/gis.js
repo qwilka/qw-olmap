@@ -59,6 +59,13 @@ export const makeMap = (confObj) => {
         tree2mapLayers(map, layersTree);
 
     }
+    if (mapOpts.layerCtrl) {
+        var layerSwitcher = new LayerSwitcher({
+            reverse: false,
+            groupSelectStyle: 'children'
+        });
+        map.addControl(layerSwitcher);
+    }
 
     if (mapOpts.scaleCtrl) {
         const scaleControl = new ScaleLine({
@@ -125,7 +132,6 @@ function tree2mapLayers(map, layersTree) {
                     }),
                     properties: layerObj.properties || {},
                     visible: layerObj.visible || false,
-                    type: 'base',
                 });
                 break;
             case 'WMS':
@@ -137,6 +143,10 @@ function tree2mapLayers(map, layersTree) {
                 console.warn(`tree2mapLayers: Unknown layer type: ${n.get_data('type')}`);
         }
         if (newLayer) {
+            // type: 'base' is required by ol-layerswitcher to identify base layers
+            if (layerObj.basemap) {
+                newLayer.set('type', 'base');
+            }
             map.addLayer(newLayer);
             newLayer.setProperties({
                 name: n.name,

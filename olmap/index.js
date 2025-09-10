@@ -80,7 +80,7 @@ var fallbackConfig = {
             }
           },
       "urlHash": false,
-      "layerCtrl": false,
+      "layerCtrl": true,
       "xxxxxxxxxxxxxxx": null,
       "maxZoom": 15,
       "minZoom": 2,
@@ -106,7 +106,7 @@ var fallbackConfig = {
       "id": "o",
       "parent": "root",
       "type": "OSM",
-      "type-layerswitcher": "base",
+      "basemap": true,
       "source": "OSM-built-in",  
       "visible": true,
       "properties": {"title": "notitle", "name": "noname", "id": "noid"}
