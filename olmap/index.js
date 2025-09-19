@@ -3,6 +3,7 @@ import { makeMap } from './gis';
 
 
 window.onload = () => {
+  let confFile = "qwolmap-toplevel.json";
   let url = new URL( window.location.href );
   let hashParams = {};
   if (url.hash) {
@@ -12,7 +13,6 @@ window.onload = () => {
       hashParams[i] = parts[i];
     }
   }
-  let confFile = "xqwolmap.json";
   if (hashParams[0]) {
     confFile = `qwolmap-${hashParams[0]}.json`
   } 
@@ -108,6 +108,23 @@ var fallbackConfig = {
       "type": "OSM",
       "basemap": true,
       "source": "OSM-built-in",  
+      "visible": true,
+      "properties": {"title": "notitle", "name": "noname", "id": "noid"}
+    },
+    {
+      "name": "GEBCO",
+      "title": "GEBCO WMS",
+      "id": "g",
+      "parent": "root",
+      "type": "WMS",
+      "basemap": true,
+        "deactivate": false,
+        "type-layer": "WMS",
+      "source": {
+        "url": "https://wms.gebco.net/mapserv",
+        "params": {'LAYERS': 'GEBCO_LATEST', 'TILED': true},
+        "attributions": ["Imagery reproduced from the GEBCO_2020 Grid, <a target='_blank' href='https://www.gebco.net/'>GEBCO</a>  Compilation Group (2020) GEBCO 2020 Grid (doi:10.5285/a29c5465-b138-234d-e053-6c86abc040b9)"]
+      },  
       "visible": true,
       "properties": {"title": "notitle", "name": "noname", "id": "noid"}
     },

@@ -113,18 +113,20 @@ export const makeMap = (confObj) => {
 }
 
 function tree2mapLayers(map, layersTree) {
-    let newLayer = null;
     for (let n of layersTree) {
-        if (n.id === 'root') continue; // skip root node
+        if (n.id === 'root') {
+            n.layer = map;
+            continue; // skip root node
+        }
         if (n.get_data('deactivate')) {
             console.warn(`tree2mapLayers: Skipping deactivated layer ${n.name}`);
             continue;
         }
-        console.log(n.name);
+        console.log(n.name, n.layer);
         let layerObj = n.get_data();
         switch (n.type) {
             case 'OSM':
-                newLayer = new TileLayer({
+                n.layer = new TileLayer({
                     source: new OSM({
                         attributions: layerObj.source.attributions || [
                             '<a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
@@ -135,6 +137,17 @@ function tree2mapLayers(map, layersTree) {
                 });
                 break;
             case 'WMS':
+                n.layer = new TileLayer({
+                    source: new TileWMS({
+                        url: layerObj.source.url,
+                        params: layerObj.source.params,
+                        attributions: layerObj.source.attributions || []
+                    }),
+                    properties: layerObj.properties || {},
+                    visible: layerObj.visible || false,
+                });
+                break;
+
             case 'XYZ':
             case 'geojson':
                 addMapLayers(map, n.get_child());
@@ -142,19 +155,28 @@ function tree2mapLayers(map, layersTree) {
             default:
                 console.warn(`tree2mapLayers: Unknown layer type: ${n.get_data('type')}`);
         }
-        if (newLayer) {
+        if (n.layer) {
             // type: 'base' is required by ol-layerswitcher to identify base layers
             if (layerObj.basemap) {
-                newLayer.set('type', 'base');
+                n.layer.set('type', 'base');
             }
-            map.addLayer(newLayer);
-            newLayer.setProperties({
+            let parent_layer = n.parent?.layer;
+            if (parent_layer && parent_layer instanceof LayerGroup) {
+                parent_layer.getLayers().push(n.layer);
+            } else if (parent_layer && parent_layer instanceof Map) {
+                //parent_layer.addLayer(n.layer);
+                parent_layer.addLayer(n.layer);
+            } else {
+                console.warn(`tree2mapLayers: Parent layer not found or invalid for layer ${n.name}`);
+            }
+            //map.addLayer(newLayer);
+            n.layer.setProperties({
                 name: n.name,
                 title: n.get_data('title') || n.name,
                 id: n.id,
             }, true);
-            console.log(`tree2mapLayers: Added layer ${newLayer.get('name')} ${newLayer.get('id')}`);
-            newLayer = null;
+            console.log(`tree2mapLayers: Added layer ${n.layer.get('name')} ${n.layer.get('id')}`);
+            //newLayer = null;
         }
     }
 }

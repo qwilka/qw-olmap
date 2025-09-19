@@ -1,0 +1,94 @@
+{
+    "title": "qw-olmap TOPLEVEL",
+    "name": "qw-olmap",
+    "description": "Map with toplevel layers only, there are no groups (except root).",
+    "version": "0.0.001",
+    "author": "SMcE",
+    "license": "MIT",
+    "repository": "https://github.com/qwilka/qw-olmap",
+    "refs": ["https://qwilka.github.io/gis/1/#5/53.980/-7.300/g1", "https://github.com/qwilka/qw-olmap"],
+    "mapOptions": {
+      "zoom": 5,
+      "centreLonLat": [ 0.5, 49.0 ],
+      "CRS": "EPSG:3857",
+      "attribCtrl": false,
+      "scaleCtrl": false,
+      "scaleCtrlOpts": {
+        "units": "metric",
+        "bar": false,
+        "steps": 4,
+        "text": true,
+        "minWidth": 100
+      },
+      "graticule": false,
+      "graticuleOpts": {
+            "lonLabelPosition": 0.98,
+            "latLabelPosition": 1,        
+            "properties": {
+                "id": "graticule1"
+            }
+          },
+      "urlHash": false,
+      "layerCtrl": true
+    },
+  "layers": [
+    {
+      "name": "OSM",
+      "title": "OpenStreetMap (built-in)",
+      "id": "o",
+      "parent": "root",
+      "type": "OSM",
+      "basemap": true,
+      "source": "OSM-built-in",  
+      "visible": true,
+      "properties": {"title": "notitle", "name": "noname", "id": "noid"}
+    },
+    {
+      "name": "GEBCO",
+      "title": "GEBCO WMS",
+      "id": "g1",
+      "parent": "root",
+      "type": "WMS",
+      "basemap": true,
+        "deactivate": false,
+        "type-layer": "WMS",
+      "source": {
+        "url": "https://wms.gebco.net/mapserv",
+        "params": {"LAYERS": "GEBCO_LATEST"},
+        "attributions": ["Imagery reproduced from the GEBCO_2020 Grid, <a target='_blank' href='https://www.gebco.net/'>GEBCO</a>  Compilation Group (2020) GEBCO 2020 Grid (doi:10.5285/a29c5465-b138-234d-e053-6c86abc040b9)"]
+      },  
+      "visible": false,
+      "properties": {"title": "notitle", "name": "noname", "id": "noid"}
+    },
+      {
+        "name": "EEZ",
+        "title": "EEZ boundaries",
+        "id": "ez1",
+        "parent": "root",
+        "type": "WMS",
+        "deactivate": false,
+        "type-layer": "WMS",
+      "source": {
+        "url": "http://geo.vliz.be:80/geoserver/MarineRegions/wms",
+        "params": {"LAYERS": "MarineRegions:eez_boundaries"},
+        "attributions": ["EEZ boundaries: <a target='_blank' href='http://www.marineregions.org'>Flanders Marine Institute</a>, <a target='_blank' href='https://creativecommons.org/licenses/by/4.0/'>(CC BY 4.0)</a>"]
+      },  
+        "visible": false
+      },
+      {
+          "name": "coastlines",
+          "title": "coastlines (EMODnet)",
+          "id": "cl1",
+          "parent": "root",
+          "type": "WMS",
+          "deactivate": false,
+      "source": {
+        "url": "http://ows.emodnet-bathymetry.eu/ows",
+        "params": {"LAYERS": "coastlines"},
+        "attributions": ["<a target='_blank' href='https://emodnet.ec.europa.eu/en/bathymetry'>EMODnet, </a>"]
+      },  
+        "visible": true
+
+      }      
+  ]
+}

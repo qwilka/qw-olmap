@@ -22,6 +22,7 @@ module.exports = {
       patterns: [
         { from: "./olmap/index.html", to: "index.html" },
         { from: "./olmap/qwolmap.json", to: "qwolmap.json" },
+        { from: "./olmap/qwolmap-toplevel.json", to: "qwolmap-toplevel.json" },
         { from: "./olmap/qwolmap.ico", to: "qwolmap.ico" },
       ],
     }),
