@@ -1,11 +1,13 @@
 import { makeMap } from './gis';
 
-
+export let confFile = "qwolmap.json";
 
 window.onload = () => {
-  let confFile = "qwolmap-toplevel.json";
   let url = new URL( window.location.href );
   let hashParams = {};
+  if (url.searchParams.has("conf")) {
+    hashParams[0] = url.searchParams.get("conf");
+  }
   if (url.hash) {
     let hash = url.hash.substring(1); // remove the #
     let parts = hash.split("/");
@@ -33,7 +35,7 @@ function loadConfig(confFile) {
   .catch((err) => {
       console.error("loadConfig: error! failed to load:\n", confUrl,"\n", err, "\nProceeding with fallback config.");
     //launch_app(fallbackConfig);
-      confFile = "FALLBACK config";
+      confFile = null;
       return fallbackConfig;
   })
   .then((configData) => {
@@ -108,7 +110,7 @@ var fallbackConfig = {
       "type": "OSM",
       "basemap": true,
       "source": "OSM-built-in",  
-      "visible": true,
+      "visible": false,
       "properties": {"title": "notitle", "name": "noname", "id": "noid"}
     },
     {

@@ -28,7 +28,7 @@
                 "id": "graticule1"
             }
           },
-      "urlHash": false,
+      "urlHash": true,
       "layerCtrl": true
     },
   "layers": [
