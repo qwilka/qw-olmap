@@ -27,7 +27,7 @@ import LayerSwitcher from 'ol-layerswitcher';
 //import {VnNode, layersTree} from './vntree.js';
 
 //import sync from './libs/ol-hashed.js';
-import {onMoveEnd} from './hash-mapstate.js';
+import {updateHash, decode_hash} from './hash-mapstate.js';
 
 import {makeLayersTree} from './vntree.js';
 
@@ -78,9 +78,7 @@ export const makeMap = (confObj) => {
         map.addControl(scaleControl);
     }
 
-    if (mapOpts.urlHash) {
-        map.on('moveend', onMoveEnd);
-    }
+
 //    sync(map);
 
     if (mapOpts.graticule) {
@@ -106,7 +104,19 @@ export const makeMap = (confObj) => {
         graticule.setMap(map);
     }
 
-
+    if (mapOpts.urlHash) {
+        decode_hash(map);
+        //map.on('moveend', onMoveEnd);
+        map.on('postrender', updateHash);
+        // let url = new URL( window.location.href );
+        // if (url.hash) {
+        //   history.replaceState(null, null, url.hash);
+        // };
+        //decode_hash(map);
+        // if (confObj.hash){
+        //    decode_hash(map, confObj.hash);
+        // };
+    }
 
     return true;  
 

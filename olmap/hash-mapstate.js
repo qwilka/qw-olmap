@@ -1,7 +1,7 @@
 import {transform, fromLonLat} from 'ol/proj.js';
 import { confFile } from './index';
 
-export const onMoveEnd = (e) => {
+export const updateHash = (e) => {
     const map = e.map;
     const view = map.getView();
     const projection = view.getProjection().getCode();
@@ -52,34 +52,73 @@ const encode_hash = (map) => {
 }
 
 
-const decode_hash = (map) => {
+// export const decode_hash = (map) => {
+//     let hash = location.hash;
+//     console.log("decode_hash:", hash);
+//     const view = map.getView();
+//     const projection = view.getProjection().getCode();
+//     let parts = hash.substring(1).split("/");
+//     let centre = [parseFloat(parts[2]), parseFloat(parts[3])];
+//     centre = transform(centre, 'EPSG:4326', projection);
+//     let ids = parts.length > 4 ? parts[4].split("-") : [];
+//     let layers = map.getLayers().getArray();
+//     for (let layer of layers) {
+//         if (ids.includes(layer.get('id'))) {  
+//             layer.setVisible(true);
+//         } else {
+//             layer.setVisible(false);
+//         }
+//     }
+    
+//     view.setZoom(parseInt(parts[1]));
+//     view.setCenter(centre);
+//     if (parts.length > 5) {
+//         let rotation = parseFloat(parts[5]);
+//         if (isNaN(rotation || rotation < 0 || rotation >= 360)) {
+//             console.warn(`decode_hash: Invalid rotation value: ${parts[5]}, specifiy degrees between 0 and 360.`);
+//         } else {
+//             view.setRotation(rotation*Math.PI / 180); // Convert degrees to radians
+//         }
+//     }
+    
+
+    
+
+//     return true;
+// }
+
+export const decode_hash = (map) => {
     let hash = location.hash;
+    console.log("decode_hash:", hash);
     const view = map.getView();
     const projection = view.getProjection().getCode();
     let parts = hash.substring(1).split("/");
     let centre = [parseFloat(parts[2]), parseFloat(parts[3])];
     centre = transform(centre, 'EPSG:4326', projection);
-    let ids = parts.length > 4 ? parts[4].split("-") : [];
-    let layers = map.getLayers().getArray();
-    for (let layer of layers) {
-        if (ids.includes(layer.get('id'))) {  
-            layer.setVisible(true);
-        } else {
-            layer.setVisible(false);
-        }
-    }
+    //console.log("decode_hash centre:", centre);
+
     
     view.setZoom(parseInt(parts[1]));
     view.setCenter(centre);
-    if (parts.length > 5) {
-        let rotation = parseFloat(parts[5]);
+    if (parts.length > 4) {
+        let rotation = parseFloat(parts[4]);
         if (isNaN(rotation || rotation < 0 || rotation >= 360)) {
             console.warn(`decode_hash: Invalid rotation value: ${parts[5]}, specifiy degrees between 0 and 360.`);
         } else {
             view.setRotation(rotation*Math.PI / 180); // Convert degrees to radians
         }
     }
-
+    
+    let ids = parts.length > 5 ? parts[5].split("-") : [];
+    let layers = map.getLayers().getArray();
+    for (let layer of layers) {
+        if (ids.includes(layer.get('id'))) {  
+            layer.setVisible(true);
+            //console.log("decode_hash layer visible: ", layer.get('id'));
+        } else {
+            layer.setVisible(false);
+        }
+    }
     
 
     return true;

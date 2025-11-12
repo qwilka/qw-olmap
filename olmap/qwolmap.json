@@ -55,9 +55,26 @@
       "id": "o",
       "parent": "root",
       "type": "OSM",
-      "type-layerswitcher": "base",
+      "basemap": true,
       "source": "OSM-built-in",  
       "visible": true,
+      "properties": {"title": "notitle", "name": "noname", "id": "noid"}
+    },
+    {
+      "name": "GEBCO",
+      "title": "GEBCO WMS",
+      "id": "g1",
+      "parent": "root",
+      "type": "WMS",
+      "basemap": true,
+        "deactivate": false,
+        "type-layer": "WMS",
+      "source": {
+        "url": "https://wms.gebco.net/mapserv",
+        "params": {"LAYERS": "GEBCO_LATEST"},
+        "attributions": ["Imagery reproduced from the GEBCO_2020 Grid, <a target='_blank' href='https://www.gebco.net/'>GEBCO</a>  Compilation Group (2020) GEBCO 2020 Grid (doi:10.5285/a29c5465-b138-234d-e053-6c86abc040b9)"]
+      },  
+      "visible": false,
       "properties": {"title": "notitle", "name": "noname", "id": "noid"}
     },
     {

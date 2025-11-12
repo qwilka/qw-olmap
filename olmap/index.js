@@ -10,6 +10,7 @@ window.onload = () => {
   }
   if (url.hash) {
     let hash = url.hash.substring(1); // remove the #
+    console.log(`Startup hash = ${url.hash}`);
     let parts = hash.split("/");
     for (let i = 0; i < parts.length; i++) {
       hashParams[i] = parts[i];
