@@ -12,7 +12,7 @@ import {transform, fromLonLat} from 'ol/proj.js';
 import Graticule from 'ol/layer/Graticule.js';
 import Stroke from 'ol/style/Stroke.js';
 
-import sourceXYZ from 'ol/source/XYZ.js';
+import XYZ from 'ol/source/XYZ.js';
 import TileWMS from 'ol/source/TileWMS.js';
 import GeoJSON from 'ol/format/GeoJSON.js';
 import VectorLayer from 'ol/layer/Vector.js';
@@ -159,8 +159,22 @@ function tree2mapLayers(map, layersTree) {
                 break;
 
             case 'XYZ':
+                n.layer = new TileLayer({
+                    source: new XYZ({
+                        url: layerObj.source.url,
+                        attributions: layerObj.source.attributions || []
+                    }),
+                    properties: layerObj.properties || {},
+                    visible: layerObj.visible || false,
+                });
+                break;
+
             case 'geojson':
                 addMapLayers(map, n.get_child());
+                break;
+            case 'group':
+                n.layer = new LayerGroup({"title":n.get_data('title') || n.name, "combine":false, "fold":"close"});
+                //n.layer = new LayerGroup({"title":n.get_data('title') || n.name});
                 break;
             default:
                 console.warn(`tree2mapLayers: Unknown layer type: ${n.get_data('type')}`);
@@ -173,6 +187,10 @@ function tree2mapLayers(map, layersTree) {
             let parent_layer = n.parent?.layer;
             if (parent_layer && parent_layer instanceof LayerGroup) {
                 parent_layer.getLayers().push(n.layer);
+                let groupColl = parent_layer.getLayers();
+                console.log(`tree2mapLayers: LayerGroup ${parent_layer.get('id')}  layers list ${groupColl.getArray()}`);
+                console.log(groupColl.getArray());
+                //console.log(`tree2mapLayers: LayerGroup ${parent_layer.get('id')}  added new layer  ${parent_layer.getLayers().forEach((layer) => layer.get('id'))}`)
             } else if (parent_layer && parent_layer instanceof Map) {
                 //parent_layer.addLayer(n.layer);
                 parent_layer.addLayer(n.layer);
@@ -192,130 +210,130 @@ function tree2mapLayers(map, layersTree) {
 }
 
 
-function addMapLayers(map, layers) {
-    let baselayers = [];
-    let overlays = [];
-        const baseMapsGroup = new LayerGroup({
-            title: 'Base maps',
-            visible: true,
-            layers: []
-        });
-        const overlaysGroup = new LayerGroup({
-        title: 'Overlays',
-        layers: []
-        });
+// function addMapLayers(map, layers) {
+//     let baselayers = [];
+//     let overlays = [];
+//         const baseMapsGroup = new LayerGroup({
+//             title: 'Base maps',
+//             visible: true,
+//             layers: []
+//         });
+//         const overlaysGroup = new LayerGroup({
+//         title: 'Overlays',
+//         layers: []
+//         });
 
-    for (let layerObj of layers) {
-        let newLayer = null;
-        if (layerObj.deactivate) {
-            console.log(`addMapLayers: Skipping deactivated layer: ${layerObj.name}`);
-            continue;
-        }
+//     for (let layerObj of layers) {
+//         let newLayer = null;
+//         if (layerObj.deactivate) {
+//             console.log(`addMapLayers: Skipping deactivated layer: ${layerObj.name}`);
+//             continue;
+//         }
         
-        switch (layerObj['type-layer']) {
-            case 'tile':
-                switch (layerObj.source) {
-                    case 'OSM-built-in':
-                        newLayer = new TileLayer({
-                            source: new OSM({
-                                attributions: layerObj.source.attributions || [
-                                    '<a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
-                                ]
-                            }),
-                            properties: layerObj.properties || {},
-                            visible: layerObj.visible || false,
-                            type: 'base',
-                        });
-                        //addNewLayer(map, newLayer, layerObj);
-                        break;
-                    default:
-                        console.warn(`addMapLayers: Unknown tile source: ${layerObj.source}`);
-                }
-                break;
-            case 'WMS':
-                newLayer = new TileLayer({
-                    source: new TileWMS({
-                        url: layerObj.source.url,
-                        attributions: layerObj.source.attributions || []
-                    }),
-                    properties: layerObj.properties || {},
-                    visible: layerObj.visible || false,
-                });
-                break;
-            case 'XYZ':
-                newLayer = new TileLayer({
-                    source: new sourceXYZ({
-                        url: layerObj.source.url,
-                        attributions: layerObj.source.attributions || []
-                    }),
-                    properties: layerObj.properties || {},
-                    visible: layerObj.visible || false,
-                    type: 'base',
-                });
-                break;
-            case 'geojson':
-                newLayer = new VectorLayer({
-                    source: new VectorSource({
-                        url: layerObj.source.url,
-                        format: new GeoJSON(),
-                        attributions: layerObj.source.attributions || [],
-                    }),
-                    properties: layerObj.properties || {},
-                    visible: layerObj.visible || false,
-                });
-                //addNewLayer(map, vectorLayer, layerObj);
-                break;
-            default:
-                console.warn(`addMapLayers: Unknown layer type: ${layerObj.type}`);
-        }
-        if (newLayer) {
-            //map.addLayer(newLayer);
-            if (newLayer.get('type') === 'base') {
-                baseMapsGroup.getLayers().push(newLayer);
-            } else {
-                overlaysGroup.getLayers().push(newLayer);
-            }
+//         switch (layerObj['type-layer']) {
+//             case 'tile':
+//                 switch (layerObj.source) {
+//                     case 'OSM-built-in':
+//                         newLayer = new TileLayer({
+//                             source: new OSM({
+//                                 attributions: layerObj.source.attributions || [
+//                                     '<a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+//                                 ]
+//                             }),
+//                             properties: layerObj.properties || {},
+//                             visible: layerObj.visible || false,
+//                             type: 'base',
+//                         });
+//                         //addNewLayer(map, newLayer, layerObj);
+//                         break;
+//                     default:
+//                         console.warn(`addMapLayers: Unknown tile source: ${layerObj.source}`);
+//                 }
+//                 break;
+//             case 'WMS':
+//                 newLayer = new TileLayer({
+//                     source: new TileWMS({
+//                         url: layerObj.source.url,
+//                         attributions: layerObj.source.attributions || []
+//                     }),
+//                     properties: layerObj.properties || {},
+//                     visible: layerObj.visible || false,
+//                 });
+//                 break;
+//             case 'XYZ':
+//                 newLayer = new TileLayer({
+//                     source: new sourceXYZ({
+//                         url: layerObj.source.url,
+//                         attributions: layerObj.source.attributions || []
+//                     }),
+//                     properties: layerObj.properties || {},
+//                     visible: layerObj.visible || false,
+//                     type: 'base',
+//                 });
+//                 break;
+//             case 'geojson':
+//                 newLayer = new VectorLayer({
+//                     source: new VectorSource({
+//                         url: layerObj.source.url,
+//                         format: new GeoJSON(),
+//                         attributions: layerObj.source.attributions || [],
+//                     }),
+//                     properties: layerObj.properties || {},
+//                     visible: layerObj.visible || false,
+//                 });
+//                 //addNewLayer(map, vectorLayer, layerObj);
+//                 break;
+//             default:
+//                 console.warn(`addMapLayers: Unknown layer type: ${layerObj.type}`);
+//         }
+//         if (newLayer) {
+//             //map.addLayer(newLayer);
+//             if (newLayer.get('type') === 'base') {
+//                 baseMapsGroup.getLayers().push(newLayer);
+//             } else {
+//                 overlaysGroup.getLayers().push(newLayer);
+//             }
             
-            newLayer.setProperties({
-                name: layerObj.name,
-                title: layerObj.title,
-                id: layerObj.id,
-            }, true);
-            console.log(`addMapLayers: ${newLayer.get('name')} ${newLayer.get('id')}`);
-            if (layerObj.parent === 'basemaps') {
-                baselayers.push(newLayer);
-            } else if (layerObj.parent === 'overlays') {
-                overlays.push(newLayer);
-            } else {
-                console.warn(`addMapLayers: Unknown parent for layer ${layerObj.name}: ${layerObj.parent}`);
-            }
+//             newLayer.setProperties({
+//                 name: layerObj.name,
+//                 title: layerObj.title,
+//                 id: layerObj.id,
+//             }, true);
+//             console.log(`addMapLayers: ${newLayer.get('name')} ${newLayer.get('id')}`);
+//             if (layerObj.parent === 'basemaps') {
+//                 baselayers.push(newLayer);
+//             } else if (layerObj.parent === 'overlays') {
+//                 overlays.push(newLayer);
+//             } else {
+//                 console.warn(`addMapLayers: Unknown parent for layer ${layerObj.name}: ${layerObj.parent}`);
+//             }
 
-        }
-    }
+//         }
+//     }
 
-    map.addLayer(baseMapsGroup);
-    map.addLayer(overlaysGroup);
-    if (true) {
-        // const baseMapsGroup = new LayerGroup({
-        //     title: 'Base maps',
-        //     visible: true,
-        //     layers: baselayers
-        // });
-        // map.addLayer(baseMapsGroup);
-        // const overlaysGroup = new LayerGroup({
-        // title: 'Overlays',
-        // layers: overlays
-        // });
-        // map.addLayer(overlaysGroup);
+//     map.addLayer(baseMapsGroup);
+//     map.addLayer(overlaysGroup);
+//     if (true) {
+//         // const baseMapsGroup = new LayerGroup({
+//         //     title: 'Base maps',
+//         //     visible: true,
+//         //     layers: baselayers
+//         // });
+//         // map.addLayer(baseMapsGroup);
+//         // const overlaysGroup = new LayerGroup({
+//         // title: 'Overlays',
+//         // layers: overlays
+//         // });
+//         // map.addLayer(overlaysGroup);
 
-        var layerSwitcher = new LayerSwitcher({
-            reverse: false,
-            groupSelectStyle: 'children'
-        });
-        map.addControl(layerSwitcher);
-    }
+//         var layerSwitcher = new LayerSwitcher({
+//             reverse: false,
+//             groupSelectStyle: 'children'
+//         });
+//         map.addControl(layerSwitcher);
+//     }
 
-}
+// }
 
 // https://github.com/walkermatt/ol-layerswitcher
 // https://github.com/walkermatt/ol-popup

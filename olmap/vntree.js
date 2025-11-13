@@ -252,10 +252,10 @@ export function makeLayersTree(layers) {
         //     console.warn(`makeLayerTree: Skipping deactivated layer ${layer.name}`);
         //     continue;
         // }
-        let parent = layer.parent || "overlays";
-        let parentNode = layersTree.get_node_by_id(parent);
+        let parentId = layer.parent || "root";
+        let parentNode = layersTree.get_node_by_id(parentId);
         if (!parentNode) {
-            console.warn(`makeLayerTree: Parent node ${parent} not found for layer ${layer.name}`);
+            console.warn(`makeLayerTree: Parent node ${parentId} not found for layer ${layer.name}`);
             continue;
         }
         let newNode = new VnNode(layer.name, parentNode, layer, null, layer.id || crypto.randomUUID());

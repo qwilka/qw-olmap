@@ -36,11 +36,11 @@ function loadConfig(confFile) {
   .catch((err) => {
       console.error("loadConfig: error! failed to load:\n", confUrl,"\n", err, "\nProceeding with fallback config.");
     //launch_app(fallbackConfig);
-      confFile = null;
+      confFile = "FALLBACK";
       return fallbackConfig;
   })
   .then((configData) => {
-    console.log("loadConfig: startup with configuration:\n", confFile);
+    console.log("loadConfig: startup with configuration :\n", confFile);
     launch_app(configData);
   });
 
@@ -83,7 +83,7 @@ var fallbackConfig = {
             }
           },
       "urlHash": false,
-      "layerCtrl": true,
+      "layerCtrl": false,
       "xxxxxxxxxxxxxxx": null,
       "maxZoom": 15,
       "minZoom": 2,
@@ -111,121 +111,9 @@ var fallbackConfig = {
       "type": "OSM",
       "basemap": true,
       "source": "OSM-built-in",  
-      "visible": false,
-      "properties": {"title": "notitle", "name": "noname", "id": "noid"}
-    },
-    {
-      "name": "GEBCO",
-      "title": "GEBCO WMS",
-      "id": "g",
-      "parent": "root",
-      "type": "WMS",
-      "basemap": true,
-        "deactivate": false,
-        "type-layer": "WMS",
-      "source": {
-        "url": "https://wms.gebco.net/mapserv",
-        "params": {'LAYERS': 'GEBCO_LATEST', 'TILED': true},
-        "attributions": ["Imagery reproduced from the GEBCO_2020 Grid, <a target='_blank' href='https://www.gebco.net/'>GEBCO</a>  Compilation Group (2020) GEBCO 2020 Grid (doi:10.5285/a29c5465-b138-234d-e053-6c86abc040b9)"]
-      },  
       "visible": true,
       "properties": {"title": "notitle", "name": "noname", "id": "noid"}
-    },
-    {
-      "name": "Basemaps",
-      "title": "Basemaps group",
-      "id": "basemaps",
-      "parent": "root",
-      "deactivate": true,
-      "type": "group",
-      "type-layerswitcher": "base", 
-      "visible": true,
-      "properties": {"title": "notitle", "name": "noname", "id": "noid"}
-    },
-    {
-          "name": "WorldImagery",
-          "title": "Esri World Imagery",
-          "id": "e1",
-      "parent": "basemaps",
-      "deactivate": true,
-      "type-layer": "XYZ",
-      "source": {"url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"},  
-      "visible": false,
-      "properties": {"title": "notitle", "name": "noname", "id": "noid"}
-    },
-      {
-          "name": "OSM1",
-          "title": "OpenStreetMap",
-          "id": "o1",
-          "parent": "basemaps",
-          "type": "tilemap",
-          "deactivate": true,
-          "url": "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-          "selected": true,
-          "options": {
-              "maxZoom": 19,
-              "attribution": "&copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>"
-          }
-
-      },
-    {
-      "name": "Overlays",
-      "title": "Overlays group",
-      "id": "overlays",
-      "parent": "root",
-      "deactivate": true,
-      "type": "group",
-      "visible": true,
-      "properties": {"title": "notitle", "name": "noname", "id": "noid"}
-    },
-    {
-      "name": "DK-pl",
-      "title": "Denamrk pipelines",
-      "id": "dk1",
-      "parent": "overlays",
-      "type-layer": "geojson",
-      "deactivate": true,
-      "source": {
-        "url": "https://raw.githubusercontent.com/qwilka/qw-olmap/refs/heads/master/data/DK_Geus_pipelines_simplified.geojson",
-        "attributions": ["GEOJSONtest"]
-      },  
-      "visible": true,
-      "properties": {"title": "notitle", "name": "noname", "id": "noid"}      
-    },
-      {
-        "name": "EEZ",
-        "title": "EEZ boundaries",
-        "id": "ez1",
-        "parent": "overlays",
-        "deactivate": true,
-        "type-layer": "WMS",
-      "source": {
-        "url": "http://geo.vliz.be:80/geoserver/MarineRegions/wms",
-        "attributions": ["EEZ boundaries: <a target='_blank' href='http://www.marineregions.org'>Flanders Marine Institute</a>, <a target='_blank' href='https://creativecommons.org/licenses/by/4.0/'>(CC BY 4.0)</a>"]
-      },  
-        "visible": true
-      },
-      {
-          "name": "coastlines",
-          "title": "coastlines (EMODnet)",
-          "id": "cl1",
-          "parent": "overlays",
-          "deactivate": true,
-          "type": "WMS",
-          "url": "http://ows.emodnet-bathymetry.eu/ows",
-          "selected": false,
-          "options": {
-            "layers": "coastlines",
-            "CRS": "EPSG:4326",
-            "version": "1.3.0",
-            "format": "image/png",
-            "transparent": true,
-            "noWrap": true,
-            "opacity": 0.9,
-            "attribution": "<a target='_blank' href='https://emodnet.ec.europa.eu/en/bathymetry'>EMODnet, </a>"
-          }
-
-      }
+    }
   ]
 };
 

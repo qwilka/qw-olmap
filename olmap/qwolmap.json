@@ -50,10 +50,20 @@
     },
   "layers": [
     {
+      "name": "Basemaps",
+      "title": "Basemaps group",
+      "id": "basemaps",
+      "parent": "root",
+      "deactivate": false,
+      "type": "group",
+      "visible": false,
+      "properties": {"title": "notitle", "name": "noname", "id": "noid"}
+    },
+    {
       "name": "OSM",
       "title": "OpenStreetMap (built-in)",
       "id": "o",
-      "parent": "root",
+      "parent": "basemaps",
       "type": "OSM",
       "basemap": true,
       "source": "OSM-built-in",  
@@ -64,7 +74,7 @@
       "name": "GEBCO",
       "title": "GEBCO WMS",
       "id": "g1",
-      "parent": "root",
+      "parent": "basemaps",
       "type": "WMS",
       "basemap": true,
         "deactivate": false,
@@ -78,24 +88,15 @@
       "properties": {"title": "notitle", "name": "noname", "id": "noid"}
     },
     {
-      "name": "Basemaps",
-      "title": "Basemaps group",
-      "id": "basemaps",
-      "parent": "root",
-      "deactivate": true,
-      "type": "group",
-      "type-layerswitcher": "base", 
-      "visible": true,
-      "properties": {"title": "notitle", "name": "noname", "id": "noid"}
-    },
-    {
           "name": "WorldImagery",
           "title": "Esri World Imagery",
           "id": "e1",
       "parent": "basemaps",
       "deactivate": true,
       "type-layer": "XYZ",
-      "source": {"url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"},  
+      "source": {"url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+       "attributions": ["Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"]
+      },  
       "visible": false,
       "properties": {"title": "notitle", "name": "noname", "id": "noid"}
     },
