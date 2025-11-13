@@ -9,7 +9,7 @@ export const updateHash = (e) => {
     let center = view.getCenter();
     let rotation = view.getRotation();
     //console.log("onMoveEnd", zoom, center, rotation, projection);
-    //console.log(`getState: zoom=${zoom}, center=${center}, rotation=${rotation}, ${projection}`);
+    //console.log(`updateHash: zoom=${zoom}, center=${center}, rotation=${rotation}, ${projection}`);
     let coord = transform(center, projection, 'EPSG:4326');
     console.log(`zoom=${zoom} lon=${Number.parseFloat((coord[0]).toFixed(3))} lat=${Number.parseFloat((coord[1]).toFixed(3))} rotation=${Number.parseFloat((rotation).toFixed(3))}, ${projection}`);
     history.replaceState(null, null, encode_hash(map));

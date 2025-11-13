@@ -120,9 +120,9 @@
       "title": "Overlays group",
       "id": "overlays",
       "parent": "root",
-      "deactivate": true,
+      "deactivate": false,
       "type": "group",
-      "visible": true,
+      "visible": false,
       "properties": {"title": "notitle", "name": "noname", "id": "noid"}
     },
     {
@@ -130,8 +130,8 @@
       "title": "Denamrk pipelines",
       "id": "dk1",
       "parent": "overlays",
-      "type-layer": "geojson",
-      "deactivate": true,
+      "type": "geojson",
+      "deactivate": false,
       "source": {
         "url": "https://raw.githubusercontent.com/qwilka/qw-olmap/refs/heads/master/data/DK_Geus_pipelines_simplified.geojson",
         "attributions": ["GEOJSONtest"]
@@ -144,34 +144,30 @@
         "title": "EEZ boundaries",
         "id": "ez1",
         "parent": "overlays",
-        "deactivate": true,
+        "type": "WMS",
+        "deactivate": false,
         "type-layer": "WMS",
       "source": {
         "url": "http://geo.vliz.be:80/geoserver/MarineRegions/wms",
+        "params": {"LAYERS": "MarineRegions:eez_boundaries"},
         "attributions": ["EEZ boundaries: <a target='_blank' href='http://www.marineregions.org'>Flanders Marine Institute</a>, <a target='_blank' href='https://creativecommons.org/licenses/by/4.0/'>(CC BY 4.0)</a>"]
       },  
-        "visible": true
+        "visible": false
       },
       {
           "name": "coastlines",
           "title": "coastlines (EMODnet)",
           "id": "cl1",
           "parent": "overlays",
-          "deactivate": true,
           "type": "WMS",
-          "url": "http://ows.emodnet-bathymetry.eu/ows",
-          "selected": false,
-          "options": {
-            "layers": "coastlines",
-            "CRS": "EPSG:4326",
-            "version": "1.3.0",
-            "format": "image/png",
-            "transparent": true,
-            "noWrap": true,
-            "opacity": 0.9,
-            "attribution": "<a target='_blank' href='https://emodnet.ec.europa.eu/en/bathymetry'>EMODnet, </a>"
-          }
+          "deactivate": false,
+      "source": {
+        "url": "http://ows.emodnet-bathymetry.eu/ows",
+        "params": {"LAYERS": "coastlines"},
+        "attributions": ["<a target='_blank' href='https://emodnet.ec.europa.eu/en/bathymetry'>EMODnet, </a>"]
+      },  
+        "visible": true
 
-      }
+      }  
   ]
 }

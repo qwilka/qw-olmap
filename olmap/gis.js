@@ -170,7 +170,15 @@ function tree2mapLayers(map, layersTree) {
                 break;
 
             case 'geojson':
-                addMapLayers(map, n.get_child());
+                n.layer = new VectorLayer({
+                    source: new VectorSource({
+                        url: layerObj.source.url,
+                        format: new GeoJSON(),
+                        attributions: layerObj.source.attributions || [],
+                    }),
+                    properties: layerObj.properties || {},
+                    visible: layerObj.visible || false,
+                });
                 break;
             case 'group':
                 n.layer = new LayerGroup({"title":n.get_data('title') || n.name, "combine":false, "fold":"close"});
