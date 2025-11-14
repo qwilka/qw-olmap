@@ -14,6 +14,7 @@ import Stroke from 'ol/style/Stroke.js';
 
 import XYZ from 'ol/source/XYZ.js';
 import TileWMS from 'ol/source/TileWMS.js';
+import WMTS from 'ol/source/WMTS.js';
 import GeoJSON from 'ol/format/GeoJSON.js';
 import VectorLayer from 'ol/layer/Vector.js';
 import VectorSource from 'ol/source/Vector.js';
@@ -151,6 +152,17 @@ function tree2mapLayers(map, layersTree) {
                     source: new TileWMS({
                         url: layerObj.source.url,
                         params: layerObj.source.params,
+                        attributions: layerObj.source.attributions || []
+                    }),
+                    properties: layerObj.properties || {},
+                    visible: layerObj.visible || false,
+                });
+                break;
+
+            case 'WMTS':
+                n.layer = new TileLayer({
+                    source: new WMTS({
+                        url: layerObj.source.url,
                         attributions: layerObj.source.attributions || []
                     }),
                     properties: layerObj.properties || {},

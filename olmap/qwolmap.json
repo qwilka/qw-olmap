@@ -88,6 +88,29 @@
       "properties": {"title": "notitle", "name": "noname", "id": "noid"}
     },
     {
+      "name": "EMODnet Bathymetry",
+      "title": "EMODnet Bathymetry WMS",
+      "id": "e3",
+      "parent": "basemaps",
+      "type": "WMS",
+      "basemap": true,
+        "deactivate": false,
+                        "refs": [
+                            "https://tiles.emodnet-bathymetry.eu/",
+                            "https://ows.emodnet-bathymetry.eu/",
+                            "https://emodnet.ec.europa.eu/en/emodnet-web-service-documentation",
+                            "https://ows.emodnet-bathymetry.eu/wms?SERVICE=WMS&REQUEST=GetCapabilities&VERSION=1.3.0"
+
+                        ],
+        "source": {
+        "url": "http://ows.emodnet-bathymetry.eu/ows",
+        "params": {"LAYERS": "emodnet:mean_atlas_land"},
+        "attributions": ["<a target='_blank' href='https://emodnet.ec.europa.eu/en/bathymetry'>EMODnet, </a>"]
+      },  
+      "visible": false,
+      "properties": {"title": "notitle", "name": "noname", "id": "noid"}
+    },
+    {
           "name": "WorldImagery",
           "title": "Esri World Imagery",
           "id": "e1",
@@ -127,19 +150,33 @@
     },
     {
       "name": "DK-pl",
-      "title": "Denamrk pipelines",
-      "id": "dk1",
+      "title": "Denmark pipelines (geojson)",
+      "id": "dkp",
       "parent": "overlays",
       "type": "geojson",
       "deactivate": false,
       "source": {
         "url": "https://raw.githubusercontent.com/qwilka/qw-olmap/refs/heads/master/data/DK_Geus_pipelines_simplified.geojson",
-        "attributions": ["GEOJSONtest"]
+        "attributions": ["<a target='_blank' href='http://data.geus.dk/geusmap/ows/help/?lang=en'>DK-Geus</a>"]
       },  
       "visible": true,
       "properties": {"title": "notitle", "name": "noname", "id": "noid"}      
     },
-      {
+    {
+      "name": "UK-pl",
+      "title": "UK pipelines (geojson)",
+      "id": "gba",
+      "parent": "overlays",
+      "type": "geojson",
+      "deactivate": false,
+      "source": {
+        "url": "https://raw.githubusercontent.com/qwilka/qw-leafmap/refs/heads/master/leafmap/data/OGA_pipelines.min.geojson",
+        "attributions": ["UK <a target='_blank' href='https://data-ogauthority.opendata.arcgis.com/datasets/oga-offshore-zipped-shapefiles-wgs84'>Oil&Gas Authority</a> 2020-09-03"]
+      },  
+      "visible": true,
+      "properties": {"title": "notitle", "name": "noname", "id": "noid"}      
+    },
+    {
         "name": "EEZ",
         "title": "EEZ boundaries",
         "id": "ez1",
