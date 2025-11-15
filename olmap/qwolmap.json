@@ -89,12 +89,35 @@
     },
     {
       "name": "EMODnet Bathymetry",
-      "title": "EMODnet Bathymetry WMS",
-      "id": "e3",
+      "title": "EMODnet Bathymetry WMS (mean_atlas_land)",
+      "id": "ew",
       "parent": "basemaps",
       "type": "WMS",
       "basemap": true,
         "deactivate": false,
+                        "refs": [
+                            "https://tiles.emodnet-bathymetry.eu/",
+                            "https://ows.emodnet-bathymetry.eu/",
+                            "https://emodnet.ec.europa.eu/en/emodnet-web-service-documentation",
+                            "https://ows.emodnet-bathymetry.eu/wms?SERVICE=WMS&REQUEST=GetCapabilities&VERSION=1.3.0"
+
+                        ],
+        "source": {
+        "url": "http://ows.emodnet-bathymetry.eu/ows",
+        "params": {"LAYERS": "emodnet:mean_atlas_land"},
+        "attributions": ["<a target='_blank' href='https://emodnet.ec.europa.eu/en/bathymetry'>EMODnet, </a>"]
+      },  
+      "visible": false,
+      "properties": {"title": "notitle", "name": "noname", "id": "noid"}
+    },
+    {
+      "name": "EMODnet Bathymetry",
+      "title": "EMODnet Bathymetry WTMS",
+      "id": "et",
+      "parent": "basemaps",
+      "type": "WMTS",
+      "basemap": true,
+        "deactivate": true,
                         "refs": [
                             "https://tiles.emodnet-bathymetry.eu/",
                             "https://ows.emodnet-bathymetry.eu/",

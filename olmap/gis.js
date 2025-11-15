@@ -32,8 +32,8 @@ import {updateHash, decode_hash} from './hash-mapstate.js';
 
 import {makeLayersTree} from './vntree.js';
 
-
-
+import {addLocationPopup} from './popup.js';
+//let locPopupOverlay;
 
 export const makeMap = (confObj) => {
     // Create a new map instance
@@ -119,6 +119,11 @@ export const makeMap = (confObj) => {
         // };
     }
 
+    if (mapOpts.locationPopup) {
+        let locPopupOverlay = addLocationPopup(map);
+        map.addOverlay(locPopupOverlay);
+    }
+
     return true;  
 
 }
@@ -160,6 +165,7 @@ function tree2mapLayers(map, layersTree) {
                 break;
 
             case 'WMTS':
+                // https://openlayers.org/en/latest/examples/wmts-layer-from-capabilities.html
                 n.layer = new TileLayer({
                     source: new WMTS({
                         url: layerObj.source.url,
