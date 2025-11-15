@@ -27,8 +27,9 @@ export function addLocationPopup(map) {
         return false;
     };    
 
-
-    map.on('singleclick', function (evt) {
+    // 'singleclick'  left click   'contextmenu' right click
+    map.on('contextmenu', function (evt) {
+        evt.preventDefault();   // 'contextmenu'
         const coordinate = evt.coordinate;
         const hdms = toStringHDMS(toLonLat(coordinate));
 
