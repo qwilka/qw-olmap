@@ -10,7 +10,7 @@
     "mapOptions": {
       "zoom": 5,
       "centreLonLat": [ -7.3, 54 ],
-      "CRS": "EPSG:3857",
+      "CRS": "EPSG:4326",
       "attribCtrl": true,
       "scaleCtrl": true,
       "scaleCtrlOpts": {
@@ -28,8 +28,9 @@
                 "id": "graticule1"
             }
           },
-      "urlHash": true,
+      "urlHash": false,
       "layerCtrl": true,
+      "locationPopup": true,
       "xxxxxxxxxxxxxxx": null,
       "maxZoom": 15,
       "minZoom": 2,
@@ -44,9 +45,7 @@
       "scaleControlMaxWidth": 100,
       "attributionControl": true,    
       "attributionPosition": "bottomright",
-      "attributionPrefix": "<a target=\"_blank\" href=\"https://qwilka.github.io/\">Qwilka</a>",
-      "hash": true,
-      "locationPopup": true
+      "attributionPrefix": "<a target=\"_blank\" href=\"https://qwilka.github.io/\">Qwilka</a>"
     },
   "layers": [
     {
@@ -79,6 +78,9 @@
       "basemap": true,
         "deactivate": false,
         "type-layer": "WMS",
+        "refs": [
+          "https://wms.gebco.net/mapserv?request=getcapabilities&service=wms&version=1.3.0"
+        ],
       "source": {
         "url": "https://wms.gebco.net/mapserv",
         "params": {"LAYERS": "GEBCO_LATEST"},
