@@ -10,7 +10,7 @@
     "mapOptions": {
       "zoom": 5,
       "centreLonLat": [ -7.3, 54 ],
-      "CRS": "EPSG:4326",
+      "CRS": "EPSG:3857",
       "attribCtrl": true,
       "scaleCtrl": true,
       "scaleCtrlOpts": {

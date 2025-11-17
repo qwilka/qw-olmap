@@ -9,7 +9,7 @@ import TileWMS from 'ol/source/TileWMS.js';
 // https://openlayers.org/en/latest/examples/getfeatureinfo-tile.html
 const gebcoSource = new TileWMS({
         url: "https://wms.gebco.net/mapserv",
-        projection: 'EPSG:4326',
+        projection: 'EPSG:4326',  // gebcoSource.getFeatureInfoUrl won't work without this
         params: {"LAYERS": "GEBCO_LATEST_2", "VERSION": '1.1.1'},
   serverType: 'mapserv',
   crossOrigin: 'anonymous',
@@ -41,7 +41,7 @@ export function addLocationPopup(map) {
     map.on('contextmenu', function (evt) {
         evt.preventDefault();   // 'contextmenu'
         const coordinate = evt.coordinate;
-        let lon_lat = toLonLat(coordinate);
+        //let lon_lat = toLonLat(coordinate);
         // console.log("addLocationPopup: coordinate= ", coordinate);
         // console.log("addLocationPopup: lon_lat= ", lon_lat);
         //const hdms = toStringHDMS(toLonLat(coordinate));
@@ -62,10 +62,15 @@ export function addLocationPopup(map) {
     projection,
     {'INFO_FORMAT': 'text/html'},
   );
-  let ll = url.split("&");
-  console.log("addLocationPopup: url= ", url);
-  console.log("addLocationPopup: url= ", ll);
-  if (url) {
+//   let ll = url.split("&");
+//   console.log("addLocationPopup: url= ", url);
+//   console.log("addLocationPopup: url= ", ll);
+
+        let pustr = '<p>You clicked here:</p><code>' + hdms + '</code>';
+        content.innerHTML = pustr;
+        locPopupOverlay.setPosition(coordinate);
+
+if (url) {
     // fetch(url)
     //   .then((response) => {
     //     let data = response.text();
@@ -77,13 +82,12 @@ export function addLocationPopup(map) {
     //     //content.innerHTML =  url ;
     //     console.log("addLocationPopup: ", html);
     //   });
-    infoRequest(url);
+    infoRequest(url, pustr, content);
   }
 
 
 
-        content.innerHTML = '<p>You clicked here:</p><code>' + hdms + '</code>';
-        locPopupOverlay.setPosition(coordinate);
+
     });
 
     //map.addLayer(locPopupOverlay);
@@ -94,7 +98,7 @@ export function addLocationPopup(map) {
 }
 
 
-async function infoRequest(url){
+async function infoRequest(url, pustr, content){
   console.log("infoRequest url ", url);
   let elevation = null;
   try {
@@ -106,18 +110,19 @@ async function infoRequest(url){
     const rtext = await response.text();
     console.log("infoRequest: ", rtext);
 
-    // let test = rtext.match(/Elevation value \(m\):\s*(-?\d+)/)
-    // if (test) {
-    //     //console.log("test elevation string: ", test);
-    //     let elevation = test[1];
-    //     if (elevation>=0) {
-    //         pustr += "<br>elevation " + elevation + " m (GEBCO)";
-    //     } else {
-    //         pustr += "<br>depth " + elevation + " m (GEBCO)";
-    //     }
-    //     // console.log("elevation=", elevation)
-    //     popup.setContent(pustr)
-    // }
+    let test = rtext.match(/Elevation value \(m\):\s*(-?\d+)/)
+    if (test) {
+        //console.log("test elevation string: ", test);
+        let elevation = test[1];
+        if (elevation>=0) {
+            pustr += "<br>elevation " + elevation + " m (GEBCO)";
+        } else {
+            pustr += "<br>depth " + elevation + " m (GEBCO)";
+        }
+        // console.log("elevation=", elevation)
+        //popup.setContent(pustr)
+        content.innerHTML = pustr;
+    }
   } catch (error) {
     console.error(error.message);
   }
