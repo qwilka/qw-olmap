@@ -1,0 +1,68 @@
+
+https://openlayers.org/en/latest/examples/reprojection-by-code.html
+
+https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system
+http://www.jaworski.ca/utmzones.htm
+https://proj4.org/en/stable/operations/projections/utm.html
+
+https://easycalculator.org/utm-zone-map  
+https://maps.omniscale.com/en/examples/openlayers_25832
+https://github.com/chrisveness/geodesy
+toUTM()
+https://github.com/chrisveness/geodesy/blob/3e9fdd35b71dd86cee12383eccdf000ad6741e9d/mgrs.js#L107
+
+https://github.com/Turbo87/utm
+https://github.com/Turbo87/utm/blob/master/utm/conversion.py
+https://github.com/Turbo87/utm/blob/5427acda41e77be8d0ab7b7a5d254f09c38eb877/utm/conversion.py#L186
+https://github.com/Turbo87/utm/blob/5427acda41e77be8d0ab7b7a5d254f09c38eb877/utm/conversion.py#L309
+
+
+https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.estimate_utm_crs.html
+
+https://stackoverflow.com/questions/29655256/can-you-convert-a-lat-long-to-utm-without-a-zone
+
+https://proj.org/en/stable/usage/transformation.html
+http://proj4js.org/
+https://github.com/proj4js/proj4js
+
+
+
+
+
+
+
+https://github.com/Turbo87/utm/blob/master/utm/conversion.py#L309
+
+https://llamacoder.dev/code-converter/convert-python-to-javascript
+2025-11-24
+
+Here is the JavaScript equivalent of the provided Python code:
+
+```javascript
+function latlonToZoneNumber(latitude, longitude) {
+    // Normalize longitude to be in the range [-180, 180)
+    longitude = (longitude % 360 + 540) % 360 - 180;
+
+    // Special zone for Norway
+    if (latitude >= 56 && latitude < 64 && longitude >= 3 && longitude < 12) {
+        return 32;
+    }
+    // Special zones for Svalbard
+    if (latitude >= 72 && latitude <= 84 && longitude >= 0) {
+        if (longitude < 9) {
+            return 31;
+        } else if (longitude < 21) {
+            return 33;
+        } else if (longitude < 33) {
+            return 35;
+        } else if (longitude < 42) {
+            return 37;
+        }
+    }
+
+    return Math.floor((longitude + 180) / 6) + 1;
+}
+```
+
+This JavaScript function `latlonToZoneNumber` performs the same operations as the original Python function `latlon_to_zone_number`. It normalizes the longitude, checks for special zones in Norway and Svalbard, and calculates the zone number based on the given latitude and longitude.
+

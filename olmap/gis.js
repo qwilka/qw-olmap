@@ -83,15 +83,17 @@ export const makeMap = (confObj) => {
 //    sync(map);
 
     if (mapOpts.graticule) {
-        const graticule = new Graticule({
-            visible: true,
-            strokeStyle: new Stroke({
+        let strokeStyle = mapOpts.graticule.strokeStyle || {
                 color: 'rgba(0, 0, 0, 0.2)',
                 width: 1,
-            }),
+            };
+        const graticule = new Graticule({
+            visible: mapOpts.graticule.visible || true,
+            strokeStyle: new Stroke(strokeStyle),
             lonLabelPosition: 0.98,
             latLabelPosition: 1,
-            showLabels: true,
+            showLabels: mapOpts.graticule.showLabels || true,
+            wrapX: mapOpts.graticule.wrapX || false,
             targetSize: 100,
             maxLines: 10,
             properties: {

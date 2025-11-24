@@ -23,12 +23,19 @@
       "graticule": true,
       "graticuleOpts": {
             "lonLabelPosition": 0.98,
-            "latLabelPosition": 1,        
+            "latLabelPosition": 1,   
+            "strokeStyle": {
+              "color": "rgba(255,120,0,0.9)",
+              "width": 2,
+              "lineDash": [0.5, 4]              
+            },     
+            "showLabels": true,
+            "warpX": false,
             "properties": {
                 "id": "graticule1"
             }
           },
-      "urlHash": false,
+      "urlHash": true,
       "layerCtrl": true,
       "locationPopup": true,
       "xxxxxxxxxxxxxxx": null,

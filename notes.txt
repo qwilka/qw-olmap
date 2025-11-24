@@ -4,6 +4,12 @@ https://github.com/openlayers/openlayers
 
 https://openlayers.org/workshop/en/
 
+
+
+https://github.com/QuantStack/ipyopenlayers
+https://github.com/QuantStack/jupytergis-demo
+https://github.com/geojupyter/jupytergis
+
 https://wms.gebco.net/mapserv?request=getcapabilities&service=wms&version=1.3.0
 EPSG:3857
 EPSG:4326
@@ -24,7 +30,7 @@ https://viglino.github.io/ol-ext/index.html
 https://github.com/Viglino/ol-ext
 https://github.com/Viglino/Map-georeferencer
 
-https://github.com/geojupyter/jupytergis
+
 
 python3 -m http.server 8000
 http://localhost:8000/qwol/
