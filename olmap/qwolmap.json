@@ -57,7 +57,7 @@
   "layers": [
     {
       "name": "Basemaps",
-      "title": "Basemaps group",
+      "title": "Base maps",
       "id": "basemaps",
       "parent": "root",
       "deactivate": false,
@@ -74,6 +74,25 @@
       "basemap": true,
       "source": "OSM-built-in",  
       "visible": true,
+      "properties": {"title": "notitle", "name": "noname", "id": "noid"}
+    },
+    {
+      "name": "OSM-terrain-light",
+      "title": "OSM/terrain-light",
+      "id": "o2",
+      "parent": "basemaps",
+      "type": "WMS",
+      "basemap": true,
+      "visible": false,
+      "refs": [
+          "https://maps.eox.at/?#",
+          "https://gis.stackexchange.com/questions/253034/sentinel-2-imagery-as-a-webservice-in-a-leaflet-or-openlayers-map?rq=1"
+      ],
+      "source": {
+        "url": "https://tiles.maps.eox.at/",
+        "params": {"LAYERS": ["terrain-light_3857","overlay_base_bright_3857"]},
+        "attributions": ["Terrain Light &copy; <a target='_blank' href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a>, Rendering &copy; <a target='_blank' href='https://maps.eox.at/'>EOX</a>"]
+      },  
       "properties": {"title": "notitle", "name": "noname", "id": "noid"}
     },
     {
@@ -143,16 +162,36 @@
       "properties": {"title": "notitle", "name": "noname", "id": "noid"}
     },
     {
-          "name": "WorldImagery",
-          "title": "Esri World Imagery",
+      "title": "Sentinel-2 cloudless",
+      "id": "s1",
+      "parent": "basemaps",
+      "type": "WMS",
+      "basemap": true,
+      "visible": false,
+      "refs": [
+          "https://s2maps.eu/",
+          "https://wiki.openstreetmap.org/wiki/Sentinel-2",
+          "https://gis.stackexchange.com/questions/253034/sentinel-2-imagery-as-a-webservice-in-a-leaflet-or-openlayers-map?rq=1"
+      ],
+      "source": {
+        "url": "https://tiles.maps.eox.at/",
+        "params": {"LAYERS": ["s2cloudless-2020_3857"]},
+        "attributions": ["<a target='_blank' href='https://s2maps.eu/'>Sentinel-2 cloudless</a> by <a target='_blank' href='https://eox.at/'>EOX IT Services GmbH</a> (Contains modified <a target='_blank' href='https://sentinel.esa.int/web/sentinel/home'>Copernicus Sentinel</a> data 2020)"]
+      },  
+      "properties": {"title": "notitle", "name": "noname", "id": "noid"}
+    },
+    {
+          "name": "Esri World Imagery",
           "id": "e1",
       "parent": "basemaps",
-      "deactivate": true,
-      "type-layer": "XYZ",
-      "source": {"url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-       "attributions": ["Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"]
-      },  
+      "basemap": true,
+      "deactivate": false,
+      "type": "ImageTile", 
       "visible": false,
+      "source": {
+        "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        "attributions": ["Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"]
+      },       
       "properties": {"title": "notitle", "name": "noname", "id": "noid"}
     },
       {

@@ -13,6 +13,7 @@ import Graticule from 'ol/layer/Graticule.js';
 import Stroke from 'ol/style/Stroke.js';
 
 import XYZ from 'ol/source/XYZ.js';
+import ImageTile from 'ol/source/ImageTile.js';
 import TileWMS from 'ol/source/TileWMS.js';
 import WMTS from 'ol/source/WMTS.js';
 import GeoJSON from 'ol/format/GeoJSON.js';
@@ -170,6 +171,17 @@ function tree2mapLayers(map, layersTree) {
                 // https://openlayers.org/en/latest/examples/wmts-layer-from-capabilities.html
                 n.layer = new TileLayer({
                     source: new WMTS({
+                        url: layerObj.source.url,
+                        attributions: layerObj.source.attributions || []
+                    }),
+                    properties: layerObj.properties || {},
+                    visible: layerObj.visible || false,
+                });
+                break;
+
+            case 'ImageTile':
+                n.layer = new TileLayer({
+                    source: new ImageTile({
                         url: layerObj.source.url,
                         attributions: layerObj.source.attributions || []
                     }),
