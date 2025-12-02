@@ -25,12 +25,11 @@ https://proj.org/en/stable/usage/transformation.html
 http://proj4js.org/
 https://github.com/proj4js/proj4js
 
+https://hub.arcgis.com/datasets/esri::world-utm-grid/about  UTM zones data
 
 
 
-
-
-
+============================================================================
 https://github.com/Turbo87/utm/blob/master/utm/conversion.py#L309
 
 https://llamacoder.dev/code-converter/convert-python-to-javascript

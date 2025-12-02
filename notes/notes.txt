@@ -4,7 +4,8 @@ https://github.com/openlayers/openlayers
 
 https://openlayers.org/workshop/en/
 
-
+https://akilic.com/blog/database/storing-and-editing-geojson-data-within-indexeddb
+https://gist.github.com/gislayer
 
 https://github.com/QuantStack/ipyopenlayers
 https://github.com/QuantStack/jupytergis-demo
@@ -29,11 +30,6 @@ https://github.com/geotiffjs/geotiff.js
 https://viglino.github.io/ol-ext/index.html
 https://github.com/Viglino/ol-ext
 https://github.com/Viglino/Map-georeferencer
-
-
-
-python3 -m http.server 8000
-http://localhost:8000/qwol/
 
 
 

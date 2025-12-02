@@ -1,0 +1,5 @@
+
+
+https://akilic.com/blog/database/storing-and-editing-geojson-data-within-indexeddb
+https://gist.github.com/gislayer
+

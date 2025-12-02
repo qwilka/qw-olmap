@@ -1,0 +1,11 @@
+
+
+https://map.4coffshore.com/offshorewind/  TGS 4C Offshore offshore wind webmap
+
+https://hub.arcgis.com/datasets/esri::world-utm-grid/about
+https://akilic.com/blog/database/storing-and-editing-geojson-data-within-indexeddb
+
+
+https://www.reddit.com/r/gis/comments/1d02tjj/which_one_do_you_prefer_shapefile_geopackage/
+https://geoparquet.org/
+
